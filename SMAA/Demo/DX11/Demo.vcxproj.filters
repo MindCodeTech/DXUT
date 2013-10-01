@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{b25203f9-3660-40d6-ad44-0aae8ba8f704}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code">
+      <UniqueIdentifier>{4fd7ab92-a9e9-48d8-b164-aa6c331ee28a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Support">
+      <UniqueIdentifier>{b4342701-eefd-4d50-a33e-06e18f78c15c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Textures">
+      <UniqueIdentifier>{b16ee868-8dc4-424d-8f10-2b3e7b19b125}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Code\Demo.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\SMAA.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Support\Camera.cpp">
+      <Filter>Code\Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Support\Copy.cpp">
+      <Filter>Code\Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Support\RenderTarget.cpp">
+      <Filter>Code\Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Support\Timer.cpp">
+      <Filter>Code\Support</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Code\SMAA.h">
+      <Filter>Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Support\Camera.h">
+      <Filter>Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Support\Copy.h">
+      <Filter>Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Support\RenderTarget.h">
+      <Filter>Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Support\Timer.h">
+      <Filter>Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SMAA.h" />
+    <ClInclude Include="..\..\Textures\SearchTex.h">
+      <Filter>Code\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Textures\AreaTex.h">
+      <Filter>Code\Textures</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Demo.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Shaders\SMAA.fx">
+      <Filter>Shaders</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Shaders\Simple.fx">
+      <Filter>Shaders</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

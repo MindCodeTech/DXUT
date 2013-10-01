@@ -1,0 +1,77 @@
+win32
+################################
+static lib
+#
+release
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Lib32
+#
+debug profile
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Lib32
+copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Lib32
+##################################
+
+##################################
+dinamic lib
+#
+release
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin32
+copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib32
+copy $(OutDir)$(TargetName).exp $(DXUT_ROOT)\Lib32
+#
+debug profile
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin32
+copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib32
+copy $(OutDir)$(TargetName).exp $(DXUT_ROOT)\Lib32
+copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Lib32
+###########################################################################
+
+demos exe
+
+release
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin32
+##############################################################################
+
+debug profile
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin32
+copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Bin32
+##############################################################################
+
+win64
+################################
+
+static lib
+#
+release
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Lib64
+#
+debug profile
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Lib64
+copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Lib64
+##################################################################
+##################################################################
+##################################################################
+
+dinamic lib
+#
+release
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin64
+copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib64
+copy $(OutDir)$(TargetName).exp $(DXUT_ROOT)\Lib64
+
+debug profile
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin64
+copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib64
+copy $(OutDir)$(TargetName).exp $(DXUT_ROOT)\Lib64
+copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Lib64
+#############################################################################
+
+demos exe
+
+release
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin64
+##############################################################################
+
+debug profile
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin64
+copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Bin64
+##############################################################################
