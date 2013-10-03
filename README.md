@@ -9,4 +9,4 @@ DXUT for Win32 Desktop
 <p>We can see from <a href="http://blogs.msdn.com/b/chuckw/archive/2013/09/14/dxut-for-win32-desktop-update.aspx">MSDN Blogs Games for Windows and the DirectX SDK community</a>.</p>
 <p><b>Copyright (c) Microsoft Corporation. All rights reserved.</b></p>
 
-<p>Adding some modifications to preprocessor select dxsdk august, and win8 dx sdk.
+<p>Adding some modifications to samples dxsdk august, for win8 dx sdk.
