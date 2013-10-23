@@ -18,12 +18,24 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
+#ifdef extern_cplus
+extern "C" {
+#endif
+
+#ifdef extern_cplusplus
+	extern "C++" {
+#endif
+
+namespace DXUT
+	{
+/*
 #undef D3DCOLOR_ARGB
-#include <d3d9.h>
+#include <d3d9.h>*/
 
 //--------------------------------------------------------------------------------------
 // Hard Defines for the various structures
 //--------------------------------------------------------------------------------------
+/*
 #define SDKMESH_FILE_VERSION 101
 #define MAX_VERTEX_ELEMENTS 32
 #define MAX_VERTEX_STREAMS 16
@@ -39,7 +51,30 @@
 #define INVALID_SUBSET ((UINT)-1)
 #define INVALID_ANIMATION_DATA ((UINT)-1)
 #define INVALID_SAMPLER_SLOT ((UINT)-1)
-#define ERROR_RESOURCE_VALUE 1
+#define ERROR_RESOURCE_VALUE 1*/
+
+		// Copied from ModelLoadSDKMESH.cpp
+    //--------------------------------------------------------------------------------------
+    // Hard Defines for the various structures
+    //--------------------------------------------------------------------------------------
+    const uint32_t SDKMESH_FILE_VERSION = 101;
+    const uint32_t MAX_VERTEX_ELEMENTS = 32;
+    const uint32_t MAX_VERTEX_STREAMS = 16;
+    const uint32_t MAX_FRAME_NAME = 100;
+    const uint32_t MAX_MESH_NAME = 100;
+    const uint32_t MAX_SUBSET_NAME = 100;
+    const uint32_t MAX_MATERIAL_NAME = 100;
+    const uint32_t MAX_TEXTURE_NAME = MAX_PATH;
+    const uint32_t MAX_MATERIAL_PATH = MAX_PATH;
+    const uint32_t INVALID_FRAME = uint32_t(-1);
+    const uint32_t INVALID_MESH =  uint32_t(-1);
+    const uint32_t INVALID_MATERIAL = uint32_t(-1);
+    const uint32_t INVALID_SUBSET = uint32_t(-1);
+    const uint32_t INVALID_ANIMATION_DATA = uint32_t(-1);
+    const uint32_t INVALID_SAMPLER_SLOT = uint32_t(-1);
+    const uint32_t ERROR_RESOURCE_VALUE = 1;
+	 // END Copied Region
+
 
 template<typename TYPE> BOOL IsErrorResource( TYPE data )
 {
@@ -77,10 +112,26 @@ enum FRAME_TRANSFORM_TYPE
     FTT_ABSOLUTE,		//This is not currently used but is here to support absolute transformations in the future
 };
 
+	// Copied from ModelLoadSDKMESH.cpp
+#pragma pack(push,4)
+
+struct DXUTAPI D3DVERTEXELEMENT9
+{
+	WORD    Stream;     // Stream index
+	WORD    Offset;     // Offset in the stream in bytes
+	BYTE    Type;       // Data type
+	BYTE    Method;     // Processing method
+	BYTE    Usage;      // Semantics
+	BYTE    UsageIndex; // Semantic index
+};
+
+#pragma pack(pop)
+	// END Copied Region
+
 //--------------------------------------------------------------------------------------
 // Structures.  Unions with pointers are forced to 64bit.
 //--------------------------------------------------------------------------------------
-struct SDKMESH_HEADER
+struct DXUTAPI SDKMESH_HEADER
 {
     //Basic Info and sizes
     UINT Version;
@@ -106,7 +157,7 @@ struct SDKMESH_HEADER
     UINT64 MaterialDataOffset;
 };
 
-struct SDKMESH_VERTEX_BUFFER_HEADER
+struct DXUTAPI SDKMESH_VERTEX_BUFFER_HEADER
 {
     UINT64 NumVertices;
     UINT64 SizeBytes;
@@ -119,7 +170,7 @@ struct SDKMESH_VERTEX_BUFFER_HEADER
     };
 };
 
-struct SDKMESH_INDEX_BUFFER_HEADER
+struct DXUTAPI SDKMESH_INDEX_BUFFER_HEADER
 {
     UINT64 NumIndices;
     UINT64 SizeBytes;
@@ -131,7 +182,7 @@ struct SDKMESH_INDEX_BUFFER_HEADER
     };
 };
 
-struct SDKMESH_MESH
+struct DXUTAPI SDKMESH_MESH
 {
     char Name[MAX_MESH_NAME];
     BYTE NumVertexBuffers;
@@ -155,7 +206,7 @@ struct SDKMESH_MESH
     };
 };
 
-struct SDKMESH_SUBSET
+struct DXUTAPI SDKMESH_SUBSET
 {
     char Name[MAX_SUBSET_NAME];
     UINT MaterialID;
@@ -166,7 +217,7 @@ struct SDKMESH_SUBSET
     UINT64 VertexCount;
 };
 
-struct SDKMESH_FRAME
+struct DXUTAPI SDKMESH_FRAME
 {
     char Name[MAX_FRAME_NAME];
     UINT Mesh;
@@ -177,7 +228,7 @@ struct SDKMESH_FRAME
     UINT AnimationDataIndex;		//Used to index which set of keyframes transforms this frame
 };
 
-struct SDKMESH_MATERIAL
+struct DXUTAPI SDKMESH_MATERIAL
 {
     char    Name[MAX_MATERIAL_NAME];
 
@@ -229,7 +280,7 @@ struct SDKMESH_MATERIAL
 
 };
 
-struct SDKANIMATION_FILE_HEADER
+struct DXUTAPI SDKANIMATION_FILE_HEADER
 {
     UINT Version;
     BYTE IsBigEndian;
@@ -241,14 +292,14 @@ struct SDKANIMATION_FILE_HEADER
     UINT64 AnimationDataOffset;
 };
 
-struct SDKANIMATION_DATA
+struct DXUTAPI SDKANIMATION_DATA
 {
     DirectX::XMFLOAT3 Translation;
     DirectX::XMFLOAT4 Orientation;
     DirectX::XMFLOAT3 Scaling;
 };
 
-struct SDKANIMATION_FRAME_DATA
+struct DXUTAPI SDKANIMATION_FRAME_DATA
 {
     char FrameName[MAX_FRAME_NAME];
     union
@@ -269,7 +320,7 @@ typedef void ( CALLBACK*LPCREATEVERTEXBUFFER11 )( _In_ ID3D11Device* pDev, _Outp
                                                   _In_ D3D11_BUFFER_DESC BufferDesc, _In_ void* pData, _In_opt_ void* pContext );
 typedef void ( CALLBACK*LPCREATEINDEXBUFFER11 )( _In_ ID3D11Device* pDev, _Outptr_ ID3D11Buffer** ppBuffer,
                                                  _In_ D3D11_BUFFER_DESC BufferDesc, _In_ void* pData, _In_opt_ void* pContext );
-struct SDKMESH_CALLBACKS11
+struct DXUTAPI SDKMESH_CALLBACKS11
 {
     LPCREATETEXTUREFROMFILE11 pCreateTextureFromFile;
     LPCREATEVERTEXBUFFER11 pCreateVertexBuffer;
@@ -280,7 +331,7 @@ struct SDKMESH_CALLBACKS11
 //--------------------------------------------------------------------------------------
 // CDXUTSDKMesh class.  This class reads the sdkmesh file format for use by the samples
 //--------------------------------------------------------------------------------------
-class CDXUTSDKMesh
+class DXUTAPI CDXUTSDKMesh
 {
 private:
     UINT m_NumOutstandingResources;
@@ -442,3 +493,13 @@ public:
 
 #endif
 
+}
+
+#if defined(extern_cplus) && defined(extern_cplusplus)
+	}
+	}
+#elif defined(extern_cplus) && !defined(extern_cplusplus)
+}
+#elif defined(extern_cplusplus) && !defined(extern_cplus)
+}
+#endif

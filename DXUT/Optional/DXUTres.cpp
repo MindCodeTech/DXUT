@@ -10,10 +10,23 @@
 //
 // http://go.microsoft.com/fwlink/?LinkId=320437
 //-----------------------------------------------------------------------------
-#include "DXUT.h"
-#include "DXUTres.h"
+#include "dxutstdafx.h"
 
-#include "DDSTextureLoader.h"
+using namespace DirectX;
+
+using namespace DXUT::DDSTextLoader;
+
+
+#ifdef extern_cplus
+extern "C" {
+#endif
+
+#ifdef extern_cplusplus
+	extern "C++" {
+#endif
+
+		namespace DXUT
+		{
 
 static const DWORD g_DXUTGUITextureSrcData[] =
 {
@@ -8294,13 +8307,13 @@ static const UINT g_DXUTArrowMeshSrcDataSizeInBytes = 2193;
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT WINAPI DXUTCreateGUITextureFromInternalArray(ID3D11Device* pd3dDevice, ID3D11Texture2D** ppTexture)
+DXUTAPI HRESULT WINAPI DXUTCreateGUITextureFromInternalArray(ID3D11Device* pd3dDevice, ID3D11Texture2D** ppTexture)
 {
     if ( !ppTexture )
         return E_INVALIDARG;
 
     ID3D11Resource *pRes = nullptr;
-    HRESULT hr = DirectX::CreateDDSTextureFromMemory( pd3dDevice,
+    HRESULT hr = CreateDDSTextureFromMemory( pd3dDevice,
                                     reinterpret_cast<const uint8_t*>(g_DXUTGUITextureSrcData), g_DXUTGUITextureSrcDataSizeInBytes,
                                     &pRes, nullptr ); 
     if ( FAILED(hr) )
@@ -8313,3 +8326,14 @@ HRESULT WINAPI DXUTCreateGUITextureFromInternalArray(ID3D11Device* pd3dDevice, I
 
     return hr;
 }
+
+}
+
+#if defined(extern_cplus) && defined(extern_cplusplus)
+	}
+	}
+#elif defined(extern_cplus) && !defined(extern_cplusplus)
+}
+#elif defined(extern_cplusplus) && !defined(extern_cplus)
+}
+#endif

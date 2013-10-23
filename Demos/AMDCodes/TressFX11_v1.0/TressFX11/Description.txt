@@ -1,0 +1,1 @@
+The TressFX11 sample shows how to use AMD's TressFX hair rendering technology for rendering and simulating hair. TressFX uses volumetric self shadowing, transparency, and antialiasing to render individual strands of realistic looking hair. It also uses the GPU to accellerate the physics simulation of each hair.

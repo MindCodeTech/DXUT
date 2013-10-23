@@ -11,6 +11,10 @@ copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Lib32
 ##################################
 
 ##################################
+exe
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin32
+copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Bin32
+#
 dinamic lib
 #
 release
@@ -22,7 +26,7 @@ debug profile
 copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin32
 copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib32
 copy $(OutDir)$(TargetName).exp $(DXUT_ROOT)\Lib32
-copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Lib32
+copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Bin64
 ###########################################################################
 
 demos exe
@@ -38,7 +42,10 @@ copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Bin32
 
 win64
 ################################
-
+exe
+copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin64
+copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Bin64
+#
 static lib
 #
 release
@@ -62,7 +69,7 @@ debug profile
 copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin64
 copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib64
 copy $(OutDir)$(TargetName).exp $(DXUT_ROOT)\Lib64
-copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Lib64
+copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Bin64
 #############################################################################
 
 demos exe

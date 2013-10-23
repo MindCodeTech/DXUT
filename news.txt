@@ -1,0 +1,11 @@
+
+
+19-10-2013  DXUT and DXUT Optional merged in one dll api (some minors compiling warnings, related to export std::vector dll exporting to use in clents of class or structs)
+=======================================================
+
+DirectX old Sdk Demos ported to new DXUT (untested with dll api)
+
+Direct3D11 =
+		= BasicHLSL11
+		= 
+====================================

@@ -10,11 +10,16 @@
 //
 // http://go.microsoft.com/fwlink/?LinkId=320437
 //--------------------------------------------------------------------------------------
-#include "dxut.h"
-#include "ImeUi.h"
-#include <math.h>
-#include <msctf.h>
-#include <malloc.h>
+#include "dxutstdafx.h"
+
+
+#ifdef extern_cplus
+extern "C" {
+#endif
+
+#ifdef extern_cplusplus
+	extern "C++" {
+#endif
 
 // Ignore typecast warnings
 #pragma warning( disable : 4312 )
@@ -58,6 +63,9 @@
 #define IMEID_CHS_VER42	( LANG_CHS | MAKEIMEVERSION( 4, 2 ) )	// MSPY2	// Win2k/WinME
 #define IMEID_CHS_VER53	( LANG_CHS | MAKEIMEVERSION( 5, 3 ) )	// MSPY3	// WinXP
 
+		namespace DXUT
+		{
+
 static CHAR signature[] = "%%%IMEUILIB:070111%%%";
 
 static IMEUI_APPEARANCE         gSkinIME =
@@ -83,7 +91,7 @@ static IMEUI_APPEARANCE         gSkinIME =
     1,			// caretYMargin;
 };
 
-struct _SkinCompStr
+struct DXUTAPI _SkinCompStr
 {
     DWORD colorInput;
     DWORD colorTargetConv;
@@ -96,7 +104,7 @@ _SkinCompStr                    gSkinCompStr;
 
 // Definition from Win98DDK version of IMM.H
 typedef struct
-tagINPUTCONTEXT2
+DXUTAPI tagINPUTCONTEXT2
 {
     HWND hWnd;
     BOOL fOpen;
@@ -125,7 +133,7 @@ FAR*                            LPINPUTCONTEXT2;
 
 
 // Class to disable Cicero in case ImmDisableTextFrameService() doesn't disable it completely
-class CDisableCicero
+class DXUTAPI CDisableCicero
 {
 public:
             CDisableCicero() : m_ptim( nullptr ),
@@ -210,16 +218,16 @@ static BOOL ( WINAPI* _ImmUnlockIMCC )( HIMCC hIMCC );
 #define _ImmIsIME	ImmIsIME
 
 // private API provided by CHT IME. Available on version 6.0 or later.
-UINT ( WINAPI*_GetReadingString )( HIMC himc, UINT uReadingBufLen, LPWSTR lpwReadingBuf, PINT pnErrorIndex,
+DXUTAPI UINT ( WINAPI*_GetReadingString )( HIMC himc, UINT uReadingBufLen, LPWSTR lpwReadingBuf, PINT pnErrorIndex,
                                    BOOL* pfIsVertical, PUINT puMaxReadingLen );
-BOOL ( WINAPI*_ShowReadingWindow )( HIMC himc, BOOL bShow );
+DXUTAPI BOOL ( WINAPI*_ShowReadingWindow )( HIMC himc, BOOL bShow );
 
 // Callbacks
-void ( CALLBACK*ImeUiCallback_DrawRect )( int x1, int y1, int x2, int y2, DWORD color );
-void ( CALLBACK*ImeUiCallback_DrawFans )( const IMEUI_VERTEX* paVertex, UINT uNum );
-void*                           ( __cdecl*ImeUiCallback_Malloc )( size_t bytes );
-void ( __cdecl*ImeUiCallback_Free )( void* ptr );
-void ( CALLBACK*ImeUiCallback_OnChar )( WCHAR wc );
+DXUTAPI void ( CALLBACK*ImeUiCallback_DrawRect )( int x1, int y1, int x2, int y2, DWORD color );
+DXUTAPI void ( CALLBACK*ImeUiCallback_DrawFans )( const IMEUI_VERTEX* paVertex, UINT uNum );
+DXUTAPI void*                           ( __cdecl*ImeUiCallback_Malloc )( size_t bytes );
+DXUTAPI void ( __cdecl*ImeUiCallback_Free )( void* ptr );
+DXUTAPI void ( CALLBACK*ImeUiCallback_OnChar )( WCHAR wc );
 
 static void (*_SendCompString )();
 static LRESULT ( WINAPI* _SendMessage )( HWND hwnd, UINT msg, WPARAM wp, LPARAM lp ) = SendMessageA;
@@ -266,7 +274,7 @@ static HMODULE                  g_hImmDll = nullptr;
 
 #define IsNT() (g_osi.dwPlatformId == VER_PLATFORM_WIN32_NT)
 
-struct CompStringAttribute
+struct DXUTAPI CompStringAttribute
 {
     UINT caretX;
     UINT caretY;
@@ -318,7 +326,7 @@ static void OnInputLangChange();
 static void SetImeApi();
 static void CheckInputLocale();
 static void SetSupportLevel( _In_ DWORD dwImeLevel );
-void ImeUi_SetSupportLevel( _In_ DWORD dwImeLevel );
+DXUTAPI void ImeUi_SetSupportLevel( _In_ DWORD dwImeLevel );
 
 
 //
@@ -343,11 +351,11 @@ inline LRESULT SendKeyMsg( HWND hwnd, UINT msg, WPARAM wp )
 //      of TSF, so we have to use new TSF interfaces.
 //
 ///////////////////////////////////////////////////////////////////////////////
-class CTsfUiLessMode
+class DXUTAPI CTsfUiLessMode
 {
 protected:
     // Sink receives event notifications
-    class CUIElementSink : public ITfUIElementSink,
+    class DXUTAPI CUIElementSink : public ITfUIElementSink,
                            public ITfInputProcessorProfileActivationSink,
                            public ITfCompartmentEventSink
     {
@@ -409,13 +417,13 @@ public:
     static void EnableUiUpdates( bool bEnable );
 };
 
-ITfThreadMgrEx*                 CTsfUiLessMode::m_tm;
-DWORD                           CTsfUiLessMode::m_dwUIElementSinkCookie = TF_INVALID_COOKIE;
-DWORD                           CTsfUiLessMode::m_dwAlpnSinkCookie = TF_INVALID_COOKIE;
-DWORD                           CTsfUiLessMode::m_dwOpenModeSinkCookie = TF_INVALID_COOKIE;
-DWORD                           CTsfUiLessMode::m_dwConvModeSinkCookie = TF_INVALID_COOKIE;
-CTsfUiLessMode::CUIElementSink* CTsfUiLessMode::m_TsfSink = nullptr;
-int                             CTsfUiLessMode::m_nCandidateRefCount = 0;
+DXUTAPI ITfThreadMgrEx*                 CTsfUiLessMode::m_tm;
+DXUTAPI DWORD                           CTsfUiLessMode::m_dwUIElementSinkCookie = TF_INVALID_COOKIE;
+DXUTAPI DWORD                           CTsfUiLessMode::m_dwAlpnSinkCookie = TF_INVALID_COOKIE;
+DXUTAPI DWORD                           CTsfUiLessMode::m_dwOpenModeSinkCookie = TF_INVALID_COOKIE;
+DXUTAPI DWORD                           CTsfUiLessMode::m_dwConvModeSinkCookie = TF_INVALID_COOKIE;
+DXUTAPI CTsfUiLessMode::CUIElementSink* CTsfUiLessMode::m_TsfSink = nullptr;
+DXUTAPI int                             CTsfUiLessMode::m_nCandidateRefCount = 0;
 
 static unsigned long _strtoul( LPCSTR psz, LPTSTR*, int )
 {
@@ -572,7 +580,7 @@ static void DrawCaret( DWORD x, DWORD y, DWORD height )
 //     // Draw text in the edit box;
 //     ImeUi_RenderUi(false, true); // paint the rest of IME UI;
 //
-void ImeUi_RenderUI( _In_ bool bDrawCompAttr, _In_ bool bDrawOtherUi )
+DXUTAPI void ImeUi_RenderUI( _In_ bool bDrawCompAttr, _In_ bool bDrawOtherUi )
 {
     if( !g_bInitialized || !g_bImeEnabled || !g_CaretInfo.pFont )
         return;
@@ -1227,7 +1235,7 @@ static void CloseCandidateList()
 #pragma warning(push)
 #pragma warning( disable : 4616 6305 )
 _Use_decl_annotations_
-LPARAM ImeUi_ProcessMessage( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM& lParam, bool* trapped )
+DXUTAPI LPARAM ImeUi_ProcessMessage( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM& lParam, bool* trapped )
 {
     HIMC himc;
     int len;
@@ -1566,7 +1574,7 @@ LPARAM ImeUi_ProcessMessage( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM& lParam
 #pragma warning(pop)
 
 _Use_decl_annotations_
-void ImeUi_SetCaretPosition( UINT x, UINT y )
+DXUTAPI void ImeUi_SetCaretPosition( UINT x, UINT y )
 {
     if( !g_bInitialized )
         return;
@@ -1575,7 +1583,7 @@ void ImeUi_SetCaretPosition( UINT x, UINT y )
 }
 
 _Use_decl_annotations_
-void ImeUi_SetCompStringAppearance( CImeUiFont_Base* pFont, DWORD color, const RECT* prc )
+DXUTAPI void ImeUi_SetCompStringAppearance( CImeUiFont_Base* pFont, DWORD color, const RECT* prc )
 {
     if( !g_bInitialized )
         return;
@@ -1592,7 +1600,7 @@ void ImeUi_SetCompStringAppearance( CImeUiFont_Base* pFont, DWORD color, const R
         g_CaretInfo.colorComp = gSkinIME.compColorText;
 }
 
-void ImeUi_SetState( _In_ DWORD dwState )
+DXUTAPI void ImeUi_SetState( _In_ DWORD dwState )
 {
     if( !g_bInitialized )
         return;
@@ -1651,7 +1659,7 @@ void ImeUi_SetState( _In_ DWORD dwState )
     }
 }
 
-DWORD ImeUi_GetState()
+DXUTAPI DWORD ImeUi_GetState()
 {
     if( !g_bInitialized )
         return IMEUI_STATE_OFF;
@@ -1659,7 +1667,7 @@ DWORD ImeUi_GetState()
     return g_dwState;
 }
 
-void ImeUi_EnableIme( _In_ bool bEnable )
+DXUTAPI void ImeUi_EnableIme( _In_ bool bEnable )
 {
     if( !g_bInitialized || !g_hwndCurr )
         return;
@@ -1679,12 +1687,12 @@ void ImeUi_EnableIme( _In_ bool bEnable )
     CTsfUiLessMode::EnableUiUpdates( bEnable );
 }
 
-bool ImeUi_IsEnabled()
+DXUTAPI bool ImeUi_IsEnabled()
 {
     return g_bImeEnabled;
 }
 
-bool ImeUi_Initialize(_In_  HWND hwnd, _In_ bool bDisable )
+DXUTAPI bool ImeUi_Initialize(_In_  HWND hwnd, _In_ bool bDisable )
 {
     if( g_bInitialized )
     {
@@ -1773,7 +1781,7 @@ bool ImeUi_Initialize(_In_  HWND hwnd, _In_ bool bDisable )
     return true;
 }
 
-void ImeUi_Uninitialize()
+DXUTAPI void ImeUi_Uninitialize()
 {
     if( !g_bInitialized )
     {
@@ -1804,7 +1812,7 @@ void ImeUi_Uninitialize()
 //		- Older Chinese IME
 //		- Other error cases
 //
-//	Othewise:
+//	Otherwise:
 //      When uIndex is 0 (default)
 //			bit 31-24:	Major version
 //			bit 23-16:	Minor version
@@ -1842,7 +1850,7 @@ static DWORD GetImeId( _In_ UINT uIndex )
 
     if( g_bUILessMode && GETLANG() == LANG_CHT )
     {
-        // In case of Vista, artifitial value is returned so that it's not considered as older IME.
+        // In case of Vista, artificial value is returned so that it's not considered as older IME.
         dwRet[0] = IMEID_CHT_VER_VISTA;
         dwRet[1] = 0;
         return dwRet[0];
@@ -2144,7 +2152,7 @@ static struct
 // - Caller doesn't have to check whether IME is on.
 // - This function must be called before TranslateMessage() is called.
 //
-bool ImeUi_IgnoreHotKey( _In_ const MSG* pmsg )
+DXUTAPI bool ImeUi_IgnoreHotKey( _In_ const MSG* pmsg )
 {
     if( !g_bInitialized || !pmsg )
         return false;
@@ -2186,7 +2194,7 @@ bool ImeUi_IgnoreHotKey( _In_ const MSG* pmsg )
     return false;
 }
 
-void ImeUi_FinalizeString( _In_ bool bSend )
+DXUTAPI void ImeUi_FinalizeString( _In_ bool bSend )
 {
     HIMC himc;
     static bool bProcessing = false; // to avoid infinite recursion
@@ -2255,7 +2263,7 @@ static void SetSupportLevel( _In_ DWORD dwImeLevel )
     SetCompStringColor();
 }
 
-void ImeUi_SetSupportLevel( _In_ DWORD dwImeLevel )
+DXUTAPI void ImeUi_SetSupportLevel( _In_ DWORD dwImeLevel )
 {
     if( !g_bInitialized )
         return;
@@ -2263,7 +2271,7 @@ void ImeUi_SetSupportLevel( _In_ DWORD dwImeLevel )
     SetSupportLevel( dwImeLevel );
 }
 
-void ImeUi_SetAppearance( _In_opt_ const IMEUI_APPEARANCE* pia )
+DXUTAPI void ImeUi_SetAppearance( _In_opt_ const IMEUI_APPEARANCE* pia )
 {
     if( !g_bInitialized || !pia )
         return;
@@ -2279,7 +2287,7 @@ void ImeUi_SetAppearance( _In_opt_ const IMEUI_APPEARANCE* pia )
     SetCompStringColor();
 }
 
-void ImeUi_GetAppearance( _Out_opt_ IMEUI_APPEARANCE* pia )
+DXUTAPI void ImeUi_GetAppearance( _Out_opt_ IMEUI_APPEARANCE* pia )
 {
     if ( pia )
     {
@@ -2329,19 +2337,19 @@ static void CheckToggleState()
         g_dwState = IMEUI_STATE_OFF;
 }
 
-void ImeUi_SetInsertMode( _In_ bool bInsert )
+DXUTAPI void ImeUi_SetInsertMode( _In_ bool bInsert )
 {
     if( !g_bInitialized )
         return;
     g_bInsertMode = bInsert;
 }
 
-bool ImeUi_GetCaretStatus()
+DXUTAPI bool ImeUi_GetCaretStatus()
 {
     return !g_bInitialized || !g_szCompositionString[0];
 }
 
-void ImeUi_SetScreenDimension( _In_ UINT width, _In_ UINT height )
+DXUTAPI void ImeUi_SetScreenDimension( _In_ UINT width, _In_ UINT height )
 {
     if( !g_bInitialized )
         return;
@@ -2401,7 +2409,7 @@ static void GetReadingWindowOrientation( _In_ DWORD dwId )
     }
 }
 
-void ImeUi_ToggleLanguageBar( _In_ BOOL bRestore )
+DXUTAPI void ImeUi_ToggleLanguageBar( _In_ BOOL bRestore )
 {
     static BOOL prevRestore = TRUE;
     bool bCheck = ( prevRestore == TRUE || bRestore == TRUE );
@@ -2459,7 +2467,7 @@ void ImeUi_ToggleLanguageBar( _In_ BOOL bRestore )
     }
 }
 
-bool ImeUi_IsSendingKeyMessage()
+DXUTAPI bool ImeUi_IsSendingKeyMessage()
 {
     return bIsSendingKeyMessage;
 }
@@ -2574,23 +2582,23 @@ static void CheckInputLocale()
     }
 }
 
-void ImeUi_SetWindow( _In_ HWND hwnd )
+DXUTAPI void ImeUi_SetWindow( _In_ HWND hwnd )
 {
     g_hwndCurr = hwnd;
     g_disableCicero.DisableCiceroOnThisWnd( hwnd );
 }
 
-UINT ImeUi_GetInputCodePage()
+DXUTAPI UINT ImeUi_GetInputCodePage()
 {
     return g_uCodePage;
 }
 
-DWORD ImeUi_GetFlags()
+DXUTAPI DWORD ImeUi_GetFlags()
 {
     return g_dwImeUiFlags;
 }
 
-void ImeUi_SetFlags( _In_ DWORD dwFlags, _In_ bool bSet )
+DXUTAPI void ImeUi_SetFlags( _In_ DWORD dwFlags, _In_ bool bSet )
 {
     if( bSet )
     {
@@ -2613,7 +2621,7 @@ void ImeUi_SetFlags( _In_ DWORD dwFlags, _In_ bool bSet )
 //	Set up sinks. A sink is used to receive a Text Service Framework event.
 //  CUIElementSink implements multiple sink interfaces to receive few different TSF events.
 //
-BOOL CTsfUiLessMode::SetupSinks()
+DXUTAPI BOOL CTsfUiLessMode::SetupSinks()
 {
     // ITfThreadMgrEx is available on Vista or later.
     HRESULT hr;
@@ -2664,7 +2672,7 @@ BOOL CTsfUiLessMode::SetupSinks()
     return bRc;
 }
 
-void CTsfUiLessMode::ReleaseSinks()
+DXUTAPI void CTsfUiLessMode::ReleaseSinks()
 {
     HRESULT hr;
     ITfSource* source;
@@ -2682,13 +2690,13 @@ void CTsfUiLessMode::ReleaseSinks()
     }	
 }
 
-CTsfUiLessMode::CUIElementSink::CUIElementSink()
+DXUTAPI CTsfUiLessMode::CUIElementSink::CUIElementSink()
 {
     _cRef = 1;
 }
 
 
-CTsfUiLessMode::CUIElementSink::~CUIElementSink()
+DXUTAPI CTsfUiLessMode::CUIElementSink::~CUIElementSink()
 {
 }
 
@@ -2824,7 +2832,7 @@ STDAPI CTsfUiLessMode::CUIElementSink::EndUIElement( DWORD dwUIElementId )
     return S_OK;
 }
 
-void CTsfUiLessMode::UpdateImeState( BOOL bResetCompartmentEventSink )
+DXUTAPI void CTsfUiLessMode::UpdateImeState( BOOL bResetCompartmentEventSink )
 {
     ITfCompartmentMgr* pcm;
     ITfCompartment* pTfOpenMode = nullptr;
@@ -2895,7 +2903,7 @@ STDAPI CTsfUiLessMode::CUIElementSink::OnChange( _In_ REFGUID rguid )
     return S_OK;
 }
 
-void CTsfUiLessMode::MakeReadingInformationString( ITfReadingInformationUIElement* preading )
+DXUTAPI void CTsfUiLessMode::MakeReadingInformationString( ITfReadingInformationUIElement* preading )
 {
     UINT cchMax;
     UINT uErrorIndex = 0;
@@ -2947,7 +2955,7 @@ void CTsfUiLessMode::MakeReadingInformationString( ITfReadingInformationUIElemen
     }
 }
 
-void CTsfUiLessMode::MakeCandidateStrings( ITfCandidateListUIElement* pcandidate )
+DXUTAPI void CTsfUiLessMode::MakeCandidateStrings( ITfCandidateListUIElement* pcandidate )
 {
     UINT uIndex = 0;
     UINT uCount = 0;
@@ -3007,7 +3015,7 @@ void CTsfUiLessMode::MakeCandidateStrings( ITfCandidateListUIElement* pcandidate
     }
 }
 
-ITfUIElement* CTsfUiLessMode::GetUIElement( DWORD dwUIElementId )
+DXUTAPI ITfUIElement* CTsfUiLessMode::GetUIElement( DWORD dwUIElementId )
 {
     ITfUIElementMgr* puiem;
     ITfUIElement* pElement = nullptr;
@@ -3021,7 +3029,7 @@ ITfUIElement* CTsfUiLessMode::GetUIElement( DWORD dwUIElementId )
     return pElement;
 }
 
-BOOL CTsfUiLessMode::CurrentInputLocaleIsIme()
+DXUTAPI BOOL CTsfUiLessMode::CurrentInputLocaleIsIme()
 {
     BOOL ret = FALSE;
     HRESULT hr;
@@ -3051,7 +3059,7 @@ BOOL CTsfUiLessMode::CurrentInputLocaleIsIme()
 // Sets up or removes sink for UI element. 
 // UI element sink should be removed when IME is disabled,
 // otherwise the sink can be triggered when a game has multiple instances of IME UI library.
-void CTsfUiLessMode::EnableUiUpdates( bool bEnable )
+DXUTAPI void CTsfUiLessMode::EnableUiUpdates( bool bEnable )
 {
     if( !m_tm ||
         ( bEnable && m_dwUIElementSinkCookie != TF_INVALID_COOKIE ) ||
@@ -3079,7 +3087,7 @@ void CTsfUiLessMode::EnableUiUpdates( bool bEnable )
 
 // Returns open mode compartments and compartment manager.
 // Function fails if it fails to acquire any of the objects to be returned.
-BOOL CTsfUiLessMode::GetCompartments( ITfCompartmentMgr** ppcm, ITfCompartment** ppTfOpenMode,
+DXUTAPI BOOL CTsfUiLessMode::GetCompartments( ITfCompartmentMgr** ppcm, ITfCompartment** ppTfOpenMode,
                                       ITfCompartment** ppTfConvMode )
 {
     ITfCompartmentMgr* pcm = nullptr;
@@ -3115,7 +3123,7 @@ BOOL CTsfUiLessMode::GetCompartments( ITfCompartmentMgr** ppcm, ITfCompartment**
 // SetupCompartmentSinks() : initialization
 // SetupCompartmentSinks(FALSE, openmode, convmode) : Resetting sinks. This is necessary as DaYi and Array IME resets compartment on switching input locale
 // SetupCompartmentSinks(TRUE) : clean up sinks
-BOOL CTsfUiLessMode::SetupCompartmentSinks( BOOL bRemoveOnly, ITfCompartment* pTfOpenMode,
+DXUTAPI BOOL CTsfUiLessMode::SetupCompartmentSinks( BOOL bRemoveOnly, ITfCompartment* pTfOpenMode,
                                             ITfCompartment* pTfConvMode )
 {
     bool bLocalCompartments = false;
@@ -3252,3 +3260,13 @@ DWORD ImeUi_GetImeCursorChars()
     return g_IMECursorChars;
 }
 
+}
+
+#if defined(extern_cplus) && defined(extern_cplusplus)
+	}
+	}
+#elif defined(extern_cplus) && !defined(extern_cplusplus)
+}
+#elif defined(extern_cplusplus) && !defined(extern_cplus)
+}
+#endif

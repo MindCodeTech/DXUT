@@ -12,26 +12,36 @@
 //
 // http://go.microsoft.com/fwlink/?LinkId=320437
 //--------------------------------------------------------------------------------------
-#include "DXUT.h"
-#include "DXUTgui.h"
-#include "DXUTsettingsDlg.h"
+#include "dxutstdafx.h"
+
+
+#ifdef extern_cplus
+extern "C" {
+#endif
+
+#ifdef extern_cplusplus
+	extern "C++" {
+#endif
+
+		namespace DXUT
+		{
 
 //--------------------------------------------------------------------------------------
 // Internal functions forward declarations
 //--------------------------------------------------------------------------------------
-const WCHAR*        DXUTPresentIntervalToString( _In_ UINT pi );
-const WCHAR*        DXUTDeviceTypeToString( _In_ D3D_DRIVER_TYPE devType );
-const WCHAR*        DXUTVertexProcessingTypeToString( _In_ DWORD vpt );
+DXUTAPI const WCHAR*        DXUTPresentIntervalToString( _In_ UINT pi );
+DXUTAPI const WCHAR*        DXUTDeviceTypeToString( _In_ D3D_DRIVER_TYPE devType );
+DXUTAPI const WCHAR*        DXUTVertexProcessingTypeToString( _In_ DWORD vpt );
 
 
-HRESULT DXUTSnapDeviceSettingsToEnumDevice( DXUTDeviceSettings* pDeviceSettings, bool forceEnum, D3D_FEATURE_LEVEL forceFL = D3D_FEATURE_LEVEL(0)  );
+DXUTAPI HRESULT DXUTSnapDeviceSettingsToEnumDevice( DXUTDeviceSettings* pDeviceSettings, bool forceEnum, D3D_FEATURE_LEVEL forceFL = D3D_FEATURE_LEVEL(0)  );
 
 //--------------------------------------------------------------------------------------
 // Global state
 //--------------------------------------------------------------------------------------
-DXUTDeviceSettings  g_DeviceSettings;
+DXUTAPI DXUTDeviceSettings  g_DeviceSettings;
 
-CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog()
+DXUTAPI CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog()
 {
     // Using an accessor function gives control of the construction order
     static CD3DSettingsDlg dlg;
@@ -40,7 +50,7 @@ CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog()
 
 
 //--------------------------------------------------------------------------------------
-CD3DSettingsDlg::CD3DSettingsDlg() :
+DXUTAPI CD3DSettingsDlg::CD3DSettingsDlg() :
     m_bActive( false ),
     m_pActiveDialog( nullptr )
 {
@@ -55,7 +65,7 @@ CD3DSettingsDlg::CD3DSettingsDlg() :
 
 
 //--------------------------------------------------------------------------------------
-CD3DSettingsDlg::~CD3DSettingsDlg()
+DXUTAPI CD3DSettingsDlg::~CD3DSettingsDlg()
 {
     // Release the memory used to hold the D3D11 refresh data in the combo box
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_REFRESH_RATE );
@@ -69,7 +79,7 @@ CD3DSettingsDlg::~CD3DSettingsDlg()
 
 
 //--------------------------------------------------------------------------------------
-void CD3DSettingsDlg::Init( _In_ CDXUTDialogResourceManager* pManager )
+DXUTAPI void CD3DSettingsDlg::Init( _In_ CDXUTDialogResourceManager* pManager )
 {
     assert( pManager );
     m_Dialog.Init( pManager, false );  // Don't register this dialog.
@@ -80,7 +90,7 @@ void CD3DSettingsDlg::Init( _In_ CDXUTDialogResourceManager* pManager )
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CD3DSettingsDlg::Init( CDXUTDialogResourceManager* pManager, LPCWSTR szControlTextureFileName )
+DXUTAPI void CD3DSettingsDlg::Init( CDXUTDialogResourceManager* pManager, LPCWSTR szControlTextureFileName )
 {
     assert( pManager );
     m_Dialog.Init( pManager, false, szControlTextureFileName );  // Don't register this dialog.
@@ -92,7 +102,7 @@ void CD3DSettingsDlg::Init( CDXUTDialogResourceManager* pManager, LPCWSTR szCont
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CD3DSettingsDlg::Init( CDXUTDialogResourceManager* pManager, LPCWSTR pszControlTextureResourcename,
+DXUTAPI void CD3DSettingsDlg::Init( CDXUTDialogResourceManager* pManager, LPCWSTR pszControlTextureResourcename,
                             HMODULE hModule )
 {
     assert( pManager );
@@ -104,7 +114,7 @@ void CD3DSettingsDlg::Init( CDXUTDialogResourceManager* pManager, LPCWSTR pszCon
 
 
 //--------------------------------------------------------------------------------------
-void CD3DSettingsDlg::CreateControls()
+DXUTAPI void CD3DSettingsDlg::CreateControls()
 {
     // Set up main settings dialog
     m_Dialog.EnableKeyboardInput( true );
@@ -219,7 +229,7 @@ void CD3DSettingsDlg::CreateControls()
 //--------------------------------------------------------------------------------------
 // Changes the UI defaults to the current device settings
 //--------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::Refresh()
+DXUTAPI HRESULT CD3DSettingsDlg::Refresh()
 {
     g_DeviceSettings = DXUTGetDeviceSettings();
 
@@ -291,7 +301,7 @@ HRESULT CD3DSettingsDlg::Refresh()
 
 
 //--------------------------------------------------------------------------------------
-void CD3DSettingsDlg::SetSelectedD3D11RefreshRate( _In_ DXGI_RATIONAL RefreshRate )
+DXUTAPI void CD3DSettingsDlg::SetSelectedD3D11RefreshRate( _In_ DXGI_RATIONAL RefreshRate )
 {
     CDXUTComboBox* pRefreshRateComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_REFRESH_RATE );
 
@@ -308,7 +318,7 @@ void CD3DSettingsDlg::SetSelectedD3D11RefreshRate( _In_ DXGI_RATIONAL RefreshRat
 }
 
 //--------------------------------------------------------------------------------------
-void CD3DSettingsDlg::OnRender( _In_ float fElapsedTime )
+DXUTAPI void CD3DSettingsDlg::OnRender( _In_ float fElapsedTime )
 {
     // Render the scene
     m_pActiveDialog->OnRender( fElapsedTime );
@@ -317,7 +327,7 @@ void CD3DSettingsDlg::OnRender( _In_ float fElapsedTime )
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-LRESULT CD3DSettingsDlg::MsgProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
+DXUTAPI LRESULT CD3DSettingsDlg::MsgProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 {
     m_pActiveDialog->MsgProc( hWnd, uMsg, wParam, lParam );
     if( uMsg == WM_KEYDOWN && wParam == VK_F2 )
@@ -326,7 +336,7 @@ LRESULT CD3DSettingsDlg::MsgProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lP
 }
 
 //--------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::OnD3D11CreateDevice( _In_ ID3D11Device* pd3dDevice )
+DXUTAPI HRESULT CD3DSettingsDlg::OnD3D11CreateDevice( _In_ ID3D11Device* pd3dDevice )
 {
     if( !pd3dDevice )
         return DXUT_ERR_MSGBOX( L"CD3DSettingsDlg::OnCreatedDevice", E_INVALIDARG );
@@ -341,7 +351,7 @@ HRESULT CD3DSettingsDlg::OnD3D11CreateDevice( _In_ ID3D11Device* pd3dDevice )
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT CD3DSettingsDlg::OnD3D11ResizedSwapChain( ID3D11Device* pd3dDevice, const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc )
+DXUTAPI HRESULT CD3DSettingsDlg::OnD3D11ResizedSwapChain( ID3D11Device* pd3dDevice, const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc )
 {
     UNREFERENCED_PARAMETER(pd3dDevice);
 
@@ -364,7 +374,7 @@ HRESULT CD3DSettingsDlg::OnD3D11ResizedSwapChain( ID3D11Device* pd3dDevice, cons
 
 
 //--------------------------------------------------------------------------------------
-void CD3DSettingsDlg::OnD3D11DestroyDevice()
+DXUTAPI void CD3DSettingsDlg::OnD3D11DestroyDevice()
 {
 
 
@@ -373,7 +383,7 @@ void CD3DSettingsDlg::OnD3D11DestroyDevice()
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void WINAPI CD3DSettingsDlg::StaticOnEvent( UINT nEvent, int nControlID,
+DXUTAPI void WINAPI CD3DSettingsDlg::StaticOnEvent( UINT nEvent, int nControlID,
                                             CDXUTControl* pControl, void* pUserData )
 {
     CD3DSettingsDlg* pD3DSettings = ( CD3DSettingsDlg* )pUserData;
@@ -387,7 +397,7 @@ void WINAPI CD3DSettingsDlg::StaticOnEvent( UINT nEvent, int nControlID,
 //       until mode change timeout limit.
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void WINAPI CD3DSettingsDlg::StaticOnModeChangeTimer( UINT nIDEvent, void* pUserContext )
+DXUTAPI void WINAPI CD3DSettingsDlg::StaticOnModeChangeTimer( UINT nIDEvent, void* pUserContext )
 {
     UNREFERENCED_PARAMETER(nIDEvent);
 
@@ -409,7 +419,7 @@ void WINAPI CD3DSettingsDlg::StaticOnModeChangeTimer( UINT nIDEvent, void* pUser
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CD3DSettingsDlg::OnEvent( UINT nEvent, int nControlID, CDXUTControl* pControl )
+DXUTAPI void CD3DSettingsDlg::OnEvent( UINT nEvent, int nControlID, CDXUTControl* pControl )
 {
     UNREFERENCED_PARAMETER(nEvent);
     UNREFERENCED_PARAMETER(pControl);
@@ -541,7 +551,7 @@ void CD3DSettingsDlg::OnEvent( UINT nEvent, int nControlID, CDXUTControl* pContr
 
 
 //-------------------------------------------------------------------------------------
-CD3D11EnumAdapterInfo* CD3DSettingsDlg::GetCurrentD3D11AdapterInfo() const
+DXUTAPI CD3D11EnumAdapterInfo* CD3DSettingsDlg::GetCurrentD3D11AdapterInfo() const
 {
     CD3D11Enumeration* pD3DEnum = DXUTGetD3D11Enumeration();
     return pD3DEnum->GetAdapterInfo( g_DeviceSettings.d3d11.AdapterOrdinal );
@@ -549,7 +559,7 @@ CD3D11EnumAdapterInfo* CD3DSettingsDlg::GetCurrentD3D11AdapterInfo() const
 
 
 //-------------------------------------------------------------------------------------
-CD3D11EnumDeviceInfo* CD3DSettingsDlg::GetCurrentD3D11DeviceInfo() const
+DXUTAPI CD3D11EnumDeviceInfo* CD3DSettingsDlg::GetCurrentD3D11DeviceInfo() const
 {
     CD3D11Enumeration* pD3DEnum = DXUTGetD3D11Enumeration();
     return pD3DEnum->GetDeviceInfo( g_DeviceSettings.d3d11.AdapterOrdinal,
@@ -558,7 +568,7 @@ CD3D11EnumDeviceInfo* CD3DSettingsDlg::GetCurrentD3D11DeviceInfo() const
 
 
 //-------------------------------------------------------------------------------------
-CD3D11EnumOutputInfo* CD3DSettingsDlg::GetCurrentD3D11OutputInfo() const
+DXUTAPI CD3D11EnumOutputInfo* CD3DSettingsDlg::GetCurrentD3D11OutputInfo() const
 {
     CD3D11Enumeration* pD3DEnum = DXUTGetD3D11Enumeration();
     return pD3DEnum->GetOutputInfo( g_DeviceSettings.d3d11.AdapterOrdinal,
@@ -566,7 +576,7 @@ CD3D11EnumOutputInfo* CD3DSettingsDlg::GetCurrentD3D11OutputInfo() const
 }
 
 //-------------------------------------------------------------------------------------
-CD3D11EnumDeviceSettingsCombo* CD3DSettingsDlg::GetCurrentD3D11DeviceSettingsCombo() const
+DXUTAPI CD3D11EnumDeviceSettingsCombo* CD3DSettingsDlg::GetCurrentD3D11DeviceSettingsCombo() const
 {
     CD3D11Enumeration* pD3DEnum = DXUTGetD3D11Enumeration();
     return pD3DEnum->GetDeviceSettingsCombo( g_DeviceSettings.d3d11.AdapterOrdinal,
@@ -574,7 +584,7 @@ CD3D11EnumDeviceSettingsCombo* CD3DSettingsDlg::GetCurrentD3D11DeviceSettingsCom
                                              ( g_DeviceSettings.d3d11.sd.Windowed == TRUE ) );
 }
 
-HRESULT CD3DSettingsDlg::OnD3D11ResolutionChanged () {
+DXUTAPI HRESULT CD3DSettingsDlg::OnD3D11ResolutionChanged () {
     DWORD dwWidth, dwHeight;
     GetSelectedD3D11Resolution( &dwWidth, &dwHeight );
     g_DeviceSettings.d3d11.sd.BufferDesc.Width= dwWidth;
@@ -583,7 +593,7 @@ HRESULT CD3DSettingsDlg::OnD3D11ResolutionChanged () {
     return S_OK;
 }
 
-HRESULT CD3DSettingsDlg::OnFeatureLevelChanged () {
+DXUTAPI HRESULT CD3DSettingsDlg::OnFeatureLevelChanged () {
     HRESULT hr = E_FAIL;
         if (g_DeviceSettings.d3d11.DeviceFeatureLevel == GetSelectedFeatureLevel()) return S_OK;
 
@@ -620,7 +630,7 @@ HRESULT CD3DSettingsDlg::OnFeatureLevelChanged () {
 
 
 //-------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::OnAdapterChanged()
+DXUTAPI HRESULT CD3DSettingsDlg::OnAdapterChanged()
 {
     // Store the adapter index
     g_DeviceSettings.d3d11.AdapterOrdinal = GetSelectedAdapter();
@@ -651,7 +661,7 @@ HRESULT CD3DSettingsDlg::OnAdapterChanged()
 
 
 //-------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::OnDeviceTypeChanged()
+DXUTAPI HRESULT CD3DSettingsDlg::OnDeviceTypeChanged()
 {
     HRESULT hr = S_OK;
 
@@ -711,7 +721,7 @@ HRESULT CD3DSettingsDlg::OnDeviceTypeChanged()
 
 
 //-------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::OnWindowedFullScreenChanged()
+DXUTAPI HRESULT CD3DSettingsDlg::OnWindowedFullScreenChanged()
 {
     HRESULT hr = S_OK;
     bool bWindowed = IsWindowed();
@@ -751,7 +761,7 @@ HRESULT CD3DSettingsDlg::OnWindowedFullScreenChanged()
 
 
 //-------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::OnAdapterOutputChanged()
+DXUTAPI HRESULT CD3DSettingsDlg::OnAdapterOutputChanged()
 {
     HRESULT hr;
 
@@ -840,7 +850,7 @@ HRESULT CD3DSettingsDlg::OnAdapterOutputChanged()
 
 
 //-------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::OnRefreshRateChanged()
+DXUTAPI HRESULT CD3DSettingsDlg::OnRefreshRateChanged()
 {
     // Set refresh rate
             g_DeviceSettings.d3d11.sd.BufferDesc.RefreshRate = GetSelectedD3D11RefreshRate();
@@ -850,7 +860,7 @@ HRESULT CD3DSettingsDlg::OnRefreshRateChanged()
 
 
 //-------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::OnBackBufferFormatChanged()
+DXUTAPI HRESULT CD3DSettingsDlg::OnBackBufferFormatChanged()
 {
     HRESULT hr = S_OK;
 
@@ -906,7 +916,7 @@ HRESULT CD3DSettingsDlg::OnBackBufferFormatChanged()
 
 
 //-------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::OnMultisampleTypeChanged()
+DXUTAPI HRESULT CD3DSettingsDlg::OnMultisampleTypeChanged()
 {
     HRESULT hr = S_OK;
 
@@ -949,7 +959,7 @@ HRESULT CD3DSettingsDlg::OnMultisampleTypeChanged()
 
 
 //-------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::OnMultisampleQualityChanged()
+DXUTAPI HRESULT CD3DSettingsDlg::OnMultisampleQualityChanged()
 {
             g_DeviceSettings.d3d11.sd.SampleDesc.Quality = GetSelectedD3D11MultisampleQuality();
 
@@ -958,7 +968,7 @@ HRESULT CD3DSettingsDlg::OnMultisampleQualityChanged()
 
 
 //-------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::OnPresentIntervalChanged()
+DXUTAPI HRESULT CD3DSettingsDlg::OnPresentIntervalChanged()
 {
             g_DeviceSettings.d3d11.SyncInterval = GetSelectedD3D11PresentInterval();
 
@@ -967,7 +977,7 @@ HRESULT CD3DSettingsDlg::OnPresentIntervalChanged()
 
 
 //-------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::OnDebugDeviceChanged()
+DXUTAPI HRESULT CD3DSettingsDlg::OnDebugDeviceChanged()
 {
     bool bDebugDevice = GetSelectedDebugDeviceValue();
 
@@ -981,7 +991,7 @@ HRESULT CD3DSettingsDlg::OnDebugDeviceChanged()
 
 
 //-------------------------------------------------------------------------------------
-void CD3DSettingsDlg::AddAdapter( _In_z_ const WCHAR* strDescription, _In_ UINT iAdapter )
+DXUTAPI void CD3DSettingsDlg::AddAdapter( _In_z_ const WCHAR* strDescription, _In_ UINT iAdapter )
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_ADAPTER );
 
@@ -991,7 +1001,7 @@ void CD3DSettingsDlg::AddAdapter( _In_z_ const WCHAR* strDescription, _In_ UINT 
 
 
 //-------------------------------------------------------------------------------------
-UINT CD3DSettingsDlg::GetSelectedAdapter() const
+DXUTAPI UINT CD3DSettingsDlg::GetSelectedAdapter() const
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_ADAPTER );
 
@@ -1000,7 +1010,7 @@ UINT CD3DSettingsDlg::GetSelectedAdapter() const
 
 
 //-------------------------------------------------------------------------------------
-void CD3DSettingsDlg::SetWindowed( _In_ bool bWindowed )
+DXUTAPI void CD3DSettingsDlg::SetWindowed( _In_ bool bWindowed )
 {
     CDXUTRadioButton* pRadioButton = m_Dialog.GetRadioButton( DXUTSETTINGSDLG_WINDOWED );
     pRadioButton->SetChecked( bWindowed );
@@ -1011,7 +1021,7 @@ void CD3DSettingsDlg::SetWindowed( _In_ bool bWindowed )
 
 
 //-------------------------------------------------------------------------------------
-bool CD3DSettingsDlg::IsWindowed() const
+DXUTAPI bool CD3DSettingsDlg::IsWindowed() const
 {
     CDXUTRadioButton* pRadioButton = m_Dialog.GetRadioButton( DXUTSETTINGSDLG_WINDOWED );
     return pRadioButton->GetChecked();
@@ -1019,7 +1029,7 @@ bool CD3DSettingsDlg::IsWindowed() const
 
 
 //-------------------------------------------------------------------------------------
-void CD3DSettingsDlg::AddD3D11AdapterOutput( _In_z_ const WCHAR* strName, _In_ UINT Output )
+DXUTAPI void CD3DSettingsDlg::AddD3D11AdapterOutput( _In_z_ const WCHAR* strName, _In_ UINT Output )
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_ADAPTER_OUTPUT );
 
@@ -1029,7 +1039,7 @@ void CD3DSettingsDlg::AddD3D11AdapterOutput( _In_z_ const WCHAR* strName, _In_ U
 
 
 //-------------------------------------------------------------------------------------
-UINT CD3DSettingsDlg::GetSelectedD3D11AdapterOutput() const
+DXUTAPI UINT CD3DSettingsDlg::GetSelectedD3D11AdapterOutput() const
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_ADAPTER_OUTPUT );
 
@@ -1039,7 +1049,7 @@ UINT CD3DSettingsDlg::GetSelectedD3D11AdapterOutput() const
 
 //-------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CD3DSettingsDlg::AddD3D11Resolution( DWORD dwWidth, DWORD dwHeight )
+DXUTAPI void CD3DSettingsDlg::AddD3D11Resolution( DWORD dwWidth, DWORD dwHeight )
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_RESOLUTION );
 
@@ -1055,7 +1065,7 @@ void CD3DSettingsDlg::AddD3D11Resolution( DWORD dwWidth, DWORD dwHeight )
 
 //-------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CD3DSettingsDlg::GetSelectedD3D11Resolution( DWORD* pdwWidth, DWORD* pdwHeight ) const
+DXUTAPI void CD3DSettingsDlg::GetSelectedD3D11Resolution( DWORD* pdwWidth, DWORD* pdwHeight ) const
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_RESOLUTION );
 
@@ -1065,7 +1075,7 @@ void CD3DSettingsDlg::GetSelectedD3D11Resolution( DWORD* pdwWidth, DWORD* pdwHei
     *pdwHeight = HIWORD( dwResolution );
 }
 
-void CD3DSettingsDlg::AddD3D11FeatureLevel( _In_ D3D_FEATURE_LEVEL fl) {
+DXUTAPI void CD3DSettingsDlg::AddD3D11FeatureLevel( _In_ D3D_FEATURE_LEVEL fl) {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_FEATURE_LEVEL );
     switch( fl )
     {
@@ -1115,7 +1125,7 @@ void CD3DSettingsDlg::AddD3D11FeatureLevel( _In_ D3D_FEATURE_LEVEL fl) {
 
 }
 
-D3D_FEATURE_LEVEL CD3DSettingsDlg::GetSelectedFeatureLevel() const
+DXUTAPI D3D_FEATURE_LEVEL CD3DSettingsDlg::GetSelectedFeatureLevel() const
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_FEATURE_LEVEL );
 
@@ -1124,7 +1134,7 @@ D3D_FEATURE_LEVEL CD3DSettingsDlg::GetSelectedFeatureLevel() const
 
 
 //-------------------------------------------------------------------------------------
-void CD3DSettingsDlg::AddD3D11RefreshRate( _In_ DXGI_RATIONAL RefreshRate )
+DXUTAPI void CD3DSettingsDlg::AddD3D11RefreshRate( _In_ DXGI_RATIONAL RefreshRate )
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_REFRESH_RATE );
 
@@ -1148,7 +1158,7 @@ void CD3DSettingsDlg::AddD3D11RefreshRate( _In_ DXGI_RATIONAL RefreshRate )
 
 
 //-------------------------------------------------------------------------------------
-DXGI_RATIONAL CD3DSettingsDlg::GetSelectedD3D11RefreshRate() const
+DXUTAPI DXGI_RATIONAL CD3DSettingsDlg::GetSelectedD3D11RefreshRate() const
 {
     DXGI_RATIONAL dxgiR;
     dxgiR.Numerator = 0;
@@ -1162,7 +1172,7 @@ DXGI_RATIONAL CD3DSettingsDlg::GetSelectedD3D11RefreshRate() const
 
 
 //-------------------------------------------------------------------------------------
-void CD3DSettingsDlg::AddD3D11BackBufferFormat( _In_ DXGI_FORMAT format )
+DXUTAPI void CD3DSettingsDlg::AddD3D11BackBufferFormat( _In_ DXGI_FORMAT format )
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_BACK_BUFFER_FORMAT );
 
@@ -1181,7 +1191,7 @@ DXGI_FORMAT CD3DSettingsDlg::GetSelectedD3D11BackBufferFormat() const
 
 
 //-------------------------------------------------------------------------------------
-void CD3DSettingsDlg::AddD3D11MultisampleCount( _In_ UINT Count )
+DXUTAPI void CD3DSettingsDlg::AddD3D11MultisampleCount( _In_ UINT Count )
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_MULTISAMPLE_COUNT );
 
@@ -1194,7 +1204,7 @@ void CD3DSettingsDlg::AddD3D11MultisampleCount( _In_ UINT Count )
 
 
 //-------------------------------------------------------------------------------------
-UINT CD3DSettingsDlg::GetSelectedD3D11MultisampleCount() const
+DXUTAPI UINT CD3DSettingsDlg::GetSelectedD3D11MultisampleCount() const
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_MULTISAMPLE_COUNT );
 
@@ -1203,7 +1213,7 @@ UINT CD3DSettingsDlg::GetSelectedD3D11MultisampleCount() const
 
 
 //-------------------------------------------------------------------------------------
-void CD3DSettingsDlg::AddD3D11MultisampleQuality( _In_ UINT Quality )
+DXUTAPI void CD3DSettingsDlg::AddD3D11MultisampleQuality( _In_ UINT Quality )
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_MULTISAMPLE_QUALITY );
 
@@ -1216,7 +1226,7 @@ void CD3DSettingsDlg::AddD3D11MultisampleQuality( _In_ UINT Quality )
 
 
 //-------------------------------------------------------------------------------------
-UINT CD3DSettingsDlg::GetSelectedD3D11MultisampleQuality() const
+DXUTAPI UINT CD3DSettingsDlg::GetSelectedD3D11MultisampleQuality() const
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_MULTISAMPLE_QUALITY );
 
@@ -1225,7 +1235,7 @@ UINT CD3DSettingsDlg::GetSelectedD3D11MultisampleQuality() const
 
 
 //-------------------------------------------------------------------------------------
-DWORD CD3DSettingsDlg::GetSelectedD3D11PresentInterval() const
+DXUTAPI DWORD CD3DSettingsDlg::GetSelectedD3D11PresentInterval() const
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_D3D11_PRESENT_INTERVAL );
 
@@ -1233,7 +1243,7 @@ DWORD CD3DSettingsDlg::GetSelectedD3D11PresentInterval() const
 }
 
 //-------------------------------------------------------------------------------------
-bool CD3DSettingsDlg::GetSelectedDebugDeviceValue() const
+DXUTAPI bool CD3DSettingsDlg::GetSelectedDebugDeviceValue() const
 {
     CDXUTCheckBox* pCheckBox = m_Dialog.GetCheckBox( DXUTSETTINGSDLG_D3D11_DEBUG_DEVICE );
 
@@ -1244,7 +1254,7 @@ bool CD3DSettingsDlg::GetSelectedDebugDeviceValue() const
 //--------------------------------------------------------------------------------------
 // Updates the resolution list for D3D11
 //--------------------------------------------------------------------------------------
-HRESULT CD3DSettingsDlg::UpdateD3D11Resolutions()
+DXUTAPI HRESULT CD3DSettingsDlg::UpdateD3D11Resolutions()
 {
 
     const DWORD dwWidth = g_DeviceSettings.d3d11.sd.BufferDesc.Width;
@@ -1304,7 +1314,7 @@ HRESULT CD3DSettingsDlg::UpdateD3D11Resolutions()
 
 //
 //-------------------------------------------------------------------------------------
-void CD3DSettingsDlg::AddD3D11DeviceType( _In_ D3D_DRIVER_TYPE devType )
+DXUTAPI void CD3DSettingsDlg::AddD3D11DeviceType( _In_ D3D_DRIVER_TYPE devType )
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_DEVICE_TYPE );
 
@@ -1314,7 +1324,7 @@ void CD3DSettingsDlg::AddD3D11DeviceType( _In_ D3D_DRIVER_TYPE devType )
 
 
 //-------------------------------------------------------------------------------------
-D3D_DRIVER_TYPE CD3DSettingsDlg::GetSelectedD3D11DeviceType() const
+DXUTAPI D3D_DRIVER_TYPE CD3DSettingsDlg::GetSelectedD3D11DeviceType() const
 {
     CDXUTComboBox* pComboBox = m_Dialog.GetComboBox( DXUTSETTINGSDLG_DEVICE_TYPE );
 
@@ -1322,7 +1332,7 @@ D3D_DRIVER_TYPE CD3DSettingsDlg::GetSelectedD3D11DeviceType() const
 }
 
 
-void CD3DSettingsDlg::UpdateModeChangeTimeoutText( _In_ int nSecRemaining )
+DXUTAPI void CD3DSettingsDlg::UpdateModeChangeTimeoutText( _In_ int nSecRemaining )
 {
     const WCHAR StrTimeout[] = L"Reverting to previous display settings in %d seconds";
     const DWORD CchBuf = sizeof( StrTimeout ) / sizeof( WCHAR ) + 16;
@@ -1337,7 +1347,7 @@ void CD3DSettingsDlg::UpdateModeChangeTimeoutText( _In_ int nSecRemaining )
 //--------------------------------------------------------------------------------------
 // Returns the string for the given D3D_DRIVER_TYPE.
 //--------------------------------------------------------------------------------------
-const WCHAR* DXUTDeviceTypeToString( _In_ D3D_DRIVER_TYPE devType )
+DXUTAPI const WCHAR* DXUTDeviceTypeToString( _In_ D3D_DRIVER_TYPE devType )
 {
     switch( devType )
     {
@@ -1354,4 +1364,14 @@ const WCHAR* DXUTDeviceTypeToString( _In_ D3D_DRIVER_TYPE devType )
     }
 }
 
+}
+
+#if defined(extern_cplus) && defined(extern_cplusplus)
+	}
+	}
+#elif defined(extern_cplus) && !defined(extern_cplusplus)
+}
+#elif defined(extern_cplusplus) && !defined(extern_cplus)
+}
+#endif
 

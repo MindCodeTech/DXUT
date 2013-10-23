@@ -17,13 +17,16 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
-#include <sal.h>
-#include <algorithm>
+#ifdef extern_cplus
+extern "C" {
+#endif
 
-#pragma pack(push)
-#pragma pack(8)
-#include <windows.h>
-#pragma pack (pop)
+#ifdef extern_cplusplus
+	extern "C++" {
+#endif
+
+		namespace DXUT
+		{
 
 extern "C"
     void _ReadWriteBarrier();
@@ -44,7 +47,7 @@ extern "C"
 // as a template parameter and restricted to powers of two less than 31.
 //
 
-template <BYTE cbBufferSizeLog2> class DXUTLockFreePipe
+template <BYTE cbBufferSizeLog2> class DXUTAPI DXUTLockFreePipe
 {
 public:
     DXUTLockFreePipe() : m_readOffset( 0 ),
@@ -224,3 +227,14 @@ private:
     volatile DWORD __declspec( align( 4 ) ) m_readOffset;
     volatile DWORD __declspec( align( 4 ) ) m_writeOffset;
 };
+
+}
+
+#if defined(extern_cplus) && defined(extern_cplusplus)
+	}
+	}
+#elif defined(extern_cplus) && !defined(extern_cplusplus)
+}
+#elif defined(extern_cplusplus) && !defined(extern_cplus)
+}
+#endif

@@ -14,12 +14,23 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
+#ifdef extern_cplus
+extern "C" {
+#endif
+
+#ifdef extern_cplusplus
+	extern "C++" {
+#endif
+
 //-----------------------------------------------------------------------------
 // Resource cache for textures, fonts, meshs, and effects.  
 // Use DXUTGetGlobalResourceCache() to access the global cache
 //-----------------------------------------------------------------------------
 
-struct DXUTCache_Texture
+namespace DXUT
+	{
+
+struct DXUTAPI DXUTCache_Texture
 {
     WCHAR   wszSource[MAX_PATH];
     bool    bSRGB;
@@ -32,7 +43,7 @@ struct DXUTCache_Texture
 };
 
 
-class CDXUTResourceCache
+class DXUTAPI CDXUTResourceCache
 {
 public:
     ~CDXUTResourceCache();
@@ -45,24 +56,24 @@ public:
     HRESULT OnDestroyDevice();
 
 protected:
-    friend CDXUTResourceCache& WINAPI DXUTGetGlobalResourceCache();
-    friend HRESULT WINAPI   DXUTInitialize3DEnvironment();
-    friend HRESULT WINAPI   DXUTReset3DEnvironment();
-    friend void WINAPI      DXUTCleanup3DEnvironment( bool bReleaseSettings );
+    friend DXUTAPI CDXUTResourceCache& WINAPI DXUTGetGlobalResourceCache();
+    friend DXUTAPI HRESULT WINAPI   DXUTInitialize3DEnvironment();
+    friend DXUTAPI HRESULT WINAPI   DXUTReset3DEnvironment();
+    friend DXUTAPI void WINAPI      DXUTCleanup3DEnvironment( _In_ bool bReleaseSettings );
 
     CDXUTResourceCache() { }
 
     std::vector<DXUTCache_Texture> m_TextureCache;
 };
    
-CDXUTResourceCache& WINAPI DXUTGetGlobalResourceCache();
+DXUTAPI CDXUTResourceCache& WINAPI DXUTGetGlobalResourceCache();
 
 
 //--------------------------------------------------------------------------------------
 // Manages the insertion point when drawing text
 //--------------------------------------------------------------------------------------
 class CDXUTDialogResourceManager;
-class CDXUTTextHelper
+class DXUTAPI CDXUTTextHelper
 {
 public:
     CDXUTTextHelper( _In_ ID3D11Device* pd3d11Device, _In_ ID3D11DeviceContext* pd3dDeviceContext, _In_ CDXUTDialogResourceManager* pManager, _In_ int nLineHeight );
@@ -100,22 +111,22 @@ protected:
 //--------------------------------------------------------------------------------------
 // Shared code for samples to ask user if they want to use a REF device or quit
 //--------------------------------------------------------------------------------------
-void WINAPI DXUTDisplaySwitchingToREFWarning();
+DXUTAPI void WINAPI DXUTDisplaySwitchingToREFWarning();
 
 //--------------------------------------------------------------------------------------
 // Tries to finds a media file by searching in common locations
 //--------------------------------------------------------------------------------------
-HRESULT WINAPI DXUTFindDXSDKMediaFileCch( _Out_writes_(cchDest) WCHAR* strDestPath,
+DXUTAPI HRESULT WINAPI DXUTFindDXSDKMediaFileCch( _Out_writes_(cchDest) WCHAR* strDestPath,
                                           _In_ int cchDest, 
                                           _In_z_ LPCWSTR strFilename );
-HRESULT WINAPI DXUTSetMediaSearchPath( _In_z_ LPCWSTR strPath );
-LPCWSTR WINAPI DXUTGetMediaSearchPath();
+DXUTAPI HRESULT WINAPI DXUTSetMediaSearchPath( _In_z_ LPCWSTR strPath );
+DXUTAPI LPCWSTR WINAPI DXUTGetMediaSearchPath();
 
 
 //--------------------------------------------------------------------------------------
 // Compiles HLSL shaders
 //--------------------------------------------------------------------------------------
-HRESULT WINAPI DXUTCompileFromFile( _In_z_ LPCWSTR pFileName,
+DXUTAPI HRESULT WINAPI DXUTCompileFromFile( _In_z_ LPCWSTR pFileName,
                                     _In_reads_opt_(_Inexpressible_(pDefines->Name != NULL)) const D3D_SHADER_MACRO* pDefines,
                                     _In_z_ LPCSTR pEntrypoint, _In_z_ LPCSTR pTarget,
                                     _In_ UINT Flags1, _In_ UINT Flags2,
@@ -124,11 +135,22 @@ HRESULT WINAPI DXUTCompileFromFile( _In_z_ LPCWSTR pFileName,
 //--------------------------------------------------------------------------------------
 // Texture utilities
 //--------------------------------------------------------------------------------------
-HRESULT WINAPI DXUTCreateShaderResourceViewFromFile( _In_ ID3D11Device* d3dDevice, _In_z_ const wchar_t* szFileName, _Outptr_ ID3D11ShaderResourceView** textureView );
-HRESULT WINAPI DXUTCreateTextureFromFile( _In_ ID3D11Device* d3dDevice, _In_z_ const wchar_t* szFileName, _Outptr_ ID3D11Resource** texture );
-HRESULT WINAPI DXUTSaveTextureToFile( _In_ ID3D11DeviceContext* pContext, _In_ ID3D11Resource* pSource, _In_ bool usedds, _In_z_ const wchar_t* szFileName );
+DXUTAPI HRESULT WINAPI DXUTCreateShaderResourceViewFromFile( _In_ ID3D11Device* d3dDevice, _In_z_ const wchar_t* szFileName, _Outptr_ ID3D11ShaderResourceView** textureView );
+DXUTAPI HRESULT WINAPI DXUTCreateTextureFromFile( _In_ ID3D11Device* d3dDevice, _In_z_ const wchar_t* szFileName, _Outptr_ ID3D11Resource** texture );
+DXUTAPI HRESULT WINAPI DXUTSaveTextureToFile( _In_ ID3D11DeviceContext* pContext, _In_ ID3D11Resource* pSource, _In_ bool usedds, _In_z_ const wchar_t* szFileName );
 
 //--------------------------------------------------------------------------------------
 // Returns a view matrix for rendering to a face of a cubemap.
 //--------------------------------------------------------------------------------------
-DirectX::XMMATRIX WINAPI DXUTGetCubeMapViewMatrix( _In_ DWORD dwFace );
+DXUTAPI DirectX::XMMATRIX WINAPI DXUTGetCubeMapViewMatrix( _In_ DWORD dwFace );
+
+}
+
+#if defined(extern_cplus) && defined(extern_cplusplus)
+	}
+	}
+#elif defined(extern_cplus) && !defined(extern_cplusplus)
+}
+#elif defined(extern_cplusplus) && !defined(extern_cplus)
+}
+#endif

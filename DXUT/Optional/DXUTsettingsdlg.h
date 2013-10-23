@@ -12,10 +12,13 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
-//--------------------------------------------------------------------------------------
-// Header Includes
-//--------------------------------------------------------------------------------------
-#include "DXUTgui.h"
+#ifdef extern_cplus
+extern "C" {
+#endif
+
+#ifdef extern_cplusplus
+	extern "C++" {
+#endif
 
 //--------------------------------------------------------------------------------------
 // Control IDs
@@ -53,12 +56,15 @@
 
 #define TOTAL_FEATURE_LEVELS                            7
 
+		namespace DXUT
+		{
+
 //--------------------------------------------------------------------------------------
 // Dialog for selection of device settings 
 // Use DXUTGetD3DSettingsDialog() to access global instance
 // To control the contents of the dialog, use the CD3D11Enumeration class.
 //--------------------------------------------------------------------------------------
-class CD3DSettingsDlg
+class DXUTAPI CD3DSettingsDlg
 {
 public:
     CD3DSettingsDlg();
@@ -88,7 +94,7 @@ public:
     LRESULT MsgProc( _In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam );
 
 protected:
-    friend CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog();
+    friend DXUTAPI CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog();
 
     void CreateControls();
     void SetSelectedD3D11RefreshRate( _In_ DXGI_RATIONAL RefreshRate );
@@ -165,4 +171,15 @@ protected:
 };
 
 
-CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog();
+DXUTAPI CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog();
+
+}
+
+#if defined(extern_cplus) && defined(extern_cplusplus)
+	}
+	}
+#elif defined(extern_cplus) && !defined(extern_cplusplus)
+}
+#elif defined(extern_cplusplus) && !defined(extern_cplus)
+}
+#endif

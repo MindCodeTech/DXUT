@@ -12,22 +12,31 @@
 //
 // http://go.microsoft.com/fwlink/?LinkId=320437
 //--------------------------------------------------------------------------------------
-#include "dxut.h"
-#include "SDKmisc.h"
-#include "DXUTres.h"
-
-#include "DXUTGui.h"
-
-#include "DDSTextureLoader.h"
-#include "WICTextureLoader.h"
-#include "ScreenGrab.h"
+#include "dxutstdafx.h"
 
 using namespace DirectX;
 
+using namespace DXUT::DDSTextLoader;
+
+using namespace DXUT::ScreenGrab;
+
+using namespace DXUT::WICTextureLoader;
+
+
+#ifdef extern_cplus
+extern "C" {
+#endif
+
+#ifdef extern_cplusplus
+	extern "C++" {
+#endif
+
+		namespace DXUT
+		{
 //--------------------------------------------------------------------------------------
 // Global/Static Members
 //--------------------------------------------------------------------------------------
-CDXUTResourceCache& WINAPI DXUTGetGlobalResourceCache()
+DXUTAPI CDXUTResourceCache& WINAPI DXUTGetGlobalResourceCache()
 {
     // Using an accessor function gives control of the construction order
     static CDXUTResourceCache* s_cache = nullptr;
@@ -42,23 +51,23 @@ CDXUTResourceCache& WINAPI DXUTGetGlobalResourceCache()
 //--------------------------------------------------------------------------------------
 // Internal functions forward declarations
 //--------------------------------------------------------------------------------------
-bool DXUTFindMediaSearchTypicalDirs( _Out_writes_(cchSearch) WCHAR* strSearchPath, 
+DXUTAPI bool DXUTFindMediaSearchTypicalDirs( _Out_writes_(cchSearch) WCHAR* strSearchPath, 
                                      _In_ int cchSearch, 
                                      _In_ LPCWSTR strLeaf, 
                                      _In_ const WCHAR* strExePath,
                                      _In_ const WCHAR* strExeName );
-bool DXUTFindMediaSearchParentDirs( _Out_writes_(cchSearch) WCHAR* strSearchPath, 
+DXUTAPI bool DXUTFindMediaSearchParentDirs( _Out_writes_(cchSearch) WCHAR* strSearchPath, 
                                     _In_ int cchSearch, 
                                     _In_ const WCHAR* strStartAt, 
                                     _In_ const WCHAR* strLeafName );
 
-INT_PTR CALLBACK DisplaySwitchToREFWarningProc( _In_ HWND hDlg, _In_ UINT message, _In_ WPARAM wParam, _In_ LPARAM lParam );
+DXUTAPI INT_PTR CALLBACK DisplaySwitchToREFWarningProc( _In_ HWND hDlg, _In_ UINT message, _In_ WPARAM wParam, _In_ LPARAM lParam );
 
 
 //--------------------------------------------------------------------------------------
 // Shared code for samples to ask user if they want to use a REF device or quit
 //--------------------------------------------------------------------------------------
-void WINAPI DXUTDisplaySwitchingToREFWarning()
+DXUTAPI void WINAPI DXUTDisplaySwitchingToREFWarning()
 {
     if( DXUTGetShowMsgBoxOnError() )
     {
@@ -154,7 +163,7 @@ void WINAPI DXUTDisplaySwitchingToREFWarning()
 // MsgProc for DXUTDisplaySwitchingToREFWarning() dialog box
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-INT_PTR CALLBACK DisplaySwitchToREFWarningProc( HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam )
+DXUTAPI INT_PTR CALLBACK DisplaySwitchToREFWarningProc( HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam )
 {
     switch( message )
     {
@@ -197,7 +206,7 @@ INT_PTR CALLBACK DisplaySwitchToREFWarningProc( HWND hDlg, UINT message, WPARAM 
 //--------------------------------------------------------------------------------------
 // Returns pointer to static media search buffer
 //--------------------------------------------------------------------------------------
-WCHAR* DXUTMediaSearchPath()
+DXUTAPI WCHAR* DXUTMediaSearchPath()
 {
     static WCHAR s_strMediaSearchPath[MAX_PATH] =
     {
@@ -209,14 +218,14 @@ WCHAR* DXUTMediaSearchPath()
 
 
 //--------------------------------------------------------------------------------------
-LPCWSTR WINAPI DXUTGetMediaSearchPath()
+DXUTAPI LPCWSTR WINAPI DXUTGetMediaSearchPath()
 {
     return DXUTMediaSearchPath();
 }
 
 
 //--------------------------------------------------------------------------------------
-HRESULT WINAPI DXUTSetMediaSearchPath( _In_z_ LPCWSTR strPath )
+DXUTAPI HRESULT WINAPI DXUTSetMediaSearchPath( _In_z_ LPCWSTR strPath )
 {
     HRESULT hr;
 
@@ -244,7 +253,7 @@ HRESULT WINAPI DXUTSetMediaSearchPath( _In_z_ LPCWSTR strPath )
 //       pass in sizeof(strDest) on UNICODE builds.
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT WINAPI DXUTFindDXSDKMediaFileCch( WCHAR* strDestPath, int cchDest, 
+DXUTAPI HRESULT WINAPI DXUTFindDXSDKMediaFileCch( WCHAR* strDestPath, int cchDest, 
                                           LPCWSTR strFilename )
 {
     bool bFound;
@@ -338,7 +347,7 @@ HRESULT WINAPI DXUTFindDXSDKMediaFileCch( WCHAR* strDestPath, int cchDest,
 // Search a set of typical directories
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-bool DXUTFindMediaSearchTypicalDirs( WCHAR* strSearchPath, int cchSearch, LPCWSTR strLeaf, 
+DXUTAPI bool DXUTFindMediaSearchTypicalDirs( WCHAR* strSearchPath, int cchSearch, LPCWSTR strLeaf, 
                                      const WCHAR* strExePath, const WCHAR* strExeName )
 {
     // Typical directories:
@@ -415,7 +424,7 @@ bool DXUTFindMediaSearchTypicalDirs( WCHAR* strSearchPath, int cchSearch, LPCWST
 // at each parent directory.  It stops at the root directory.
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-bool DXUTFindMediaSearchParentDirs( WCHAR* strSearchPath, int cchSearch, const WCHAR* strStartAt, 
+DXUTAPI bool DXUTFindMediaSearchParentDirs( WCHAR* strSearchPath, int cchSearch, const WCHAR* strStartAt, 
                                     const WCHAR* strLeafName )
 {
     WCHAR strFullPath[MAX_PATH] =
@@ -462,13 +471,7 @@ bool DXUTFindMediaSearchParentDirs( WCHAR* strSearchPath, int cchSearch, const W
 namespace
 {
 
-struct handle_closer { void operator()(HANDLE h) { if (h) CloseHandle(h); } };
-
-typedef public std::unique_ptr<void, handle_closer> ScopedHandle;
-
-inline HANDLE safe_handle( HANDLE h ) { return (h == INVALID_HANDLE_VALUE) ? 0 : h; }
-
-class CIncludeHandler : public ID3DInclude
+class DXUTAPI CIncludeHandler : public ID3DInclude
     // Not as robust as D3D_COMPILE_STANDARD_FILE_INCLUDE, but it works in most cases
 {
 private:
@@ -589,7 +592,7 @@ public:
 #endif
 
 _Use_decl_annotations_
-HRESULT WINAPI DXUTCompileFromFile( LPCWSTR pFileName,
+DXUTAPI HRESULT WINAPI DXUTCompileFromFile( LPCWSTR pFileName,
                                     const D3D_SHADER_MACRO* pDefines,
                                     LPCSTR pEntrypoint, LPCSTR pTarget,
                                     UINT Flags1, UINT Flags2,
@@ -693,7 +696,7 @@ HRESULT WINAPI DXUTCompileFromFile( LPCWSTR pFileName,
 //--------------------------------------------------------------------------------------
 
 _Use_decl_annotations_
-HRESULT WINAPI DXUTCreateShaderResourceViewFromFile( ID3D11Device* d3dDevice, const wchar_t* szFileName, ID3D11ShaderResourceView** textureView )
+DXUTAPI HRESULT WINAPI DXUTCreateShaderResourceViewFromFile( ID3D11Device* d3dDevice, const wchar_t* szFileName, ID3D11ShaderResourceView** textureView )
 {
     if ( !d3dDevice || !szFileName || !textureView )
         return E_INVALIDARG;
@@ -708,18 +711,18 @@ HRESULT WINAPI DXUTCreateShaderResourceViewFromFile( ID3D11Device* d3dDevice, co
 
     if ( _wcsicmp( ext, L".dds" ) == 0 )
     {
-        hr = DirectX::CreateDDSTextureFromFile( d3dDevice, str, nullptr, textureView );
+        hr = CreateDDSTextureFromFile( d3dDevice, str, nullptr, textureView );
     }
     else
     {
-        hr = DirectX::CreateWICTextureFromFile( d3dDevice, nullptr, str, nullptr, textureView );
+        hr = CreateWICTextureFromFile( d3dDevice, nullptr, str, nullptr, textureView );
     }
 
     return hr;
 }
 
 _Use_decl_annotations_
-HRESULT WINAPI DXUTCreateTextureFromFile( ID3D11Device* d3dDevice, const wchar_t* szFileName, ID3D11Resource** texture )
+DXUTAPI HRESULT WINAPI DXUTCreateTextureFromFile( ID3D11Device* d3dDevice, const wchar_t* szFileName, ID3D11Resource** texture )
 {
     if ( !d3dDevice || !szFileName || !texture )
         return E_INVALIDARG;
@@ -734,18 +737,18 @@ HRESULT WINAPI DXUTCreateTextureFromFile( ID3D11Device* d3dDevice, const wchar_t
 
     if ( _wcsicmp( ext, L".dds" ) == 0 )
     {
-        hr = DirectX::CreateDDSTextureFromFile( d3dDevice, str, texture, nullptr );
+        hr = CreateDDSTextureFromFile( d3dDevice, str, texture, nullptr );
     }
     else
     {
-        hr = DirectX::CreateWICTextureFromFile( d3dDevice, nullptr, str, texture, nullptr );
+        hr = CreateWICTextureFromFile( d3dDevice, nullptr, str, texture, nullptr );
     }
 
     return hr;
 }
 
 _Use_decl_annotations_
-HRESULT WINAPI DXUTSaveTextureToFile( ID3D11DeviceContext* pContext, ID3D11Resource* pSource, bool usedds, const wchar_t* szFileName )
+DXUTAPI HRESULT WINAPI DXUTSaveTextureToFile( ID3D11DeviceContext* pContext, ID3D11Resource* pSource, bool usedds, const wchar_t* szFileName )
 {
     if ( !pContext || !pSource || !szFileName )
         return E_INVALIDARG;
@@ -754,11 +757,11 @@ HRESULT WINAPI DXUTSaveTextureToFile( ID3D11DeviceContext* pContext, ID3D11Resou
 
     if ( usedds )
     {
-        hr = DirectX::SaveDDSTextureToFile( pContext, pSource, szFileName );
+        hr = SaveDDSTextureToFile( pContext, pSource, szFileName );
     }
     else
     {
-        hr = DirectX::SaveWICTextureToFile( pContext, pSource, GUID_ContainerFormatBmp, szFileName );
+        hr = SaveWICTextureToFile( pContext, pSource, GUID_ContainerFormatBmp, szFileName );
     }
 
     return hr;
@@ -768,7 +771,7 @@ HRESULT WINAPI DXUTSaveTextureToFile( ID3D11DeviceContext* pContext, ID3D11Resou
 //--------------------------------------------------------------------------------------
 // Desc: Returns a view matrix for rendering to a face of a cubemap.
 //--------------------------------------------------------------------------------------
-XMMATRIX WINAPI DXUTGetCubeMapViewMatrix( _In_ DWORD dwFace )
+DXUTAPI XMMATRIX WINAPI DXUTGetCubeMapViewMatrix( _In_ DWORD dwFace )
 {
     static const XMVECTORF32 s_vLookDir[] =
     {
@@ -805,7 +808,7 @@ XMMATRIX WINAPI DXUTGetCubeMapViewMatrix( _In_ DWORD dwFace )
 // CDXUTResourceCache
 //======================================================================================
 
-CDXUTResourceCache::~CDXUTResourceCache()
+DXUTAPI CDXUTResourceCache::~CDXUTResourceCache()
 {
     OnDestroyDevice();
 
@@ -814,7 +817,7 @@ CDXUTResourceCache::~CDXUTResourceCache()
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT CDXUTResourceCache::CreateTextureFromFile( ID3D11Device* pDevice, ID3D11DeviceContext *pContext, LPCWSTR pSrcFile,
+DXUTAPI HRESULT CDXUTResourceCache::CreateTextureFromFile( ID3D11Device* pDevice, ID3D11DeviceContext *pContext, LPCWSTR pSrcFile,
                                                    ID3D11ShaderResourceView** ppOutputRV, bool bSRGB )
 {
     if ( !ppOutputRV )
@@ -840,13 +843,13 @@ HRESULT CDXUTResourceCache::CreateTextureFromFile( ID3D11Device* pDevice, ID3D11
     HRESULT hr;
     if ( _wcsicmp( ext, L".dds" ) == 0 )
     {
-        hr = DirectX::CreateDDSTextureFromFileEx( pDevice, pSrcFile, 0,
+        hr = CreateDDSTextureFromFileEx( pDevice, pSrcFile, 0,
                                                   D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0, bSRGB,
                                                   nullptr, ppOutputRV, nullptr );
     }
     else
     {
-        hr = DirectX::CreateWICTextureFromFileEx( pDevice, pContext, pSrcFile, 0,
+        hr = CreateWICTextureFromFileEx( pDevice, pContext, pSrcFile, 0,
                                                   D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0, bSRGB,
                                                   nullptr, ppOutputRV );
     }
@@ -867,7 +870,7 @@ HRESULT CDXUTResourceCache::CreateTextureFromFile( ID3D11Device* pDevice, ID3D11
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT CDXUTResourceCache::CreateTextureFromFile( ID3D11Device* pDevice, ID3D11DeviceContext *pContext, LPCSTR pSrcFile,
+DXUTAPI HRESULT CDXUTResourceCache::CreateTextureFromFile( ID3D11Device* pDevice, ID3D11DeviceContext *pContext, LPCSTR pSrcFile,
                                                    ID3D11ShaderResourceView** ppOutputRV, bool bSRGB )
 {
     WCHAR szSrcFile[MAX_PATH];
@@ -884,7 +887,7 @@ HRESULT CDXUTResourceCache::CreateTextureFromFile( ID3D11Device* pDevice, ID3D11
 
 
 //--------------------------------------------------------------------------------------
-HRESULT CDXUTResourceCache::OnDestroyDevice()
+DXUTAPI HRESULT CDXUTResourceCache::OnDestroyDevice()
 {
     // Release all resources
     for( size_t j = 0; j < m_TextureCache.size(); ++j )
@@ -902,7 +905,7 @@ HRESULT CDXUTResourceCache::OnDestroyDevice()
 //======================================================================================
 
 _Use_decl_annotations_
-CDXUTTextHelper::CDXUTTextHelper( ID3D11Device* pd3d11Device, ID3D11DeviceContext* pd3d11DeviceContext, CDXUTDialogResourceManager* pManager, int nLineHeight )
+DXUTAPI CDXUTTextHelper::CDXUTTextHelper( ID3D11Device* pd3d11Device, ID3D11DeviceContext* pd3d11DeviceContext, CDXUTDialogResourceManager* pManager, int nLineHeight )
 {
     Init( nLineHeight );
     m_pd3d11Device = pd3d11Device;
@@ -910,14 +913,14 @@ CDXUTTextHelper::CDXUTTextHelper( ID3D11Device* pd3d11Device, ID3D11DeviceContex
     m_pManager = pManager;
 }
 
-CDXUTTextHelper::~CDXUTTextHelper()
+DXUTAPI CDXUTTextHelper::~CDXUTTextHelper()
 {
 
 }
 
 
 //--------------------------------------------------------------------------------------
-void CDXUTTextHelper::Init( _In_ int nLineHeight )
+DXUTAPI void CDXUTTextHelper::Init( _In_ int nLineHeight )
 {
     m_clr = XMFLOAT4( 1, 1, 1, 1 );
     m_pt.x = 0;
@@ -932,7 +935,7 @@ void CDXUTTextHelper::Init( _In_ int nLineHeight )
 
 
 //--------------------------------------------------------------------------------------
-HRESULT CDXUTTextHelper::DrawFormattedTextLine( _In_z_ const WCHAR* strMsg, ... )
+DXUTAPI HRESULT CDXUTTextHelper::DrawFormattedTextLine( _In_z_ const WCHAR* strMsg, ... )
 {
     WCHAR strBuffer[512];
 
@@ -947,7 +950,7 @@ HRESULT CDXUTTextHelper::DrawFormattedTextLine( _In_z_ const WCHAR* strMsg, ... 
 
 
 //--------------------------------------------------------------------------------------
-HRESULT CDXUTTextHelper::DrawTextLine( _In_z_ const WCHAR* strMsg )
+DXUTAPI HRESULT CDXUTTextHelper::DrawTextLine( _In_z_ const WCHAR* strMsg )
 {
     if( !m_pd3d11DeviceContext )
         return DXUT_ERR_MSGBOX( L"DrawTextLine", E_INVALIDARG );
@@ -969,7 +972,7 @@ HRESULT CDXUTTextHelper::DrawTextLine( _In_z_ const WCHAR* strMsg )
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT CDXUTTextHelper::DrawFormattedTextLine( const RECT& rc, const WCHAR* strMsg, ... )
+DXUTAPI HRESULT CDXUTTextHelper::DrawFormattedTextLine( const RECT& rc, const WCHAR* strMsg, ... )
 {
     WCHAR strBuffer[512];
 
@@ -985,7 +988,7 @@ HRESULT CDXUTTextHelper::DrawFormattedTextLine( const RECT& rc, const WCHAR* str
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT CDXUTTextHelper::DrawTextLine( const RECT& rc, const WCHAR* strMsg )
+DXUTAPI HRESULT CDXUTTextHelper::DrawTextLine( const RECT& rc, const WCHAR* strMsg )
 {
     if( !m_pd3d11DeviceContext )
         return DXUT_ERR_MSGBOX( L"DrawTextLine", E_INVALIDARG );
@@ -1004,7 +1007,7 @@ HRESULT CDXUTTextHelper::DrawTextLine( const RECT& rc, const WCHAR* strMsg )
 
 
 //--------------------------------------------------------------------------------------
-void CDXUTTextHelper::Begin()
+DXUTAPI void CDXUTTextHelper::Begin()
 {
     if( m_pd3d11DeviceContext )
     {
@@ -1017,10 +1020,21 @@ void CDXUTTextHelper::Begin()
 
 
 //--------------------------------------------------------------------------------------
-void CDXUTTextHelper::End()
+DXUTAPI void CDXUTTextHelper::End()
 {
     if( m_pd3d11DeviceContext )
     {
         m_pManager->RestoreD3D11State( m_pd3d11DeviceContext );
     }
 }
+
+}
+
+#if defined(extern_cplus) && defined(extern_cplusplus)
+	}
+	}
+#elif defined(extern_cplus) && !defined(extern_cplusplus)
+}
+#elif defined(extern_cplusplus) && !defined(extern_cplus)
+}
+#endif

@@ -1,0 +1,42 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TressFX11", "TressFX11.vcxproj", "{D3D1011B-96D0-4629-88B8-122C0256058C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{85344B7F-5AA0-4E12-A065-D1333D11F6CA} = {85344B7F-5AA0-4E12-A065-D1333D11F6CA}
+		{61B333C2-C4F7-4CC1-A9BF-83F6D95588EB} = {61B333C2-C4F7-4CC1-A9BF-83F6D95588EB}
+		{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A} = {EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXUT", "..\DXUT\Core\DXUT_2010.vcxproj", "{85344B7F-5AA0-4E12-A065-D1333D11F6CA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXUTOpt", "..\DXUT\Optional\DXUTOpt_2010.vcxproj", "{61B333C2-C4F7-4CC1-A9BF-83F6D95588EB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AMD_SDK", "..\AMD_SDK\AMD_SDK_2010.vcxproj", "{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3D1011B-96D0-4629-88B8-122C0256058C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D3D1011B-96D0-4629-88B8-122C0256058C}.Debug|Win32.Build.0 = Debug|Win32
+		{D3D1011B-96D0-4629-88B8-122C0256058C}.Release|Win32.ActiveCfg = Release|Win32
+		{D3D1011B-96D0-4629-88B8-122C0256058C}.Release|Win32.Build.0 = Release|Win32
+		{85344B7F-5AA0-4E12-A065-D1333D11F6CA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{85344B7F-5AA0-4E12-A065-D1333D11F6CA}.Debug|Win32.Build.0 = Debug|Win32
+		{85344B7F-5AA0-4E12-A065-D1333D11F6CA}.Release|Win32.ActiveCfg = Release|Win32
+		{85344B7F-5AA0-4E12-A065-D1333D11F6CA}.Release|Win32.Build.0 = Release|Win32
+		{61B333C2-C4F7-4CC1-A9BF-83F6D95588EB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{61B333C2-C4F7-4CC1-A9BF-83F6D95588EB}.Debug|Win32.Build.0 = Debug|Win32
+		{61B333C2-C4F7-4CC1-A9BF-83F6D95588EB}.Release|Win32.ActiveCfg = Release|Win32
+		{61B333C2-C4F7-4CC1-A9BF-83F6D95588EB}.Release|Win32.Build.0 = Release|Win32
+		{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}.Debug|Win32.Build.0 = Debug|Win32
+		{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}.Release|Win32.ActiveCfg = Release|Win32
+		{EBB939DC-98E4-49DF-B1F1-D2E80A11F60A}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -15,15 +15,24 @@
 //
 // http://go.microsoft.com/fwlink/?LinkId=320437
 //--------------------------------------------------------------------------------------
-#include "DXUT.h"
-#include "SDKMesh.h"
-#include "SDKMisc.h"
+#include "dxutstdafx.h"
 
 using namespace DirectX;
 
+
+#ifdef extern_cplus
+extern "C" {
+#endif
+
+#ifdef extern_cplusplus
+	extern "C++" {
+#endif
+
+		namespace DXUT
+		{
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CDXUTSDKMesh::LoadMaterials( ID3D11Device* pd3dDevice, SDKMESH_MATERIAL* pMaterials, UINT numMaterials,
+DXUTAPI void CDXUTSDKMesh::LoadMaterials( ID3D11Device* pd3dDevice, SDKMESH_MATERIAL* pMaterials, UINT numMaterials,
                                   SDKMESH_CALLBACKS11* pLoaderCallbacks )
 {
     char strPath[MAX_PATH];
@@ -103,7 +112,7 @@ void CDXUTSDKMesh::LoadMaterials( ID3D11Device* pd3dDevice, SDKMESH_MATERIAL* pM
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT CDXUTSDKMesh::CreateVertexBuffer( ID3D11Device* pd3dDevice, SDKMESH_VERTEX_BUFFER_HEADER* pHeader,
+DXUTAPI HRESULT CDXUTSDKMesh::CreateVertexBuffer( ID3D11Device* pd3dDevice, SDKMESH_VERTEX_BUFFER_HEADER* pHeader,
                                           void* pVertices, SDKMESH_CALLBACKS11* pLoaderCallbacks )
 {
     HRESULT hr = S_OK;
@@ -138,7 +147,7 @@ HRESULT CDXUTSDKMesh::CreateVertexBuffer( ID3D11Device* pd3dDevice, SDKMESH_VERT
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT CDXUTSDKMesh::CreateIndexBuffer( ID3D11Device* pd3dDevice, SDKMESH_INDEX_BUFFER_HEADER* pHeader,
+DXUTAPI HRESULT CDXUTSDKMesh::CreateIndexBuffer( ID3D11Device* pd3dDevice, SDKMESH_INDEX_BUFFER_HEADER* pHeader,
                                          void* pIndices, SDKMESH_CALLBACKS11* pLoaderCallbacks )
 {
     HRESULT hr = S_OK;
@@ -173,7 +182,7 @@ HRESULT CDXUTSDKMesh::CreateIndexBuffer( ID3D11Device* pd3dDevice, SDKMESH_INDEX
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT CDXUTSDKMesh::CreateFromFile( ID3D11Device* pDev11,
+DXUTAPI HRESULT CDXUTSDKMesh::CreateFromFile( ID3D11Device* pDev11,
                                       LPCWSTR szFileName,
                                       SDKMESH_CALLBACKS11* pLoaderCallbacks11 )
 {
@@ -232,7 +241,7 @@ HRESULT CDXUTSDKMesh::CreateFromFile( ID3D11Device* pDev11,
 }
 
 _Use_decl_annotations_
-HRESULT CDXUTSDKMesh::CreateFromMemory( ID3D11Device* pDev11,
+DXUTAPI HRESULT CDXUTSDKMesh::CreateFromMemory( ID3D11Device* pDev11,
                                         BYTE* pData,
                                         size_t DataBytes,
                                         bool bCopyStatic,
@@ -473,7 +482,7 @@ Error:
 // transform bind pose frame using a recursive traversal
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CDXUTSDKMesh::TransformBindPoseFrame( UINT iFrame, CXMMATRIX parentWorld )
+DXUTAPI void CDXUTSDKMesh::TransformBindPoseFrame( UINT iFrame, CXMMATRIX parentWorld )
 {
     if( !m_pBindPoseFrameMatrices )
         return;
@@ -501,7 +510,7 @@ void CDXUTSDKMesh::TransformBindPoseFrame( UINT iFrame, CXMMATRIX parentWorld )
 // transform frame using a recursive traversal
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CDXUTSDKMesh::TransformFrame( UINT iFrame, CXMMATRIX parentWorld, double fTime )
+DXUTAPI void CDXUTSDKMesh::TransformFrame( UINT iFrame, CXMMATRIX parentWorld, double fTime )
 {
     // Get the tick data
     XMMATRIX mLocalTransform;
@@ -552,7 +561,7 @@ void CDXUTSDKMesh::TransformFrame( UINT iFrame, CXMMATRIX parentWorld, double fT
 // transform frame assuming that it is an absolute transformation
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CDXUTSDKMesh::TransformFrameAbsolute( UINT iFrame, double fTime )
+DXUTAPI void CDXUTSDKMesh::TransformFrameAbsolute( UINT iFrame, double fTime )
 {
     UINT iTick = GetAnimationKeyFromTime( fTime );
 
@@ -583,7 +592,7 @@ void CDXUTSDKMesh::TransformFrameAbsolute( UINT iFrame, double fTime )
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CDXUTSDKMesh::RenderMesh( UINT iMesh,
+DXUTAPI void CDXUTSDKMesh::RenderMesh( UINT iMesh,
                                bool bAdjacent,
                                ID3D11DeviceContext* pd3dDeviceContext,
                                UINT iDiffuseSlot,
@@ -683,7 +692,7 @@ void CDXUTSDKMesh::RenderMesh( UINT iMesh,
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CDXUTSDKMesh::RenderFrame( UINT iFrame,
+DXUTAPI void CDXUTSDKMesh::RenderFrame( UINT iFrame,
                                 bool bAdjacent,
                                 ID3D11DeviceContext* pd3dDeviceContext,
                                 UINT iDiffuseSlot,
@@ -715,7 +724,7 @@ void CDXUTSDKMesh::RenderFrame( UINT iFrame,
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTSDKMesh::CDXUTSDKMesh() : m_NumOutstandingResources( 0 ),
+DXUTAPI CDXUTSDKMesh::CDXUTSDKMesh() : m_NumOutstandingResources( 0 ),
                                m_bLoading( false ),
                                m_hFile( 0 ),
                                m_hFileMappingObject( 0 ),
@@ -736,28 +745,28 @@ CDXUTSDKMesh::CDXUTSDKMesh() : m_NumOutstandingResources( 0 ),
 
 
 //--------------------------------------------------------------------------------------
-CDXUTSDKMesh::~CDXUTSDKMesh()
+DXUTAPI CDXUTSDKMesh::~CDXUTSDKMesh()
 {
     Destroy();
 }
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT CDXUTSDKMesh::Create( ID3D11Device* pDev11, LPCWSTR szFileName, SDKMESH_CALLBACKS11* pLoaderCallbacks )
+DXUTAPI HRESULT CDXUTSDKMesh::Create( ID3D11Device* pDev11, LPCWSTR szFileName, SDKMESH_CALLBACKS11* pLoaderCallbacks )
 {
     return CreateFromFile( pDev11, szFileName, pLoaderCallbacks );
 }
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-HRESULT CDXUTSDKMesh::Create( ID3D11Device* pDev11, BYTE* pData, size_t DataBytes, bool bCopyStatic, SDKMESH_CALLBACKS11* pLoaderCallbacks )
+DXUTAPI HRESULT CDXUTSDKMesh::Create( ID3D11Device* pDev11, BYTE* pData, size_t DataBytes, bool bCopyStatic, SDKMESH_CALLBACKS11* pLoaderCallbacks )
 {
     return CreateFromMemory( pDev11, pData, DataBytes, bCopyStatic, pLoaderCallbacks );
 }
 
 
 //--------------------------------------------------------------------------------------
-HRESULT CDXUTSDKMesh::LoadAnimation( _In_z_ const WCHAR* szFileName )
+DXUTAPI HRESULT CDXUTSDKMesh::LoadAnimation( _In_z_ const WCHAR* szFileName )
 {
     HRESULT hr = E_FAIL;
     DWORD dwBytesRead = 0;
@@ -819,7 +828,7 @@ Error:
 }
 
 //--------------------------------------------------------------------------------------
-void CDXUTSDKMesh::Destroy()
+DXUTAPI void CDXUTSDKMesh::Destroy()
 {
     if( !CheckLoadDone() )
         return;
@@ -904,7 +913,7 @@ void CDXUTSDKMesh::Destroy()
 // transform the mesh frames according to the animation for time fTime
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CDXUTSDKMesh::TransformMesh( CXMMATRIX world, double fTime )
+DXUTAPI void CDXUTSDKMesh::TransformMesh( CXMMATRIX world, double fTime )
 {
     if( !m_pAnimationHeader || FTT_RELATIVE == m_pAnimationHeader->FrameTransformType )
     {
@@ -931,7 +940,7 @@ void CDXUTSDKMesh::TransformMesh( CXMMATRIX world, double fTime )
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CDXUTSDKMesh::Render( ID3D11DeviceContext* pd3dDeviceContext,
+DXUTAPI void CDXUTSDKMesh::Render( ID3D11DeviceContext* pd3dDeviceContext,
                            UINT iDiffuseSlot,
                            UINT iNormalSlot,
                            UINT iSpecularSlot )
@@ -941,7 +950,7 @@ void CDXUTSDKMesh::Render( ID3D11DeviceContext* pd3dDeviceContext,
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-void CDXUTSDKMesh::RenderAdjacent( ID3D11DeviceContext* pd3dDeviceContext,
+DXUTAPI void CDXUTSDKMesh::RenderAdjacent( ID3D11DeviceContext* pd3dDeviceContext,
                                    UINT iDiffuseSlot,
                                    UINT iNormalSlot,
                                    UINT iSpecularSlot )
@@ -951,7 +960,7 @@ void CDXUTSDKMesh::RenderAdjacent( ID3D11DeviceContext* pd3dDeviceContext,
 
 
 //--------------------------------------------------------------------------------------
-D3D11_PRIMITIVE_TOPOLOGY CDXUTSDKMesh::GetPrimitiveType11( _In_ SDKMESH_PRIMITIVE_TYPE PrimType )
+DXUTAPI D3D11_PRIMITIVE_TOPOLOGY CDXUTSDKMesh::GetPrimitiveType11( _In_ SDKMESH_PRIMITIVE_TYPE PrimType )
 {
     D3D11_PRIMITIVE_TOPOLOGY retType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
@@ -990,7 +999,7 @@ D3D11_PRIMITIVE_TOPOLOGY CDXUTSDKMesh::GetPrimitiveType11( _In_ SDKMESH_PRIMITIV
 }
 
 //--------------------------------------------------------------------------------------
-DXGI_FORMAT CDXUTSDKMesh::GetIBFormat11( _In_ UINT iMesh ) const
+DXUTAPI DXGI_FORMAT CDXUTSDKMesh::GetIBFormat11( _In_ UINT iMesh ) const
 {
     switch( m_pIndexBufferArray[ m_pMeshArray[ iMesh ].IndexBuffer ].IndexType )
     {
@@ -1003,40 +1012,40 @@ DXGI_FORMAT CDXUTSDKMesh::GetIBFormat11( _In_ UINT iMesh ) const
 }
 
 //--------------------------------------------------------------------------------------
-ID3D11Buffer* CDXUTSDKMesh::GetVB11( _In_ UINT iMesh, _In_ UINT iVB ) const
+DXUTAPI ID3D11Buffer* CDXUTSDKMesh::GetVB11( _In_ UINT iMesh, _In_ UINT iVB ) const
 {
     return m_pVertexBufferArray[ m_pMeshArray[ iMesh ].VertexBuffers[iVB] ].pVB11;
 }
 
 //--------------------------------------------------------------------------------------
-ID3D11Buffer* CDXUTSDKMesh::GetIB11( _In_ UINT iMesh ) const
+DXUTAPI ID3D11Buffer* CDXUTSDKMesh::GetIB11( _In_ UINT iMesh ) const
 {
     return m_pIndexBufferArray[ m_pMeshArray[ iMesh ].IndexBuffer ].pIB11;
 }
-SDKMESH_INDEX_TYPE CDXUTSDKMesh::GetIndexType( _In_ UINT iMesh ) const
+DXUTAPI SDKMESH_INDEX_TYPE CDXUTSDKMesh::GetIndexType( _In_ UINT iMesh ) const
 {
     return ( SDKMESH_INDEX_TYPE ) m_pIndexBufferArray[m_pMeshArray[ iMesh ].IndexBuffer].IndexType;
 }
 //--------------------------------------------------------------------------------------
-ID3D11Buffer* CDXUTSDKMesh::GetAdjIB11( _In_ UINT iMesh ) const
+DXUTAPI ID3D11Buffer* CDXUTSDKMesh::GetAdjIB11( _In_ UINT iMesh ) const
 {
     return m_pAdjacencyIndexBufferArray[ m_pMeshArray[ iMesh ].IndexBuffer ].pIB11;
 }
 
 //--------------------------------------------------------------------------------------
-const char* CDXUTSDKMesh::GetMeshPathA() const
+DXUTAPI const char* CDXUTSDKMesh::GetMeshPathA() const
 {
     return m_strPath;
 }
 
 //--------------------------------------------------------------------------------------
-const WCHAR* CDXUTSDKMesh::GetMeshPathW() const
+DXUTAPI const WCHAR* CDXUTSDKMesh::GetMeshPathW() const
 {
     return m_strPathW;
 }
 
 //--------------------------------------------------------------------------------------
-UINT CDXUTSDKMesh::GetNumMeshes() const
+DXUTAPI UINT CDXUTSDKMesh::GetNumMeshes() const
 {
     if( !m_pMeshHeader )
         return 0;
@@ -1044,7 +1053,7 @@ UINT CDXUTSDKMesh::GetNumMeshes() const
 }
 
 //--------------------------------------------------------------------------------------
-UINT CDXUTSDKMesh::GetNumMaterials() const
+DXUTAPI UINT CDXUTSDKMesh::GetNumMaterials() const
 {
     if( !m_pMeshHeader )
         return 0;
@@ -1052,7 +1061,7 @@ UINT CDXUTSDKMesh::GetNumMaterials() const
 }
 
 //--------------------------------------------------------------------------------------
-UINT CDXUTSDKMesh::GetNumVBs() const
+DXUTAPI UINT CDXUTSDKMesh::GetNumVBs() const
 {
     if( !m_pMeshHeader )
         return 0;
@@ -1060,7 +1069,7 @@ UINT CDXUTSDKMesh::GetNumVBs() const
 }
 
 //--------------------------------------------------------------------------------------
-UINT CDXUTSDKMesh::GetNumIBs() const
+DXUTAPI UINT CDXUTSDKMesh::GetNumIBs() const
 {
     if( !m_pMeshHeader )
         return 0;
@@ -1068,74 +1077,74 @@ UINT CDXUTSDKMesh::GetNumIBs() const
 }
 
 //--------------------------------------------------------------------------------------
-ID3D11Buffer* CDXUTSDKMesh::GetVB11At( _In_ UINT iVB ) const
+DXUTAPI ID3D11Buffer* CDXUTSDKMesh::GetVB11At( _In_ UINT iVB ) const
 {
     return m_pVertexBufferArray[ iVB ].pVB11;
 }
 
 //--------------------------------------------------------------------------------------
-ID3D11Buffer* CDXUTSDKMesh::GetIB11At( _In_ UINT iIB ) const
+DXUTAPI ID3D11Buffer* CDXUTSDKMesh::GetIB11At( _In_ UINT iIB ) const
 {
     return m_pIndexBufferArray[ iIB ].pIB11;
 }
 
 //--------------------------------------------------------------------------------------
-BYTE* CDXUTSDKMesh::GetRawVerticesAt( _In_ UINT iVB ) const
+DXUTAPI BYTE* CDXUTSDKMesh::GetRawVerticesAt( _In_ UINT iVB ) const
 {
     return m_ppVertices[iVB];
 }
 
 //--------------------------------------------------------------------------------------
-BYTE* CDXUTSDKMesh::GetRawIndicesAt( _In_ UINT iIB ) const
+DXUTAPI BYTE* CDXUTSDKMesh::GetRawIndicesAt( _In_ UINT iIB ) const
 {
     return m_ppIndices[iIB];
 }
 
 //--------------------------------------------------------------------------------------
-SDKMESH_MATERIAL* CDXUTSDKMesh::GetMaterial( _In_ UINT iMaterial ) const
+DXUTAPI SDKMESH_MATERIAL* CDXUTSDKMesh::GetMaterial( _In_ UINT iMaterial ) const
 {
     return &m_pMaterialArray[ iMaterial ];
 }
 
 //--------------------------------------------------------------------------------------
-SDKMESH_MESH* CDXUTSDKMesh::GetMesh( _In_ UINT iMesh ) const
+DXUTAPI SDKMESH_MESH* CDXUTSDKMesh::GetMesh( _In_ UINT iMesh ) const
 {
     return &m_pMeshArray[ iMesh ];
 }
 
 //--------------------------------------------------------------------------------------
-UINT CDXUTSDKMesh::GetNumSubsets( _In_ UINT iMesh ) const
+DXUTAPI UINT CDXUTSDKMesh::GetNumSubsets( _In_ UINT iMesh ) const
 {
     return m_pMeshArray[ iMesh ].NumSubsets;
 }
 
 //--------------------------------------------------------------------------------------
-SDKMESH_SUBSET* CDXUTSDKMesh::GetSubset( _In_ UINT iMesh, _In_ UINT iSubset ) const
+DXUTAPI SDKMESH_SUBSET* CDXUTSDKMesh::GetSubset( _In_ UINT iMesh, _In_ UINT iSubset ) const
 {
     return &m_pSubsetArray[ m_pMeshArray[ iMesh ].pSubsets[iSubset] ];
 }
 
 //--------------------------------------------------------------------------------------
-UINT CDXUTSDKMesh::GetVertexStride( _In_ UINT iMesh, _In_ UINT iVB ) const
+DXUTAPI UINT CDXUTSDKMesh::GetVertexStride( _In_ UINT iMesh, _In_ UINT iVB ) const
 {
     return ( UINT )m_pVertexBufferArray[ m_pMeshArray[ iMesh ].VertexBuffers[iVB] ].StrideBytes;
 }
 
 //--------------------------------------------------------------------------------------
-UINT CDXUTSDKMesh::GetNumFrames() const
+DXUTAPI UINT CDXUTSDKMesh::GetNumFrames() const
 {
     return m_pMeshHeader->NumFrames;
 }
 
 //--------------------------------------------------------------------------------------
-SDKMESH_FRAME* CDXUTSDKMesh::GetFrame( _In_ UINT iFrame ) const
+DXUTAPI SDKMESH_FRAME* CDXUTSDKMesh::GetFrame( _In_ UINT iFrame ) const
 {
     assert( iFrame < m_pMeshHeader->NumFrames );
     return &m_pFrameArray[ iFrame ];
 }
 
 //--------------------------------------------------------------------------------------
-SDKMESH_FRAME* CDXUTSDKMesh::FindFrame( _In_z_ const char* pszName ) const
+DXUTAPI SDKMESH_FRAME* CDXUTSDKMesh::FindFrame( _In_z_ const char* pszName ) const
 {
     for( UINT i = 0; i < m_pMeshHeader->NumFrames; i++ )
     {
@@ -1148,31 +1157,31 @@ SDKMESH_FRAME* CDXUTSDKMesh::FindFrame( _In_z_ const char* pszName ) const
 }
 
 //--------------------------------------------------------------------------------------
-UINT64 CDXUTSDKMesh::GetNumVertices( _In_ UINT iMesh, _In_ UINT iVB ) const
+DXUTAPI UINT64 CDXUTSDKMesh::GetNumVertices( _In_ UINT iMesh, _In_ UINT iVB ) const
 {
     return m_pVertexBufferArray[ m_pMeshArray[ iMesh ].VertexBuffers[iVB] ].NumVertices;
 }
 
 //--------------------------------------------------------------------------------------
-UINT64 CDXUTSDKMesh::GetNumIndices( _In_ UINT iMesh ) const
+DXUTAPI UINT64 CDXUTSDKMesh::GetNumIndices( _In_ UINT iMesh ) const
 {
     return m_pIndexBufferArray[ m_pMeshArray[ iMesh ].IndexBuffer ].NumIndices;
 }
 
 //--------------------------------------------------------------------------------------
-XMVECTOR CDXUTSDKMesh::GetMeshBBoxCenter( _In_ UINT iMesh ) const
+DXUTAPI XMVECTOR CDXUTSDKMesh::GetMeshBBoxCenter( _In_ UINT iMesh ) const
 {
     return XMLoadFloat3( &m_pMeshArray[iMesh].BoundingBoxCenter );
 }
 
 //--------------------------------------------------------------------------------------
-XMVECTOR CDXUTSDKMesh::GetMeshBBoxExtents( _In_ UINT iMesh ) const
+DXUTAPI XMVECTOR CDXUTSDKMesh::GetMeshBBoxExtents( _In_ UINT iMesh ) const
 {
     return XMLoadFloat3( &m_pMeshArray[iMesh].BoundingBoxExtents );
 }
 
 //--------------------------------------------------------------------------------------
-UINT CDXUTSDKMesh::GetOutstandingResources() const
+DXUTAPI UINT CDXUTSDKMesh::GetOutstandingResources() const
 {
     UINT outstandingResources = 0;
     if( !m_pMeshHeader )
@@ -1208,7 +1217,7 @@ UINT CDXUTSDKMesh::GetOutstandingResources() const
 }
 
 //--------------------------------------------------------------------------------------
-UINT CDXUTSDKMesh::GetOutstandingBufferResources() const
+DXUTAPI UINT CDXUTSDKMesh::GetOutstandingBufferResources() const
 {
     UINT outstandingResources = 0;
     if( !m_pMeshHeader )
@@ -1218,7 +1227,7 @@ UINT CDXUTSDKMesh::GetOutstandingBufferResources() const
 }
 
 //--------------------------------------------------------------------------------------
-bool CDXUTSDKMesh::CheckLoadDone()
+DXUTAPI bool CDXUTSDKMesh::CheckLoadDone()
 {
     if( 0 == GetOutstandingResources() )
     {
@@ -1230,7 +1239,7 @@ bool CDXUTSDKMesh::CheckLoadDone()
 }
 
 //--------------------------------------------------------------------------------------
-bool CDXUTSDKMesh::IsLoaded() const
+DXUTAPI bool CDXUTSDKMesh::IsLoaded() const
 {
     if( m_pStaticMeshData && !m_bLoading )
     {
@@ -1241,49 +1250,49 @@ bool CDXUTSDKMesh::IsLoaded() const
 }
 
 //--------------------------------------------------------------------------------------
-bool CDXUTSDKMesh::IsLoading() const
+DXUTAPI bool CDXUTSDKMesh::IsLoading() const
 {
     return m_bLoading;
 }
 
 //--------------------------------------------------------------------------------------
-void CDXUTSDKMesh::SetLoading( _In_ bool bLoading )
+DXUTAPI void CDXUTSDKMesh::SetLoading( _In_ bool bLoading )
 {
     m_bLoading = bLoading;
 }
 
 //--------------------------------------------------------------------------------------
-BOOL CDXUTSDKMesh::HadLoadingError() const
+DXUTAPI BOOL CDXUTSDKMesh::HadLoadingError() const
 {
     return FALSE;
 }
 
 //--------------------------------------------------------------------------------------
-UINT CDXUTSDKMesh::GetNumInfluences( _In_ UINT iMesh ) const
+DXUTAPI UINT CDXUTSDKMesh::GetNumInfluences( _In_ UINT iMesh ) const
 {
     return m_pMeshArray[iMesh].NumFrameInfluences;
 }
 
 //--------------------------------------------------------------------------------------
-XMMATRIX CDXUTSDKMesh::GetMeshInfluenceMatrix( _In_ UINT iMesh, _In_ UINT iInfluence ) const
+DXUTAPI XMMATRIX CDXUTSDKMesh::GetMeshInfluenceMatrix( _In_ UINT iMesh, _In_ UINT iInfluence ) const
 {
     UINT iFrame = m_pMeshArray[iMesh].pFrameInfluences[ iInfluence ];
     return XMLoadFloat4x4( &m_pTransformedFrameMatrices[iFrame] );
 }
 
-XMMATRIX CDXUTSDKMesh::GetWorldMatrix( _In_ UINT iFrameIndex ) const
+DXUTAPI XMMATRIX CDXUTSDKMesh::GetWorldMatrix( _In_ UINT iFrameIndex ) const
 {
     return XMLoadFloat4x4( &m_pWorldPoseFrameMatrices[iFrameIndex] );
 }
 
-XMMATRIX CDXUTSDKMesh::GetInfluenceMatrix( _In_ UINT iFrameIndex ) const
+DXUTAPI XMMATRIX CDXUTSDKMesh::GetInfluenceMatrix( _In_ UINT iFrameIndex ) const
 {
     return XMLoadFloat4x4( &m_pTransformedFrameMatrices[iFrameIndex] );
 }
 
 
 //--------------------------------------------------------------------------------------
-UINT CDXUTSDKMesh::GetAnimationKeyFromTime( _In_ double fTime ) const
+DXUTAPI UINT CDXUTSDKMesh::GetAnimationKeyFromTime( _In_ double fTime ) const
 {
     if( !m_pAnimationHeader )
     {
@@ -1299,7 +1308,7 @@ UINT CDXUTSDKMesh::GetAnimationKeyFromTime( _In_ double fTime ) const
 }
 
 _Use_decl_annotations_
-bool CDXUTSDKMesh::GetAnimationProperties( UINT* pNumKeys, float* pFrameTime ) const
+DXUTAPI bool CDXUTSDKMesh::GetAnimationProperties( UINT* pNumKeys, float* pFrameTime ) const
 {
     if( !m_pAnimationHeader )
     {
@@ -1313,3 +1322,14 @@ bool CDXUTSDKMesh::GetAnimationProperties( UINT* pNumKeys, float* pFrameTime ) c
 
     return true;
 }
+
+}
+
+#if defined(extern_cplus) && defined(extern_cplusplus)
+	}
+	}
+#elif defined(extern_cplus) && !defined(extern_cplusplus)
+}
+#elif defined(extern_cplusplus) && !defined(extern_cplus)
+}
+#endif

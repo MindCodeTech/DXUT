@@ -1,0 +1,365 @@
+#line 1 "C:\\MINDCODETECH\\GAMEENGINE\\amdcodes\\TressFX11_v1.0\\TressFX11\\shaders\\Source\\renderscene.hlsl"
+
+
+#line 9
+
+
+#line 1 "common.hlsl"
+
+
+#line 9
+
+
+
+
+
+
+
+
+
+#line 19
+
+
+#line 24
+uint PackFloat4IntoUint ( float4 vValue ) 
+{ 
+    return ( ( uint ( vValue . x * 255 ) & 0xFFUL ) << 24 ) | ( ( uint ( vValue . y * 255 ) & 0xFFUL ) << 16 ) | ( ( uint ( vValue . z * 255 ) & 0xFFUL ) << 8 ) | ( uint ( vValue . w * 255 ) & 0xFFUL ) ; 
+} 
+
+float4 UnpackUintIntoFloat4 ( uint uValue ) 
+{ 
+    return float4 ( ( ( uValue & 0xFF000000 ) >> 24 ) / 255.0 , ( ( uValue & 0x00FF0000 ) >> 16 ) / 255.0 , ( ( uValue & 0x0000FF00 ) >> 8 ) / 255.0 , ( ( uValue & 0x000000FF ) ) / 255.0 ) ; 
+} 
+
+#line 35
+uint PackDepthIntoUint ( float fDepth ) 
+{ 
+    return ( ( uint ) ( fDepth * ( ( 1 << 24 ) - 1 ) ) ) << 8 ; 
+} 
+
+#line 44
+cbuffer cbPerFrame : register ( b0 ) 
+{ 
+    matrix g_mWorld : packoffset ( c0 ) ; 
+    matrix g_mViewProj : packoffset ( c4 ) ; 
+    matrix g_mInvViewProj : packoffset ( c8 ) ; 
+    matrix g_mViewProjLight : packoffset ( c12 ) ; 
+    
+    float3 g_vEye : packoffset ( c16 ) ; 
+    float g_fvFov : packoffset ( c16 . w ) ; 
+    
+    float4 g_AmbientLightColor : packoffset ( c17 ) ; 
+    float4 g_PointLightColor : packoffset ( c18 ) ; 
+    float4 g_PointLightPos : packoffset ( c19 ) ; 
+    float4 g_MatBaseColor : packoffset ( c20 ) ; 
+    float4 g_MatKValue : packoffset ( c21 ) ; 
+    
+    float g_FiberAlpha : packoffset ( c22 . x ) ; 
+    float g_HairShadowAlpha : packoffset ( c22 . y ) ; 
+    float g_bExpandPixels : packoffset ( c22 . z ) ; 
+    float g_FiberRadius : packoffset ( c22 . w ) ; 
+    
+    float g_fHairKs2 : packoffset ( c23 . x ) ; 
+    float g_fHairEx2 : packoffset ( c23 . y ) ; 
+    float2 g_WinSize : packoffset ( c23 . z ) ; 
+    
+    float g_FiberSpacing : packoffset ( c24 . x ) ; 
+    float g_bThinTip : packoffset ( c24 . y ) ; 
+    float g_fNearLight : packoffset ( c24 . z ) ; 
+    float g_fFarLight : packoffset ( c24 . w ) ; 
+    
+    int g_iTechSM : packoffset ( c25 . x ) ; 
+    int g_bUseCoverage : packoffset ( c25 . y ) ; 
+    int g_bUseAltCoverage : packoffset ( c25 . z ) ; 
+    int g_iStrandCopies : packoffset ( c25 . w ) ; 
+} ; 
+
+cbuffer cbPerMaterial : register ( b1 ) 
+{ 
+    float4 g_MatAmbient : packoffset ( c0 ) ; 
+    float4 g_MatDiffuse : packoffset ( c1 ) ; 
+    float4 g_MatSpecular : packoffset ( c2 ) ; 
+    float4 g_ScalpColor : packoffset ( c3 ) ; 
+} ; 
+
+struct Eye_Fragment_STRUCT 
+{ 
+    uint uPixelColor ; 
+    uint uDepthAndCoverage ; 
+    uint uNext ; 
+} ; 
+
+struct Eye_Node_STRUCT 
+{ 
+    uint next ; 
+    uint uColor ; 
+    uint uDepth ; 
+} ; 
+
+struct HAIR_VERTEX 
+{ 
+    float3 pos ; 
+    float3 tangent ; 
+    float4 texcoord ; 
+} ; 
+
+#line 113
+Buffer < uint > EyeRefSRV : register ( t0 ) ; 
+StructuredBuffer < Eye_Fragment_STRUCT > EyeFragmentSRV : register ( t1 ) ; 
+
+Texture2D g_txSMScene : register ( t2 ) ; 
+Texture2D g_txSMHair : register ( t3 ) ; 
+Texture2D g_txObj : register ( t4 ) ; 
+Texture2D g_txNoise : register ( t5 ) ; 
+
+Buffer < uint > g_HairIndices : register ( t6 ) ; 
+Buffer < float > g_HairThicknessCoeffs : register ( t7 ) ; 
+
+StructuredBuffer < float4 > g_GuideHairVertexPositions : register ( t8 ) ; 
+StructuredBuffer < float4 > g_GuideHairVertexTangents : register ( t9 ) ; 
+
+#line 130
+SamplerState g_samLinearWrap : register ( s0 ) ; 
+SamplerState g_samPointClamp : register ( s1 ) ; 
+SamplerComparisonState g_samShadow : register ( s2 ) ; 
+
+#line 137
+RWByteAddressBuffer EyeRefUAV : register ( u1 ) ; 
+RWStructuredBuffer < Eye_Fragment_STRUCT > EyeFragmentUAV : register ( u2 ) ; 
+
+#line 143
+struct VS_INPUT_SCENE 
+{ 
+    float3 Position : POSITION ; 
+    float3 Normal : NORMAL ; 
+    float2 Texcoord : TEXCOORD0 ; 
+} ; 
+
+struct VS_INPUT_Hair 
+{ 
+    float3 Position : POSITION ; 
+    float3 Tangent : TANGENT ; 
+    float4 Texcoord : TEXCOORD0 ; 
+    uint id : SV_VERTEXID ; 
+} ; 
+
+struct PS_INPUT_HAIR_AA 
+{ 
+    float4 Position : SV_POSITION ; 
+    float3 Tangent : Tangent ; 
+    float4 Texcoord : TEXCOORD0 ; 
+    float3 WorldPos : TEXCOORD1 ; 
+    float3 p0 : TEXCOORD2 ; 
+    float3 p1 : TEXCOORD3 ; 
+} ; 
+
+struct VS_OUTPUT_SM 
+{ 
+    float4 Position : SV_POSITION ; 
+    float3 WorldPos : TEXCOORD0 ; 
+} ; 
+
+#line 178
+struct VS_OUTPUT_SCREENQUAD 
+{ 
+    float4 vPosition : SV_POSITION ; 
+    float2 vTex : TEXCOORD ; 
+} ; 
+
+#line 186
+VS_OUTPUT_SCREENQUAD VS_ScreenQuad ( VS_INPUT_SCENE input ) 
+{ 
+    VS_OUTPUT_SCREENQUAD output ; 
+    
+    output . vPosition = float4 ( input . Position . xyz , 1.0 ) ; 
+    output . vTex = input . Texcoord . xy ; 
+    
+    return output ; 
+} 
+
+#line 197
+struct VS_OUTPUT_SCENE 
+{ 
+    float4 Position : SV_POSITION ; 
+    float3 Normal : TEXCOORD0 ; 
+    float2 Texcoord : TEXCOORD1 ; 
+    float3 WorldPos : TEXCOORD2 ; 
+} ; 
+
+
+
+#line 1 "shadow.hlsl"
+
+
+#line 9
+
+
+
+struct INPUT_SHADOW 
+{ 
+    float3 pos ; 
+} ; 
+
+struct AmountLight 
+{ 
+    float amountLight_scene ; 
+    float amountLight_hair ; 
+} ; 
+
+#line 28
+AmountLight ComputeShadow_SDSM ( INPUT_SHADOW input , float alpha ) 
+{ 
+    float4 projPosLight = mul ( float4 ( input . pos , 1 ) , g_mViewProjLight ) ; 
+    float2 texSM = float2 ( projPosLight . x / projPosLight . w + 1 , - projPosLight . y / projPosLight . w + 1 ) * 0.5 ; 
+    float depth = projPosLight . z / projPosLight . w ; 
+    float epslon = depth * 0.01 ; 
+    float depth_fragment = projPosLight . w ; 
+    
+#line 37
+    float total_weight = 0 ; 
+    AmountLight amountLight ; 
+    amountLight . amountLight_hair = 0 ; 
+    amountLight . amountLight_scene = 0 ; 
+    
+    [ unroll ] for ( int dx = ( 1 - 3 ) / 2 ; dx <= 3 / 2 ; dx ++ ) 
+    { 
+        [ unroll ] for ( int dy = ( 1 - 3 ) / 2 ; dy <= 3 / 2 ; dy ++ ) 
+        { 
+            float size = 2.4 ; 
+            float sigma = ( 3 / 2.0 ) / size ; 
+            float exp = - 1 * ( dx * dx + dy * dy ) / ( 2 * sigma * sigma ) ; 
+            float weight = 1 / ( 2 * 3.1415926 * sigma * sigma ) * pow ( 2.71828183 , exp ) ; 
+            
+#line 52
+            amountLight . amountLight_scene += weight * g_txSMScene . SampleCmpLevelZero ( g_samShadow , texSM , depth - epslon , int2 ( dx , dy ) ) ; 
+            
+#line 55
+            float depthSMHair = g_txSMHair . SampleLevel ( g_samPointClamp , texSM , 0 , int2 ( dx , dy ) ) . x ; 
+            
+            float depth_smPoint = g_fNearLight / ( 1 - depthSMHair * ( g_fFarLight - g_fNearLight ) / g_fFarLight ) ; 
+            
+            float depth_range = max ( 0 , depth_fragment - depth_smPoint ) ; 
+            float numFibers = depth_range / ( g_FiberSpacing * g_FiberRadius ) ; 
+            
+#line 63
+            if ( depth_range > 1e-5 ) 
+            numFibers += 1 ; 
+            amountLight . amountLight_hair += pow ( abs ( 1 - alpha ) , numFibers ) * weight ; 
+            
+            total_weight += weight ; 
+        } 
+    } 
+    amountLight . amountLight_hair /= total_weight ; 
+    amountLight . amountLight_scene /= total_weight ; 
+    return amountLight ; 
+} 
+
+AmountLight ComputeShadow ( INPUT_SHADOW input , float alpha , int iTechSM ) 
+{ 
+    AmountLight amountLight ; 
+    amountLight . amountLight_hair = 1 ; 
+    amountLight . amountLight_scene = 1 ; 
+    
+    if ( iTechSM == 2 ) 
+    amountLight = ComputeShadow_SDSM ( input , alpha ) ; 
+    
+    return amountLight ; 
+} 
+
+
+#line 205 "common.hlsl"
+
+
+#line 11 "C:\\MINDCODETECH\\GAMEENGINE\\amdcodes\\TressFX11_v1.0\\TressFX11\\shaders\\Source\\renderscene.hlsl"
+VS_OUTPUT_SM VS_GenerateSceneSM ( VS_INPUT_SCENE input ) 
+{ 
+    VS_OUTPUT_SM Output ; 
+    
+#line 16
+    float3 pos = mul ( float4 ( input . Position , 1 ) , g_mWorld ) . xyz ; 
+    Output . Position = mul ( float4 ( pos , 1 ) , g_mViewProjLight ) ; 
+    
+#line 20
+    Output . WorldPos = input . Position ; 
+    
+    return Output ; 
+} 
+
+VS_OUTPUT_SCENE VS_RenderScene ( VS_INPUT_SCENE input ) 
+{ 
+    VS_OUTPUT_SCENE Output ; 
+    
+#line 31
+    float3 pos = mul ( float4 ( input . Position , 1 ) , g_mWorld ) . xyz ; 
+    Output . Position = mul ( float4 ( pos , 1 ) , g_mViewProj ) ; 
+    
+#line 35
+    Output . Normal = input . Normal ; 
+    Output . Texcoord = input . Texcoord ; 
+    
+#line 39
+    Output . WorldPos = pos ; 
+    
+    return Output ; 
+} 
+
+#line 45
+float4 PhongShading ( float3 iPos , float3 iNormal , float2 tex , float amountLight ) 
+{ 
+    
+    float4 matAmbient = g_MatAmbient ; 
+    float4 matDiffuse = float4 ( g_MatDiffuse . xyz , 1 ) ; 
+    
+    float4 matSpecular = float4 ( g_MatSpecular . xyz , 1 ) ; 
+    float exponent = g_MatSpecular . w ; 
+    
+    float3 lightPos = g_PointLightPos . xyz ; 
+    float3 vLightDir = normalize ( lightPos - iPos ) ; 
+    float3 normal = normalize ( iNormal ) ; 
+    
+    float LDotN = dot ( normal , vLightDir ) ; 
+    float vDiffuse = max ( 0 , LDotN ) ; 
+    
+    float3 vEyeDir = normalize ( g_vEye . xyz - iPos . xyz ) ; 
+    float3 vHalf = normalize ( vEyeDir + vLightDir ) ; 
+    float HDotN = dot ( vHalf , normal ) ; 
+    float vSpecular = max ( 0 , HDotN ) ; 
+    
+    if ( g_MatDiffuse . w > 0 ) 
+    { 
+        float4 texColor = g_txObj . Sample ( g_samLinearWrap , tex ) ; 
+        
+        if ( texColor . x == 0 && texColor . y == 0 && texColor . z == 0 ) 
+        { 
+            matAmbient = 0.7 * g_ScalpColor ; 
+            matDiffuse = 0.7 * g_ScalpColor ; 
+            vSpecular = 0 ; 
+        } 
+        else 
+        { 
+            matAmbient *= texColor ; 
+            matDiffuse *= texColor ; 
+        } 
+    } 
+    
+    float4 vColor = matAmbient * g_AmbientLightColor + amountLight * 
+    g_PointLightColor * ( matDiffuse * vDiffuse + matSpecular * pow ( vSpecular , exponent ) ) ; 
+    
+    return vColor ; 
+} 
+
+float4 ComputeSceneShading ( float3 pos , float3 normal , float2 tex , float amountLight ) 
+{ 
+    return PhongShading ( pos , normal , tex , amountLight ) ; 
+} 
+
+[ earlydepthstencil ] 
+float4 PS_RenderScene ( VS_OUTPUT_SCENE input ) : SV_Target 
+{ 
+    INPUT_SHADOW inShadow ; 
+    inShadow . pos = input . WorldPos ; 
+    AmountLight amountLight = ComputeShadow ( inShadow , 0.001 , g_iTechSM ) ; 
+    float light = ( amountLight . amountLight_hair * amountLight . amountLight_scene ) * 0.95 + 0.05 ; 
+    return ComputeSceneShading ( input . WorldPos , input . Normal , input . Texcoord , light ) ; 
+} 
+ 

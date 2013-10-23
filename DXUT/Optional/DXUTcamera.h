@@ -14,8 +14,30 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
+using namespace DirectX;
+
+#define KEY_WAS_DOWN_MASK 0x80
+#define KEY_IS_DOWN_MASK  0x01
+
+#define MOUSE_LEFT_BUTTON   0x01
+#define MOUSE_MIDDLE_BUTTON 0x02
+#define MOUSE_RIGHT_BUTTON  0x04
+#define MOUSE_WHEEL         0x08
+
+#ifdef extern_cplus
+extern "C" {
+#endif
+
+#ifdef extern_cplusplus
+extern "C++" {
+#endif
+
+
+	namespace DXUT
+	{
+
 //--------------------------------------------------------------------------------------
-class CD3DArcBall
+class DXUTAPI CD3DArcBall
 {
 public:
     CD3DArcBall();
@@ -126,13 +148,7 @@ enum D3DUtil_CameraKeys
     CAM_UNKNOWN     = 0xFF
 };
 
-#define KEY_WAS_DOWN_MASK 0x80
-#define KEY_IS_DOWN_MASK  0x01
 
-#define MOUSE_LEFT_BUTTON   0x01
-#define MOUSE_MIDDLE_BUTTON 0x02
-#define MOUSE_RIGHT_BUTTON  0x04
-#define MOUSE_WHEEL         0x08
 
 
 //--------------------------------------------------------------------------------------
@@ -140,7 +156,7 @@ enum D3DUtil_CameraKeys
 //       records mouse and keyboard input for use by a derived class, and 
 //       keeps common state.
 //--------------------------------------------------------------------------------------
-class CBaseCamera
+class DXUTAPI CBaseCamera
 {
 public:
     CBaseCamera();
@@ -272,7 +288,7 @@ protected:
 //       GetCursorPos() to respond to keyboard and mouse input and updates the 
 //       view matrix based on input.  
 //--------------------------------------------------------------------------------------
-class CFirstPersonCamera : public CBaseCamera
+class DXUTAPI CFirstPersonCamera : public CBaseCamera
 {
 public:
     CFirstPersonCamera();
@@ -302,7 +318,7 @@ protected:
 //--------------------------------------------------------------------------------------
 // Simple model viewing camera class that rotates around the object.
 //--------------------------------------------------------------------------------------
-class CModelViewerCamera : public CBaseCamera
+class DXUTAPI CModelViewerCamera : public CBaseCamera
 {
 public:
     CModelViewerCamera();
@@ -381,7 +397,7 @@ protected:
 // Manages the mesh, direction, mouse events of a directional arrow that 
 // rotates around a radius controlled by an arcball 
 //--------------------------------------------------------------------------------------
-class CDXUTDirectionWidget
+class DXUTAPI CDXUTDirectionWidget
 {
 public:
     CDXUTDirectionWidget();
@@ -424,3 +440,15 @@ protected:
     DirectX::XMFLOAT3 m_vCurrentDir;
     DirectX::XMFLOAT4X4 m_mView;
 };
+
+}
+
+
+#if defined(extern_cplus) && defined(extern_cplusplus)
+	}
+	}
+#elif defined(extern_cplus) && !defined(extern_cplusplus)
+}
+#elif defined(extern_cplusplus) && !defined(extern_cplus)
+}
+#endif
