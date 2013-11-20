@@ -1,7 +1,7 @@
 DXUT
 ====
 
-<p>DXUT for Win32 Desktop</p>
+<p>DXUT for Direct3D 11 Win32 Desktop</p>
 
 <p>Dynamic library or static library</p>
 
