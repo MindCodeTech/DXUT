@@ -1,11 +1,19 @@
-
-
-19-10-2013  DXUT and DXUT Optional merged in one dll api (some minors compiling warnings, related to export std::vector dll exporting to use in clents of class or structs)
+DXUT VERSION 11.0.4
 =======================================================
 
-DirectX old Sdk Demos ported to new DXUT (untested with dll api)
+20-11-2103 removed demos/Effects11/DirectXTK/DirectXTex to a separate repository
+=======================================================
 
-Direct3D11 =
-		= BasicHLSL11
-		= 
-====================================
+19-11-2013  DXUT and DXUT Optional merged in one DXUT dll or DXUTs lib static api (removed with pragma warning disable some minors compiling warnings, related to export std::vector dll exporting to use in clients of class or structs)
+=======================================================
+
+Added =
+	= SDKsound
+	= SDKwavefile
+	= DXUTShader
+	= DXUTMathHelper
+	
+
+
+
+

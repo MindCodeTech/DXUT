@@ -560,8 +560,11 @@ extern "C" {
 					else
 					{
 						delete pDeviceInfo;
-						SAFE_RELEASE( pd3dDevice );
-						SAFE_RELEASE( pd3dDeviceContext );
+                if ( SUCCEEDED(hr) )
+                {
+                    SAFE_RELEASE( pd3dDevice );
+                    SAFE_RELEASE( pd3dDeviceContext );
+                }
 						continue;
 					}
 				}
@@ -576,8 +579,11 @@ extern "C" {
 				SAFE_RELEASE( pDXGIDev );
 
 				D3D11_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS ho;
-				pd3dDevice->CheckFeatureSupport(D3D11_FEATURE_D3D10_X_HARDWARE_OPTIONS, &ho, sizeof(ho));
-				pDeviceInfo->ComputeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x = ho.ComputeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x;
+				hr = pd3dDevice->CheckFeatureSupport(D3D11_FEATURE_D3D10_X_HARDWARE_OPTIONS, &ho, sizeof(ho));
+				if ( FAILED(hr) )
+            memset( &ho, 0, sizeof(ho) );
+
+        pDeviceInfo->ComputeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x = ho.ComputeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x;
 				SAFE_RELEASE( pd3dDeviceContext );
 				SAFE_RELEASE( pd3dDevice );
 				pAdapterInfo->deviceInfoList.push_back( pDeviceInfo );
@@ -877,7 +883,7 @@ extern "C" {
 		//--------------------------------------------------------------------------------------
 		_Use_decl_annotations_
 			DXUTAPI CD3D11EnumDeviceSettingsCombo* CD3D11Enumeration::GetDeviceSettingsCombo( UINT AdapterOrdinal,
-			DXGI_FORMAT BackBufferFormat, BOOL Windowed ) const
+			                                                                                  DXGI_FORMAT BackBufferFormat, BOOL Windowed ) const
 		{
 			CD3D11EnumAdapterInfo* pAdapterInfo = GetAdapterInfo( AdapterOrdinal );
 			if( pAdapterInfo )

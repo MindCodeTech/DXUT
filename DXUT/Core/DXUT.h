@@ -34,7 +34,7 @@
 #include <sdkddkver.h>
 #endif
 
-// If app hasn't choosen, set to work with Windows Vista and beyond
+// If app hasn't choosen, set to work with Windows 8 and beyond
 #ifndef WINVER
 #define WINVER         0x0602
 #endif
@@ -48,6 +48,8 @@
 #if (_WIN32_WINNT >= _WIN32_WINNT_WIN8) && !defined(DXGI_1_2_FORMATS)
 #define DXGI_1_2_FORMATS
 #endif
+
+#include "DXUTexp.h"
 
 #if defined(DXUTLIB_EXPORT) || defined(_LIB) || defined(DXUTLIB_IMPORT) || defined(_DLL)
 #define DXUT_AUTOLIB
@@ -70,29 +72,50 @@
 #pragma comment( lib, "d2d1.lib" )
 #pragma comment( lib, "dwrite.lib" )
 #pragma comment( lib, "dsound.lib" )
+#ifdef _DEBUG
+#pragma comment( lib, "d3dcsxd.lib" )
+#else
 #pragma comment( lib, "d3dcsx.lib" )
+#endif
 #pragma comment( lib, "WinMM.Lib" )
 #pragma comment( lib, "Imm32.Lib" )
 #pragma comment( lib, "Version.Lib" )
+#pragma comment( lib, "xapobase.Lib" )
+#pragma comment( lib, "xaudio2.Lib" )
+#pragma comment( lib, "Xinput.Lib" )
 
 #endif
 
 #ifdef DXUTLIB_IMPORT
+#ifdef DXUTLIB_DLL
 #ifdef _DEBUG
-#pragma comment( lib, "DXUTd.Lib" )
+#pragma comment( lib, "DXUT_d.lib" )
 #else
-#pragma comment( lib, "DXUT.Lib" )
+#pragma comment( lib, "DXUT.lib" )
+#endif
+#elif DXUTLIB_STATIC
+#ifdef _DEBUG
+#pragma comment( lib, "DXUTs_d.lib" )
+#else
+#pragma comment( lib, "DXUTs.lib" )
+#endif
+#else
+#pragma warning ("DXUTLIB_IMPORT import librarys aren't defined")
 #endif
 #endif
 
 
-#pragma warning(disable : 4102 4127 4201 4324 4481 4505 4616 4706 6326 6993 )
+#pragma warning(disable : 4067 4102 4127 4201 4251 4324 4481 4505 4616 4706 6326 6993 )
 
 #pragma warning(push)
 #pragma warning(disable : 4005)
 
 #pragma pack(push)
 #pragma pack(8)
+
+#ifdef DEFINE_GUID
+#undef DEFINE_GUID
+#endif
 
 // Standard Windows includes
 #include <windows.h>
@@ -121,6 +144,7 @@
 #include <d3dcompiler.h>
 #include <dxgiformat.h>
 #include <d2d1_1.h>
+#include <d3dcsx.h>
 
 #if defined(DEBUG) || defined(_DEBUG)
 #include <dxgidebug.h>
@@ -136,6 +160,15 @@
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY != WINAPI_FAMILY_PHONE_APP)
 #include <wincodec.h>
 #endif
+
+
+// XAudio includes
+#include <xapo.h>
+#include <xapobase.h>
+#include <xapofx.h>
+#include <xaudio2.h>
+#include <xaudio2fx.h>
+#include <x3daudio.h>
 
 // XInput includes
 #include <xinput.h>
@@ -194,8 +227,8 @@
 // HRESULT translation for Direct3D and other APIs
 #include "dxerr.h"
 
-#undef __min // use __min instead
-#undef __max // use __max instead
+#undef min // use __min instead
+#undef max // use __max instead
 
 #ifndef UNUSED (-1)
 #define UNUSED (-1)
@@ -253,7 +286,7 @@ extern "C++" {
 	((DWORD)((((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)))
 #endif
 
-#define DXUT_VERSION 1103
+#define DXUT_VERSION 1104
 
 		//--------------------------------------------------------------------------------------
 		// SAL2 fixups for VS 2010

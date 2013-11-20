@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{6108b76d-8f04-4ff4-b766-7184536b681a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Optional">
+      <UniqueIdentifier>{55c9dbfc-46eb-4ee1-981f-8ee5a52bb249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DDSTextureLoader">
+      <UniqueIdentifier>{1c99b1b6-b4bc-4ea8-a0b4-1be0d5f44d5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ScreenGrab">
+      <UniqueIdentifier>{d61438e1-b8e9-440d-a92b-c67a1c8ae0e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WICTextureLoader">
+      <UniqueIdentifier>{86746f23-2479-46c4-bdd4-6d53dabe32ae}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\DXUT\Core\DXErr.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\DXUTcamera.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\DXUTgui.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\DXUTguiIME.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\DXUTMathHelper.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\DXUTMesh.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\DXUTres.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\DXUTsettingsdlg.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\DXUTShader.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\ImeUi.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\SDKmesh.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\SDKmisc.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\SDKsound.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Optional\SDKwavefile.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Core\dxutstdafx.cpp" />
+    <ClCompile Include="..\..\DXUT\Core\DDSTextureLoader.cpp">
+      <Filter>DDSTextureLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Core\WICTextureLoader.cpp">
+      <Filter>WICTextureLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Core\ScreenGrab.cpp">
+      <Filter>ScreenGrab</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CLInclude Include="..\..\DXUT\Core\DXErr.h">
+      <Filter>Core</Filter>
+    </CLInclude>
+    <CLInclude Include="..\..\DXUT\Core\DXUT.h">
+      <Filter>Core</Filter>
+    </CLInclude>
+    <CLInclude Include="..\..\DXUT\Core\DXUTDevice11.h">
+      <Filter>Core</Filter>
+    </CLInclude>
+    <CLInclude Include="..\..\DXUT\Core\DXUTmisc.h">
+      <Filter>Core</Filter>
+    </CLInclude>
+    <ClInclude Include="..\..\DXUT\Optional\DXUTcamera.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\DXUTgui.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\DXUTguiIME.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\DXUTLockFreePipe.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\DXUTMathHelper.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\DXUTMesh.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\DXUTres.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\DXUTsettingsdlg.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\DXUTShader.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\ImeUi.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\SDKmesh.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\SDKmisc.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\SDKsound.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Optional\SDKwavefile.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Core\dxutstdafx.h" />
+    <ClInclude Include="..\..\DXUT\Core\DXUTvers.h" />
+    <ClInclude Include="..\..\DXUT\Core\DXUTexp.h" />
+    <ClInclude Include="..\..\DXUT\Core\DDS.h">
+      <Filter>DDSTextureLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Core\DDSTextureLoader.h">
+      <Filter>DDSTextureLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Core\ScreenGrab.h">
+      <Filter>ScreenGrab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Core\WICTextureLoader.h">
+      <Filter>WICTextureLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\Core\typesexport.h" />
+    <ClInclude Include="..\..\DXUT\Core\PlatformHelpers.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\DXUT\Core\DXUT.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Core\DXUTDevice11.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DXUT\Core\DXUTmisc.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

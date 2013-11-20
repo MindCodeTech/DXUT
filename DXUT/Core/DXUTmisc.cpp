@@ -34,7 +34,7 @@ extern "C++" {
 
 #define DXUT_GAMEPAD_TRIGGER_THRESHOLD      30
 
-		CDXUTTimer* DXUTGetGlobalTimer()
+		CDXUTTimer* WINAPI DXUTGetGlobalTimer()
 		{
 			// Using an accessor function gives control of the construction order
 			static CDXUTTimer timer;

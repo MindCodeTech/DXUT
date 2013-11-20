@@ -119,7 +119,7 @@ extern "C" {
 			LONGLONG m_llBaseTime;
 		};
 
-		CDXUTTimer*                 DXUTGetGlobalTimer();
+		CDXUTTimer*                 WINAPI DXUTGetGlobalTimer();
 
 		//--------------------------------------------------------------------------------------
 		// Returns the string for the given DXGI_FORMAT.

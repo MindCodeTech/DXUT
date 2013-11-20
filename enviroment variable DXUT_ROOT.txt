@@ -1,0 +1,1 @@
+DXUT_ROOT = C:\your directory for\DXUT

@@ -1,1 +1,0 @@
-DepthBoundsTest11 shows how to use the AMD Depth Bounds Test extension, a feature of the AMD GCN architecture, to limit rendering within a specified depth bounds. By limiting what pixels are rendered, some graphics techniques can run faster because fewer pixels need to be rendered, and therefore fewer instructions executed by pixel shaders.

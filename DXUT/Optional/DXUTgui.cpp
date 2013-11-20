@@ -338,6 +338,9 @@ extern "C++" {
 		_Use_decl_annotations_
 			DXUTAPI void EndText11( ID3D11Device* pd3dDevice, ID3D11DeviceContext* pd3d11DeviceContext )
 		{
+        if ( g_FontVertices.empty() )
+        return;
+
 			// ensure our buffer size can hold our sprites
 			UINT FontDataBytes = static_cast<UINT>( g_FontVertices.size() * sizeof( DXUTSpriteVertex ) );
 			if( g_FontBufferBytes11 < FontDataBytes )
@@ -1188,7 +1191,7 @@ extern "C++" {
 		//--------------------------------------------------------------------------------------
 		_Use_decl_annotations_
 			DXUTAPI HRESULT CDXUTDialog::AddButton( int ID, LPCWSTR strText, int x, int y, int width, int height, UINT nHotkey,
-			bool bIsDefault, CDXUTButton** ppCreated )
+			                                        bool bIsDefault, CDXUTButton** ppCreated )
 		{
 			HRESULT hr = S_OK;
 
@@ -2179,7 +2182,8 @@ extern "C++" {
 			m_pSamplerStateStored11(nullptr),
 			m_pInputLayout11(nullptr),
 			m_pVBScreenQuad11(nullptr),
-			m_pSpriteBuffer11(nullptr)
+			m_pSpriteBuffer11(nullptr),
+      m_SpriteBufferBytes11(0)
 		{
 		}
 

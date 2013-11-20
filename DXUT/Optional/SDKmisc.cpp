@@ -471,6 +471,12 @@ DXUTAPI bool DXUTFindMediaSearchParentDirs( WCHAR* strSearchPath, int cchSearch,
 namespace
 {
 
+/* struct handle_closer { void operator()(HANDLE h) { if (h) CloseHandle(h); } };
+
+typedef public std::unique_ptr<void, handle_closer> ScopedHandle;
+
+inline HANDLE safe_handle( HANDLE h ) { return (h == INVALID_HANDLE_VALUE) ? 0 : h; } */
+
 class DXUTAPI CIncludeHandler : public ID3DInclude
     // Not as robust as D3D_COMPILE_STANDARD_FILE_INCLUDE, but it works in most cases
 {

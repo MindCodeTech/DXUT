@@ -4194,8 +4194,14 @@ extern "C" {
 				auto tempAdapterInfo = *it;
 				if (tempAdapterInfo->AdapterOrdinal == pDeviceSettings->d3d11.AdapterOrdinal) pAdapterInfo = tempAdapterInfo;
 			}
-			if ( !pAdapterInfo )
-				return E_FAIL; // no adapters found.
+    if ( !pAdapterInfo )
+    {
+        if ( pAdapterList->empty() || pDeviceSettings->d3d11.AdapterOrdinal > 0 )
+        {
+            return E_FAIL; // no adapters found.
+        }
+        pAdapterInfo = *pAdapterList->cbegin();
+    }
 			CD3D11EnumDeviceSettingsCombo* pDeviceSettingsCombo = nullptr;
 			float biggestScore = 0;
 

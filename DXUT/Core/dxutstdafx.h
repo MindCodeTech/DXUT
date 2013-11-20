@@ -8,7 +8,6 @@
 #pragma once
 
 #include "DXUTvers.h"
-#include "DXUTexp.h"
 #include "DXUT.h"
 #include "typesexport.h"
 #include "PlatformHelpers.h"
@@ -39,10 +38,10 @@
 #include "DDSTextureLoader.h"
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY != WINAPI_FAMILY_PHONE_APP)
 #include "WICTextureLoader.h"
+#include "ScreenGrab.h"
 #endif
- #include "ScreenGrab.h"
 
-#include <d3d9.h>
+//#include <d3d9.h>
 
 // #include "BC.h"
 //#include "scoped.h" ported to PlatformHelpers.h
