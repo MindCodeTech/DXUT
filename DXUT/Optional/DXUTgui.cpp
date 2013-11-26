@@ -14,7 +14,7 @@
 
 using namespace DirectX;
 
-using namespace DXUT::DDSTextLoader;
+using namespace DXUT::DDSTextureLoader;
 
 
 #ifdef extern_cplus

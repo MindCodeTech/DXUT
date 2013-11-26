@@ -33,7 +33,7 @@ extern "C" {
 namespace DXUT
 	{
 
-	namespace DDSTextLoader
+	namespace DDSTextureLoader
 	{
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
@@ -1473,7 +1473,7 @@ DXUTAPI HRESULT CreateDDSTextureFromFileEx( ID3D11Device* d3dDevice,
     return hr;
 	}
 
-	} // DDSTextLoader
+	} // DDSTextureLoader
 
 }
 

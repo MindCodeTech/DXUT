@@ -78,8 +78,8 @@ public:
     HRESULT Refresh();
     void OnRender( _In_ float fElapsedTime );
 
-    HRESULT OnD3D11CreateDevice( _In_ ID3D11Device* pd3dDevice );
-    HRESULT OnD3D11ResizedSwapChain( _In_ ID3D11Device* pd3dDevice,
+    HRESULT WINAPI OnD3D11CreateDevice( _In_ ID3D11Device* pd3dDevice );
+    HRESULT WINAPI OnD3D11ResizedSwapChain( _In_ ID3D11Device* pd3dDevice,
                                      _In_ const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc );
     void OnD3D11DestroyDevice();
 

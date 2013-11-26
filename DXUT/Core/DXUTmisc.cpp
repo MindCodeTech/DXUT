@@ -16,7 +16,7 @@
 
 using namespace DirectX;
 
-using namespace DXUT::DDSTextLoader;
+using namespace DXUT::DDSTextureLoader;
 
 using namespace DXUT::ScreenGrab;
 

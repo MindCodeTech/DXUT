@@ -51,17 +51,17 @@
 
 #include "DXUTexp.h"
 
-#if defined(DXUTLIB_EXPORT) || defined(_LIB) || defined(DXUTLIB_IMPORT) || defined(_DLL)
-#define DXUT_AUTOLIB
+#if defined(_MSC_VER) && defined(DXUTLIB_EXPORT) || defined(_LIB) || defined(DXUTLIB_IMPORT) || defined(_DLL)
+#define DXUT_AUTOLIB 1
 #endif
 
 
 // #define DXUT_AUTOLIB to automatically include the libs needed for DXUT
 #ifdef DXUT_AUTOLIB
 #pragma comment( lib, "d3d11.lib" )
-#pragma comment( lib, "d3d10_1.lib" )
-#pragma comment( lib, "d3d10.lib" )
-#pragma comment( lib, "comctl32.lib" )
+// #pragma comment( lib, "d3d10_1.lib" )
+// #pragma comment( lib, "d3d10.lib" )
+#pragma comment( lib, "ComCtl32.lib" )
 #pragma comment( lib, "dxgi.lib" )
 #pragma comment( lib, "dxguid.lib" )
 #pragma comment( lib, "d3dcompiler.lib" )
@@ -113,15 +113,16 @@
 #pragma pack(push)
 #pragma pack(8)
 
-#ifdef DEFINE_GUID
-#undef DEFINE_GUID
-#endif
+// #ifdef DEFINE_GUID
+// #undef DEFINE_GUID
+// #endif
 
 // Standard Windows includes
 #include <windows.h>
 #include <ocidl.h>
 #include <initguid.h>
 #include <commctrl.h> // for InitCommonControls()
+#include <commdlg.h>
 #include <shellapi.h> // for ExtractIcon()
 #include <shlobj.h>
 #include <usp10.h>
@@ -136,14 +137,13 @@
 
 
 // Direct3D11 includes
-#include <d3dcommon.h>
-#include <dxgi1_2.h>
-#include <d3d11_1.h>
+//#include <d3dcommon.h>
+#include <dxgi1_3.h>
+#include <d3d11_2.h>
 #include <d3d11shader.h>
-#include <d3d10_1.h>
+//#include <d3d10_1.h>
 #include <d3dcompiler.h>
-#include <dxgiformat.h>
-#include <d2d1_1.h>
+#include <d2d1_2.h>
 #include <d3dcsx.h>
 
 #if defined(DEBUG) || defined(_DEBUG)

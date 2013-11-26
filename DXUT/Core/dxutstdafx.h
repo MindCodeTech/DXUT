@@ -38,8 +38,8 @@
 #include "DDSTextureLoader.h"
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY != WINAPI_FAMILY_PHONE_APP)
 #include "WICTextureLoader.h"
-#include "ScreenGrab.h"
 #endif
+#include "ScreenGrab.h"
 
 //#include <d3d9.h>
 

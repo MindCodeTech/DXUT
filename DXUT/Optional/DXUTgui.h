@@ -394,8 +394,8 @@ extern "C++" {
 			bool MsgProc( _In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam );
 
 			// D3D11 specific
-			HRESULT OnD3D11CreateDevice( _In_ ID3D11Device* pd3dDevice, _In_ ID3D11DeviceContext* pd3d11DeviceContext );
-			HRESULT OnD3D11ResizedSwapChain( _In_ ID3D11Device* pd3dDevice, _In_ const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc );
+			HRESULT WINAPI OnD3D11CreateDevice( _In_ ID3D11Device* pd3dDevice, _In_ ID3D11DeviceContext* pd3d11DeviceContext );
+			HRESULT WINAPI OnD3D11ResizedSwapChain( _In_ ID3D11Device* pd3dDevice, _In_ const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc );
 			void OnD3D11ReleasingSwapChain();
 			void OnD3D11DestroyDevice();
 			void StoreD3D11State( _In_ ID3D11DeviceContext* pd3dImmediateContext );

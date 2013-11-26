@@ -30,7 +30,7 @@ extern "C" {
 namespace DXUT
 	{
 
-	namespace DDSTextLoader
+	namespace DDSTextureLoader
 	{
 
     DXUTAPI HRESULT CreateDDSTextureFromMemory( _In_ ID3D11Device* d3dDevice,
