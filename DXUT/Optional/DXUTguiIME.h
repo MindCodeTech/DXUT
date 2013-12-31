@@ -12,82 +12,77 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
-#ifdef extern_cplus
-extern "C" {
+#ifdef __cplusplus
+EXTERN_C_BEGIN
 #endif
 
-#ifdef extern_cplusplus
-	extern "C++" {
-#endif
+NAMESPACE_DXUT
 
-		namespace DXUT
-		{
-
-	//--------------------------------------------------------------------------------------
-	// Forward declarations
-	//--------------------------------------------------------------------------------------
-class DXUTAPI CDXUTIMEEditBox;
+//--------------------------------------------------------------------------------------
+// Forward declarations
+//--------------------------------------------------------------------------------------
+class CDXUTIMEEditBox;
 
 //-----------------------------------------------------------------------------
 // IME-enabled EditBox control
 //-----------------------------------------------------------------------------
 #define MAX_COMPSTRING_SIZE 256
 
-class DXUTAPI CDXUTIMEEditBox : public CDXUTEditBox
+class CDXUTIMEEditBox : public CDXUTEditBox
 {
 public:
 
-	static HRESULT CreateIMEEditBox( _In_ CDXUTDialog* pDialog, _In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width,
-		_In_ int height, _In_ bool bIsDefault=false, _Outptr_opt_ CDXUTIMEEditBox** ppCreated=nullptr );
+	DXUTAPI static HRESULT CreateIMEEditBox(_In_ CDXUTDialog* pDialog, _In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width,
+		_In_ int height, _In_ bool bIsDefault = false, _Outptr_opt_ CDXUTIMEEditBox** ppCreated = nullptr);
 
-	CDXUTIMEEditBox( _In_opt_ CDXUTDialog* pDialog = nullptr );
+	CDXUTIMEEditBox(_In_opt_ CDXUTDialog* pDialog = nullptr);
 	virtual ~CDXUTIMEEditBox();
 
-	static void InitDefaultElements( _In_ CDXUTDialog* pDialog );
+	DXUTAPI static void InitDefaultElements(_In_ CDXUTDialog* pDialog);
 
-	static void WINAPI Initialize( _In_ HWND hWnd );
-	static void WINAPI Uninitialize();
+	DXUTAPI static void WINAPI Initialize(_In_ HWND hWnd);
+	DXUTAPI static void WINAPI Uninitialize();
 
-	static  HRESULT WINAPI  StaticOnCreateDevice();
-	static  bool WINAPI     StaticMsgProc( _In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam );
+	DXUTAPI static  HRESULT WINAPI  StaticOnCreateDevice();
+	DXUTAPI static  bool WINAPI     StaticMsgProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
 
-	static  void WINAPI     SetImeEnableFlag( _In_ bool bFlag );
+	DXUTAPI static  void WINAPI     SetImeEnableFlag(_In_ bool bFlag);
 
-	virtual void Render( _In_ float fElapsedTime ) override;
-	virtual bool MsgProc( _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam ) override;
-	virtual bool HandleMouse( _In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam ) override;
-	virtual void UpdateRects() override;
-	virtual void OnFocusIn() override;
-	virtual void OnFocusOut() override;
+	virtual DXUTAPI void Render(_In_ float fElapsedTime) override;
+	virtual DXUTAPI bool MsgProc(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual DXUTAPI bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual DXUTAPI void UpdateRects() override;
+	virtual DXUTAPI void OnFocusIn() override;
+	virtual DXUTAPI void OnFocusOut() override;
 
-	void PumpMessage();
+	DXUTAPI void PumpMessage();
 
-	virtual void RenderCandidateReadingWindow( _In_ bool bReading );
-	virtual void RenderComposition();
-	virtual void RenderIndicator( _In_ float fElapsedTime );
+	virtual DXUTAPI void RenderCandidateReadingWindow(_In_ bool bReading);
+	virtual DXUTAPI void RenderComposition();
+	virtual DXUTAPI void RenderIndicator(_In_ float fElapsedTime);
 
 protected:
-	static void WINAPI      EnableImeSystem( _In_ bool bEnable );
+	DXUTAPI static void WINAPI      EnableImeSystem(_In_ bool bEnable);
 
-	static WORD WINAPI      GetLanguage()
+	DXUTAPI static WORD WINAPI      GetLanguage()
 	{
 		return ImeUi_GetLanguage();
 	}
-	static WORD WINAPI      GetPrimaryLanguage()
+	DXUTAPI static WORD WINAPI      GetPrimaryLanguage()
 	{
 		return ImeUi_GetPrimaryLanguage();
 	}
-	static void WINAPI      SendKey( _In_ BYTE nVirtKey );
-	static DWORD WINAPI     GetImeId( _In_ UINT uIndex = 0 )
+	DXUTAPI static void WINAPI      SendKey(_In_ BYTE nVirtKey);
+	DXUTAPI static DWORD WINAPI     GetImeId(_In_ UINT uIndex = 0)
 	{
-		return ImeUi_GetImeId( uIndex );
+		return ImeUi_GetImeId(uIndex);
 	};
-	static void WINAPI      CheckInputLocale();
-	static void WINAPI      CheckToggleState();
-	static void WINAPI      SetupImeApi();
-	static void WINAPI      ResetCompositionString();
+	DXUTAPI static void WINAPI      CheckInputLocale();
+	DXUTAPI static void WINAPI      CheckToggleState();
+	DXUTAPI static void WINAPI      SetupImeApi();
+	DXUTAPI static void WINAPI      ResetCompositionString();
 
-	static void             SetupImeUiCallback();
+	DXUTAPI static void             SetupImeUiCallback();
 
 protected:
 	enum
@@ -99,7 +94,7 @@ protected:
 		INDICATOR_JAPANESE
 	};
 
-	struct DXUTAPI CCandList
+	struct CCandList
 	{
 		CUniBuffer HoriCand; // Candidate list string (for horizontal candidate window)
 		int nFirstSelected; // First character position of the selected string in HoriCand
@@ -144,13 +139,8 @@ protected:
 #endif
 };
 
-}
+NAMESPACE_DXUT_END
 
-#if defined(extern_cplus) && defined(extern_cplusplus)
-	}
-	}
-#elif defined(extern_cplus) && !defined(extern_cplusplus)
-}
-#elif defined(extern_cplusplus) && !defined(extern_cplus)
-}
+#ifdef __cplusplus
+EXTERN_C_END
 #endif

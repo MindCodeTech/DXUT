@@ -1,6 +1,8 @@
 DXUT VERSION 11.0.4
 =======================================================
 
+30-12-2012 code and api exports cleanup / removed struct´s and class´s api exports to selected functions exports
+
 20-11-2103 removed demos/Effects11/DirectXTK/DirectXTex to a separate repository
 =======================================================
 
@@ -8,7 +10,7 @@ DXUT VERSION 11.0.4
 =======================================================
 
 Added =
-	= SDKsound
+	= SDKsound     selectable use of leagacy api with undef of NO_LEGACY_API macro defenition
 	= SDKwavefile
 	= DXUTShader
 	= DXUTMathHelper

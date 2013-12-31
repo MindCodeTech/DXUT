@@ -20,43 +20,31 @@
 
 #pragma once
 
-#ifdef extern_cplus
-extern "C" {
+#ifdef __cplusplus
+EXTERN_C_BEGIN
 #endif
 
-#ifdef extern_cplusplus
-	extern "C++" {
-#endif
+NAMESPACE_DXUT
+NAMESPACE_ScreenGrab
 
-namespace DXUT
-{
-	namespace ScreenGrab
-	{
-
-    DXUTAPI HRESULT SaveDDSTextureToFile( _In_ ID3D11DeviceContext* pContext,
-                                  _In_ ID3D11Resource* pSource,
-                                  _In_z_ LPCWSTR fileName );
+DXUTAPI HRESULT SaveDDSTextureToFile(_In_ ID3D11DeviceContext* pContext,
+_In_ ID3D11Resource* pSource,
+_In_z_ LPCWSTR fileName);
 
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY != WINAPI_FAMILY_PHONE_APP)
 
-    DXUTAPI HRESULT SaveWICTextureToFile( _In_ ID3D11DeviceContext* pContext,
-                                  _In_ ID3D11Resource* pSource,
-                                  _In_ REFGUID guidContainerFormat, 
-                                  _In_z_ LPCWSTR fileName,
-                                  _In_opt_ const GUID* targetFormat = nullptr,
-                                  _In_opt_ std::function<void(IPropertyBag2*)> setCustomProps = nullptr );
+DXUTAPI HRESULT SaveWICTextureToFile(_In_ ID3D11DeviceContext* pContext,
+	_In_ ID3D11Resource* pSource,
+	_In_ REFGUID guidContainerFormat,
+	_In_z_ LPCWSTR fileName,
+	_In_opt_ const GUID* targetFormat = nullptr,
+	_In_opt_ std::function<void(IPropertyBag2*)> setCustomProps = nullptr);
 
 #endif
 
-	}
+NAMESPACE_ScreenGrab_END
+NAMESPACE_DXUT_END
 
-}
-
-#if defined(extern_cplus) && defined(extern_cplusplus)
-	}
-	}
-#elif defined(extern_cplus) && !defined(extern_cplusplus)
-}
-#elif defined(extern_cplusplus) && !defined(extern_cplus)
-}
+#ifdef __cplusplus
+EXTERN_C_END
 #endif

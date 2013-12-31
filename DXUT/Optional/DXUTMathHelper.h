@@ -7,18 +7,13 @@
 
 using namespace DirectX;
 
-#ifdef extern_cplus
-extern "C" {
+#ifdef __cplusplus
+EXTERN_C_BEGIN
 #endif
 
-#ifdef extern_cplusplus
-	extern "C++" {
-#endif
+NAMESPACE_DXUT
 
-		namespace DXUT
-		{
-
-class DXUTAPI MathHelper
+class MathHelper
 {
 public:
 	// Returns random float in [0, 1).
@@ -30,7 +25,7 @@ public:
 	// Returns random float in [a, b).
 	static float RandF(float a, float b)
 	{
-		return a + RandF()*(b-a);
+		return a + RandF()*(b - a);
 	}
 
 	template<typename T>
@@ -44,25 +39,25 @@ public:
 	{
 		return a > b ? a : b;
 	}
-	 
+
 	template<typename T>
 	static T Lerp(const T& a, const T& b, float t)
 	{
-		return a + (b-a)*t;
+		return a + (b - a)*t;
 	}
 
 	template<typename T>
 	static T Clamp(const T& x, const T& low, const T& high)
 	{
-		return x < low ? low : (x > high ? high : x); 
+		return x < low ? low : (x > high ? high : x);
 	}
 
 	// Returns the polar angle of the point (x,y) in [0, 2*PI).
-	static float AngleFromXY(float x, float y);
+	DXUTAPI static float AngleFromXY(float x, float y);
 
-	static XMMATRIX InverseTranspose(CXMMATRIX M)
+	DXUTAPI static XMMATRIX InverseTranspose(CXMMATRIX M)
 	{
-		// Inverse-transpose is just applied to normals.  So zero out 
+		// Inverse-transpose is just applied to normals.  So zero out
 		// translation row so that it doesn't get into our inverse-transpose
 		// calculation--we don't want the inverse-transpose of the translation.
 		XMMATRIX A = M;
@@ -72,23 +67,15 @@ public:
 		return XMMatrixTranspose(XMMatrixInverse(&det, A));
 	}
 
-	static XMVECTOR RandUnitVec3();
-	static XMVECTOR RandHemisphereUnitVec3(XMVECTOR n);
+	DXUTAPI static XMVECTOR RandUnitVec3();
+	DXUTAPI static XMVECTOR RandHemisphereUnitVec3(XMVECTOR n);
 
 	static const float Infinity;
 	static const float Pi;
-
-
 };
 
-		}
+NAMESPACE_DXUT_END
 
-#if defined(extern_cplus) && defined(extern_cplusplus)
-	}
-	}
-#elif defined(extern_cplus) && !defined(extern_cplusplus)
-}
-#elif defined(extern_cplusplus) && !defined(extern_cplus)
-}
+#ifdef __cplusplus
+EXTERN_C_END
 #endif
-

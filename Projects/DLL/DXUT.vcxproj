@@ -146,13 +146,14 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
-      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;_DEBUG;DEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORTS;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;_DEBUG;DEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <OmitFramePointers />
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -197,12 +198,13 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32</Command>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
-      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;_DEBUG;DEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORTS;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;_DEBUG;DEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -248,7 +250,7 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin64</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
-      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_RELEASE;RELEASE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORTS;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_RELEASE;RELEASE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -256,7 +258,9 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin64</Command>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>None</DebugInformationFormat>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <OmitFramePointers />
+      <OmitFramePointers>true</OmitFramePointers>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -299,7 +303,7 @@ copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin32</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
-      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_RELEASE;RELEASE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORTS;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_RELEASE;RELEASE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -307,6 +311,9 @@ copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin32</Command>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>None</DebugInformationFormat>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <OmitFramePointers>true</OmitFramePointers>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -349,11 +356,12 @@ copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin64</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
-      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORTS;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OmitFramePointers />
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -398,10 +406,11 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <FloatingPointModel>Fast</FloatingPointModel>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
-      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORTS;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>

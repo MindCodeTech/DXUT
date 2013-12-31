@@ -8,8 +8,9 @@
 #pragma once
 
 #include "DXUTvers.h"
+#include "DXUTvers.h"
 #include "DXUT.h"
-#include "typesexport.h"
+//#include "typesexport.h"
 #include "PlatformHelpers.h"
 
 #include "dxerr.h"
@@ -30,7 +31,6 @@
 #include "SDKwavefile.h"
 //#include "DXUTmesh.h"
 
-
 // DirectXTex
 #include "DDS.h"
 // #include "DirectXTex.h"
@@ -47,7 +47,6 @@
 //#include "scoped.h" ported to PlatformHelpers.h
 // #include "BCDirectCompute.h"
 // #include "filters.h"
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // DirectXTK
@@ -70,23 +69,22 @@
 // #include "SimpleMath.h"
 // #include "SimpleMath.inl"
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Effects11
 
 // #include "Effects11exp.h"
 // #include "PlatformHelpers.h"
-// 
+//
 // // Effects11
 // #include "d3dx11effect.h"
 // #include "d3dxGlobal.h"
-// 
+//
 // #include "Effect.h"
 // #include "EffectStateBase11.h"
-// 
+//
 // #include "EffectLoad.h"
-// 
-// 
+//
+//
 // #define _PCH_BUILD
 // #ifdef _PCH_BUILD
 // #include "EffectStates11.h"
@@ -103,7 +101,3 @@
 // #include "EffectStates11.h"
 // #include "EffectLoad.h"
 // #include "SOParser.h"
-
-
-
-

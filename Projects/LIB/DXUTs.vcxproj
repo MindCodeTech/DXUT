@@ -147,7 +147,7 @@
       <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <ProgramDataBaseFileName>$(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -191,7 +191,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ProgramDataBaseFileName>$(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -233,9 +233,10 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <ProgramDataBaseFileName>$(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <OmitFramePointers>true</OmitFramePointers>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -278,9 +279,11 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <ProgramDataBaseFileName>$(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <OmitFramePointers>true</OmitFramePointers>
+      <StringPooling>true</StringPooling>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -319,7 +322,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ProgramDataBaseFileName>$(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -362,7 +365,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ProgramDataBaseFileName>$(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>

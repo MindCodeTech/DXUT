@@ -26,71 +26,60 @@
 
 #pragma once
 
-#ifdef extern_cplus
-extern "C" {
+#ifdef __cplusplus
+EXTERN_C_BEGIN
 #endif
 
-#ifdef extern_cplusplus
-	extern "C++" {
-#endif
+NAMESPACE_DXUT
+NAMESPACE_WICTextureLoader
 
-namespace DXUT
-	{
-		namespace WICTextureLoader
-		{
+DXUTAPI HRESULT CreateWICTextureFromMemory(_In_ ID3D11Device* d3dDevice,
+_In_opt_ ID3D11DeviceContext* d3dContext,
+_In_reads_bytes_(wicDataSize) const uint8_t* wicData,
+_In_ size_t wicDataSize,
+_Out_opt_ ID3D11Resource** texture,
+_Out_opt_ ID3D11ShaderResourceView** textureView,
+_In_ size_t maxsize = 0
+);
 
-    DXUTAPI HRESULT CreateWICTextureFromMemory( _In_ ID3D11Device* d3dDevice,
-                                        _In_opt_ ID3D11DeviceContext* d3dContext,
-                                        _In_reads_bytes_(wicDataSize) const uint8_t* wicData,
-                                        _In_ size_t wicDataSize,
-                                        _Out_opt_ ID3D11Resource** texture,
-                                        _Out_opt_ ID3D11ShaderResourceView** textureView,
-                                        _In_ size_t maxsize = 0
-                                      );
+DXUTAPI HRESULT CreateWICTextureFromFile(_In_ ID3D11Device* d3dDevice,
+	_In_opt_ ID3D11DeviceContext* d3dContext,
+	_In_z_ const wchar_t* szFileName,
+	_Out_opt_ ID3D11Resource** texture,
+	_Out_opt_ ID3D11ShaderResourceView** textureView,
+	_In_ size_t maxsize = 0
+	);
 
-    DXUTAPI HRESULT CreateWICTextureFromFile( _In_ ID3D11Device* d3dDevice,
-                                      _In_opt_ ID3D11DeviceContext* d3dContext,
-                                      _In_z_ const wchar_t* szFileName,
-                                      _Out_opt_ ID3D11Resource** texture,
-                                      _Out_opt_ ID3D11ShaderResourceView** textureView,
-                                      _In_ size_t maxsize = 0
-                                    );
+DXUTAPI HRESULT CreateWICTextureFromMemoryEx(_In_ ID3D11Device* d3dDevice,
+	_In_opt_ ID3D11DeviceContext* d3dContext,
+	_In_reads_bytes_(wicDataSize) const uint8_t* wicData,
+	_In_ size_t wicDataSize,
+	_In_ size_t maxsize,
+	_In_ D3D11_USAGE usage,
+	_In_ unsigned int bindFlags,
+	_In_ unsigned int cpuAccessFlags,
+	_In_ unsigned int miscFlags,
+	_In_ bool forceSRGB,
+	_Out_opt_ ID3D11Resource** texture,
+	_Out_opt_ ID3D11ShaderResourceView** textureView
+	);
 
-    DXUTAPI HRESULT CreateWICTextureFromMemoryEx( _In_ ID3D11Device* d3dDevice,
-                                          _In_opt_ ID3D11DeviceContext* d3dContext,
-                                          _In_reads_bytes_(wicDataSize) const uint8_t* wicData,
-                                          _In_ size_t wicDataSize,
-                                          _In_ size_t maxsize,
-                                          _In_ D3D11_USAGE usage,
-                                          _In_ unsigned int bindFlags,
-                                          _In_ unsigned int cpuAccessFlags,
-                                          _In_ unsigned int miscFlags,
-                                          _In_ bool forceSRGB,
-                                          _Out_opt_ ID3D11Resource** texture,
-                                          _Out_opt_ ID3D11ShaderResourceView** textureView
-                                      );
+DXUTAPI HRESULT CreateWICTextureFromFileEx(_In_ ID3D11Device* d3dDevice,
+	_In_opt_ ID3D11DeviceContext* d3dContext,
+	_In_z_ const wchar_t* szFileName,
+	_In_ size_t maxsize,
+	_In_ D3D11_USAGE usage,
+	_In_ unsigned int bindFlags,
+	_In_ unsigned int cpuAccessFlags,
+	_In_ unsigned int miscFlags,
+	_In_ bool forceSRGB,
+	_Out_opt_ ID3D11Resource** texture,
+	_Out_opt_ ID3D11ShaderResourceView** textureView
+	);
 
-    DXUTAPI HRESULT CreateWICTextureFromFileEx( _In_ ID3D11Device* d3dDevice,
-                                        _In_opt_ ID3D11DeviceContext* d3dContext,
-                                        _In_z_ const wchar_t* szFileName,
-                                        _In_ size_t maxsize,
-                                        _In_ D3D11_USAGE usage,
-                                        _In_ unsigned int bindFlags,
-                                        _In_ unsigned int cpuAccessFlags,
-                                        _In_ unsigned int miscFlags,
-                                        _In_ bool forceSRGB,
-                                        _Out_opt_ ID3D11Resource** texture,
-                                        _Out_opt_ ID3D11ShaderResourceView** textureView
-                                    );
-}
+NAMESPACE_WICTextureLoader_END
+NAMESPACE_DXUT_END
 
-}
-
-#if defined(extern_cplus) && defined(extern_cplusplus)
-	}
-	}
-#elif defined(extern_cplus) && !defined(extern_cplusplus)
-}
-#elif defined(extern_cplusplus) && !defined(extern_cplus)
-}
+#ifdef __cplusplus
+EXTERN_C_END
 #endif

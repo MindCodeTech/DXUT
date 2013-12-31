@@ -12,12 +12,8 @@
 //--------------------------------------------------------------------------------------
 #pragma once
 
-#ifdef extern_cplus
-extern "C" {
-#endif
-
-#ifdef extern_cplusplus
-	extern "C++" {
+#ifdef __cplusplus
+EXTERN_C_BEGIN
 #endif
 
 //--------------------------------------------------------------------------------------
@@ -56,130 +52,122 @@ extern "C" {
 
 #define TOTAL_FEATURE_LEVELS                            7
 
-		namespace DXUT
-		{
+NAMESPACE_DXUT
 
 //--------------------------------------------------------------------------------------
-// Dialog for selection of device settings 
+// Dialog for selection of device settings
 // Use DXUTGetD3DSettingsDialog() to access global instance
 // To control the contents of the dialog, use the CD3D11Enumeration class.
 //--------------------------------------------------------------------------------------
-class DXUTAPI CD3DSettingsDlg
+class CD3DSettingsDlg
 {
 public:
-    CD3DSettingsDlg();
-    ~CD3DSettingsDlg();
+	CD3DSettingsDlg();
+	~CD3DSettingsDlg();
 
-    void Init( _In_ CDXUTDialogResourceManager* pManager );
-    void Init( _In_ CDXUTDialogResourceManager* pManager, _In_z_ LPCWSTR szControlTextureFileName );
-    void Init( _In_ CDXUTDialogResourceManager* pManager, _In_z_ LPCWSTR pszControlTextureResourcename,
-               _In_ HMODULE hModule );
+	DXUTAPI void Init(_In_ CDXUTDialogResourceManager* pManager);
+	DXUTAPI void Init(_In_ CDXUTDialogResourceManager* pManager, _In_z_ LPCWSTR szControlTextureFileName);
+	DXUTAPI void Init(_In_ CDXUTDialogResourceManager* pManager, _In_z_ LPCWSTR pszControlTextureResourcename,
+		_In_ HMODULE hModule);
 
-    HRESULT Refresh();
-    void OnRender( _In_ float fElapsedTime );
+	DXUTAPI HRESULT Refresh();
+	DXUTAPI void OnRender(_In_ float fElapsedTime);
 
-    HRESULT WINAPI OnD3D11CreateDevice( _In_ ID3D11Device* pd3dDevice );
-    HRESULT WINAPI OnD3D11ResizedSwapChain( _In_ ID3D11Device* pd3dDevice,
-                                     _In_ const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc );
-    void OnD3D11DestroyDevice();
+	DXUTAPI HRESULT WINAPI OnD3D11CreateDevice(_In_ ID3D11Device* pd3dDevice);
+	DXUTAPI HRESULT WINAPI OnD3D11ResizedSwapChain(_In_ ID3D11Device* pd3dDevice,
+		_In_ const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc);
+	DXUTAPI void OnD3D11DestroyDevice();
 
-    CDXUTDialog* GetDialogControl() { return &m_Dialog; }
-    bool IsActive() const { return m_bActive; }
-    void SetActive( _In_ bool bActive )
-    {
-        m_bActive = bActive;
-        if( bActive ) Refresh();
-    }
+	DXUTAPI CDXUTDialog* GetDialogControl() { return &m_Dialog; }
+	DXUTAPI bool IsActive() const { return m_bActive; }
+	DXUTAPI void SetActive(_In_ bool bActive)
+	{
+		m_bActive = bActive;
+		if (bActive) Refresh();
+	}
 
-    LRESULT MsgProc( _In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam );
+	DXUTAPI LRESULT MsgProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
 
 protected:
-    friend DXUTAPI CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog();
+	friend DXUTAPI CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog();
 
-    void CreateControls();
-    void SetSelectedD3D11RefreshRate( _In_ DXGI_RATIONAL RefreshRate );
-    HRESULT UpdateD3D11Resolutions();
+	DXUTAPI void CreateControls();
+	DXUTAPI void SetSelectedD3D11RefreshRate(_In_ DXGI_RATIONAL RefreshRate);
+	DXUTAPI HRESULT UpdateD3D11Resolutions();
 
-    void OnEvent( _In_ UINT nEvent, _In_ int nControlID, _In_ CDXUTControl* pControl );
+	DXUTAPI void OnEvent(_In_ UINT nEvent, _In_ int nControlID, _In_ CDXUTControl* pControl);
 
-    static void WINAPI StaticOnEvent( _In_ UINT nEvent, _In_ int nControlID, _In_ CDXUTControl* pControl, _In_opt_ void* pUserData );
-    static void WINAPI StaticOnModeChangeTimer( _In_ UINT nIDEvent, _In_opt_ void* pUserContext );
+	DXUTAPI static void WINAPI StaticOnEvent(_In_ UINT nEvent, _In_ int nControlID, _In_ CDXUTControl* pControl, _In_opt_ void* pUserData);
+	DXUTAPI static void WINAPI StaticOnModeChangeTimer(_In_ UINT nIDEvent, _In_opt_ void* pUserContext);
 
-    CD3D11EnumAdapterInfo* GetCurrentD3D11AdapterInfo() const;
-    CD3D11EnumDeviceInfo* GetCurrentD3D11DeviceInfo() const;
-    CD3D11EnumOutputInfo* GetCurrentD3D11OutputInfo() const;
-    CD3D11EnumDeviceSettingsCombo* GetCurrentD3D11DeviceSettingsCombo() const;
+	DXUTAPI CD3D11EnumAdapterInfo* GetCurrentD3D11AdapterInfo() const;
+	DXUTAPI CD3D11EnumDeviceInfo* GetCurrentD3D11DeviceInfo() const;
+	DXUTAPI CD3D11EnumOutputInfo* GetCurrentD3D11OutputInfo() const;
+	DXUTAPI CD3D11EnumDeviceSettingsCombo* GetCurrentD3D11DeviceSettingsCombo() const;
 
-    void AddAdapter( _In_z_ const WCHAR* strDescription, _In_ UINT iAdapter );
-    UINT GetSelectedAdapter() const;
+	DXUTAPI void AddAdapter(_In_z_ const WCHAR* strDescription, _In_ UINT iAdapter);
+	DXUTAPI UINT GetSelectedAdapter() const;
 
-    void SetWindowed( _In_ bool bWindowed );
-    bool IsWindowed() const;
+	DXUTAPI void SetWindowed(_In_ bool bWindowed);
+	DXUTAPI bool IsWindowed() const;
 
-    // D3D11
-    void                AddD3D11DeviceType( _In_ D3D_DRIVER_TYPE devType );
-    D3D_DRIVER_TYPE     GetSelectedD3D11DeviceType() const;
+	// D3D11
+	DXUTAPI void                AddD3D11DeviceType(_In_ D3D_DRIVER_TYPE devType);
+	DXUTAPI D3D_DRIVER_TYPE     GetSelectedD3D11DeviceType() const;
 
-    void                AddD3D11AdapterOutput( _In_z_ const WCHAR* strName, _In_ UINT nOutput );
-    UINT                GetSelectedD3D11AdapterOutput() const;
+	DXUTAPI void                AddD3D11AdapterOutput(_In_z_ const WCHAR* strName, _In_ UINT nOutput);
+	DXUTAPI UINT                GetSelectedD3D11AdapterOutput() const;
 
-    void                AddD3D11Resolution( _In_ DWORD dwWidth, _In_ DWORD dwHeight );
-    void                GetSelectedD3D11Resolution( _Out_ DWORD* pdwWidth, _Out_ DWORD* pdwHeight ) const;
+	DXUTAPI void                AddD3D11Resolution(_In_ DWORD dwWidth, _In_ DWORD dwHeight);
+	DXUTAPI void                GetSelectedD3D11Resolution(_Out_ DWORD* pdwWidth, _Out_ DWORD* pdwHeight) const;
 
-    void                AddD3D11FeatureLevel( _In_ D3D_FEATURE_LEVEL fl );
-    D3D_FEATURE_LEVEL   GetSelectedFeatureLevel() const;
+	DXUTAPI void                AddD3D11FeatureLevel(_In_ D3D_FEATURE_LEVEL fl);
+	DXUTAPI D3D_FEATURE_LEVEL   GetSelectedFeatureLevel() const;
 
-    void                AddD3D11RefreshRate( _In_ DXGI_RATIONAL RefreshRate );
-    DXGI_RATIONAL       GetSelectedD3D11RefreshRate() const;
+	DXUTAPI void                AddD3D11RefreshRate(_In_ DXGI_RATIONAL RefreshRate);
+	DXUTAPI DXGI_RATIONAL       GetSelectedD3D11RefreshRate() const;
 
-    void                AddD3D11BackBufferFormat( _In_ DXGI_FORMAT format );
-    DXGI_FORMAT         GetSelectedD3D11BackBufferFormat() const;
+	DXUTAPI void                AddD3D11BackBufferFormat(_In_ DXGI_FORMAT format);
+	DXUTAPI DXGI_FORMAT         GetSelectedD3D11BackBufferFormat() const;
 
-    void                AddD3D11MultisampleCount( _In_ UINT count );
-    UINT                GetSelectedD3D11MultisampleCount() const;
+	DXUTAPI void                AddD3D11MultisampleCount(_In_ UINT count);
+	DXUTAPI UINT                GetSelectedD3D11MultisampleCount() const;
 
-    void                AddD3D11MultisampleQuality( _In_ UINT Quality );
-    UINT                GetSelectedD3D11MultisampleQuality() const;
+	DXUTAPI void                AddD3D11MultisampleQuality(_In_ UINT Quality);
+	DXUTAPI UINT                GetSelectedD3D11MultisampleQuality() const;
 
-    DWORD               GetSelectedD3D11PresentInterval() const;
-    bool                GetSelectedDebugDeviceValue() const;
-    
-    HRESULT             OnD3D11ResolutionChanged ();
-    HRESULT             OnFeatureLevelChanged();
-    HRESULT             OnAdapterChanged();
-    HRESULT             OnDeviceTypeChanged();
-    HRESULT             OnWindowedFullScreenChanged();
-    HRESULT             OnAdapterOutputChanged();
-    HRESULT             OnRefreshRateChanged();
-    HRESULT             OnBackBufferFormatChanged();
-    HRESULT             OnMultisampleTypeChanged();
-    HRESULT             OnMultisampleQualityChanged();
-    HRESULT             OnPresentIntervalChanged();
-    HRESULT             OnDebugDeviceChanged();
+	DXUTAPI DWORD               GetSelectedD3D11PresentInterval() const;
+	DXUTAPI bool                GetSelectedDebugDeviceValue() const;
 
-    void                UpdateModeChangeTimeoutText( _In_ int nSecRemaining );
+	DXUTAPI HRESULT             OnD3D11ResolutionChanged();
+	DXUTAPI HRESULT             OnFeatureLevelChanged();
+	DXUTAPI HRESULT             OnAdapterChanged();
+	DXUTAPI HRESULT             OnDeviceTypeChanged();
+	DXUTAPI HRESULT             OnWindowedFullScreenChanged();
+	DXUTAPI HRESULT             OnAdapterOutputChanged();
+	DXUTAPI HRESULT             OnRefreshRateChanged();
+	DXUTAPI HRESULT             OnBackBufferFormatChanged();
+	DXUTAPI HRESULT             OnMultisampleTypeChanged();
+	DXUTAPI HRESULT             OnMultisampleQualityChanged();
+	DXUTAPI HRESULT             OnPresentIntervalChanged();
+	DXUTAPI HRESULT             OnDebugDeviceChanged();
 
-    CDXUTDialog* m_pActiveDialog;
-    CDXUTDialog m_Dialog;
-    CDXUTDialog m_RevertModeDialog;
-    int m_nRevertModeTimeout;
-    UINT m_nIDEvent;
-    bool m_bActive;
+	DXUTAPI void                UpdateModeChangeTimeoutText(_In_ int nSecRemaining);
 
-    D3D_FEATURE_LEVEL m_Levels[TOTAL_FEATURE_LEVELS];
+	CDXUTDialog* m_pActiveDialog;
+	CDXUTDialog m_Dialog;
+	CDXUTDialog m_RevertModeDialog;
+	int m_nRevertModeTimeout;
+	UINT m_nIDEvent;
+	bool m_bActive;
 
+	D3D_FEATURE_LEVEL m_Levels[TOTAL_FEATURE_LEVELS];
 };
-
 
 DXUTAPI CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog();
 
-}
+NAMESPACE_DXUT_END
 
-#if defined(extern_cplus) && defined(extern_cplusplus)
-	}
-	}
-#elif defined(extern_cplus) && !defined(extern_cplusplus)
-}
-#elif defined(extern_cplusplus) && !defined(extern_cplus)
-}
+#ifdef __cplusplus
+EXTERN_C_END
 #endif
