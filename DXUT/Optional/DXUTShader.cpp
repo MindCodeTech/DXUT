@@ -26,7 +26,7 @@ NAMESPACE_DXUT
 
 namespace
 {
-	class CIncludeHandler : public ID3DInclude
+	class DXUTAPI CIncludeHandler : public ID3DInclude
 		// Not as robust as D3D_COMPILE_STANDARD_FILE_INCLUDE, but it works in most cases
 	{
 	private:

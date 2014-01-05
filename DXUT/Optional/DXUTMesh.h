@@ -17,7 +17,7 @@ NAMESPACE_DXUT
 // Name: class CDXUTMesh
 // Desc: Class for loading and rendering file-based meshes
 //-----------------------------------------------------------------------------
-class CDXUTMesh
+class DXUTAPI CDXUTMesh
 {
 public:
 	WCHAR                   m_strName[512];
@@ -72,7 +72,7 @@ public:
 // Name: class CDXUTMeshFrame
 // Desc: Class for loading and rendering file-based meshes
 //-----------------------------------------------------------------------------
-class CDXUTMeshFrame
+class DXUTAPI CDXUTMeshFrame
 {
 public:
 	WCHAR      m_strName[512];
@@ -108,7 +108,7 @@ public:
 // Name: class CDXUTMeshFile
 // Desc: Class for loading and rendering file-based meshes
 //-----------------------------------------------------------------------------
-class CDXUTMeshFile : public CDXUTMeshFrame
+class DXUTAPI CDXUTMeshFile : public CDXUTMeshFrame
 {
 	HRESULT LoadMesh(ID3D11Device* pd3dDevice, LPD3DXFILEDATA pFileData,
 	CDXUTMeshFrame* pParentFrame);

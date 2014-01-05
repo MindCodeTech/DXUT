@@ -85,7 +85,7 @@ static IMEUI_APPEARANCE         gSkinIME =
 	1,			// caretYMargin;
 };
 
-struct _SkinCompStr
+struct DXUTAPI _SkinCompStr
 {
 	DWORD colorInput;
 	DWORD colorTargetConv;
@@ -97,7 +97,7 @@ struct _SkinCompStr
 _SkinCompStr                    gSkinCompStr;
 
 // Definition from Win98DDK version of IMM.H
-typedef struct tagINPUTCONTEXT2
+typedef struct DXUTAPI tagINPUTCONTEXT2
 {
 	HWND hWnd;
 	BOOL fOpen;
@@ -125,7 +125,7 @@ INPUTCONTEXT2, *PINPUTCONTEXT2, NEAR *NPINPUTCONTEXT2,
 FAR*                            LPINPUTCONTEXT2;
 
 // Class to disable Cicero in case ImmDisableTextFrameService() doesn't disable it completely
-class CDisableCicero
+class DXUTAPI CDisableCicero
 {
 public:
 	CDisableCicero() : m_ptim(nullptr),
@@ -136,7 +136,7 @@ public:
 	{
 		Uninitialize();
 	}
-	DXUTAPI void    Initialize()
+	void    Initialize()
 	{
 		if (m_bComInit)
 		{
@@ -154,7 +154,7 @@ public:
 				(void**)&m_ptim);
 		}
 	}
-	DXUTAPI void    Uninitialize()
+	void    Uninitialize()
 	{
 		if (m_ptim)
 		{
@@ -166,7 +166,7 @@ public:
 		m_bComInit = false;
 	}
 
-	DXUTAPI void    DisableCiceroOnThisWnd(HWND hwnd)
+	void    DisableCiceroOnThisWnd(HWND hwnd)
 	{
 		if (!m_ptim)
 			return;
@@ -266,7 +266,7 @@ static HMODULE                  g_hImmDll = nullptr;
 
 #define IsNT() (g_osi.dwPlatformId == VER_PLATFORM_WIN32_NT)
 
-struct CompStringAttribute
+struct DXUTAPI CompStringAttribute
 {
 	UINT caretX;
 	UINT caretY;
@@ -342,11 +342,11 @@ inline LRESULT SendKeyMsg(HWND hwnd, UINT msg, WPARAM wp)
 //      of TSF, so we have to use new TSF interfaces.
 //
 ///////////////////////////////////////////////////////////////////////////////
-class CTsfUiLessMode
+class DXUTAPI CTsfUiLessMode
 {
 protected:
 	// Sink receives event notifications
-	class CUIElementSink : public ITfUIElementSink,
+	class DXUTAPI CUIElementSink : public ITfUIElementSink,
 		public ITfInputProcessorProfileActivationSink,
 		public ITfCompartmentEventSink
 	{
@@ -355,37 +355,37 @@ protected:
 		~CUIElementSink();
 
 		// IUnknown
-		DXUTAPI STDMETHODIMP    QueryInterface(_In_ REFIID riid, _COM_Outptr_ void** ppvObj);
-		DXUTAPI STDMETHODIMP_(ULONG)
+		STDMETHODIMP    QueryInterface(_In_ REFIID riid, _COM_Outptr_ void** ppvObj);
+		STDMETHODIMP_(ULONG)
 			AddRef();
-		DXUTAPI STDMETHODIMP_(ULONG)
+		STDMETHODIMP_(ULONG)
 			Release();
 
 		// ITfUIElementSink
 		//   Notifications for Reading Window events. We could process candidate as well, but we'll use IMM for simplicity sake.
-		DXUTAPI STDMETHODIMP    BeginUIElement(DWORD dwUIElementId, BOOL* pbShow);
-		DXUTAPI STDMETHODIMP    UpdateUIElement(DWORD dwUIElementId);
-		DXUTAPI STDMETHODIMP    EndUIElement(DWORD dwUIElementId);
+		STDMETHODIMP    BeginUIElement(DWORD dwUIElementId, BOOL* pbShow);
+		STDMETHODIMP    UpdateUIElement(DWORD dwUIElementId);
+		STDMETHODIMP    EndUIElement(DWORD dwUIElementId);
 
 		// ITfInputProcessorProfileActivationSink
 		//   Notification for keyboard input locale change
-		DXUTAPI STDMETHODIMP    OnActivated(DWORD dwProfileType, LANGID langid, _In_ REFCLSID clsid, _In_ REFGUID catid,
+		STDMETHODIMP    OnActivated(DWORD dwProfileType, LANGID langid, _In_ REFCLSID clsid, _In_ REFGUID catid,
 			_In_ REFGUID guidProfile, HKL hkl, DWORD dwFlags);
 
 		// ITfCompartmentEventSink
 		//    Notification for open mode (toggle state) change
-		DXUTAPI STDMETHODIMP    OnChange(_In_ REFGUID rguid);
+		STDMETHODIMP    OnChange(_In_ REFGUID rguid);
 
 	private:
 		LONG _cRef;
 	};
 
-	DXUTAPI static void MakeReadingInformationString(ITfReadingInformationUIElement* preading);
-	DXUTAPI static void MakeCandidateStrings(ITfCandidateListUIElement* pcandidate);
-	DXUTAPI static ITfUIElement* GetUIElement(DWORD dwUIElementId);
-	DXUTAPI static BOOL GetCompartments(ITfCompartmentMgr** ppcm, ITfCompartment** ppTfOpenMode,
+	static void MakeReadingInformationString(ITfReadingInformationUIElement* preading);
+	static void MakeCandidateStrings(ITfCandidateListUIElement* pcandidate);
+	static ITfUIElement* GetUIElement(DWORD dwUIElementId);
+	static BOOL GetCompartments(ITfCompartmentMgr** ppcm, ITfCompartment** ppTfOpenMode,
 		ITfCompartment** ppTfConvMode);
-	DXUTAPI static BOOL SetupCompartmentSinks(BOOL bResetOnly = FALSE, ITfCompartment* pTfOpenMode = nullptr,
+	static BOOL SetupCompartmentSinks(BOOL bResetOnly = FALSE, ITfCompartment* pTfOpenMode = nullptr,
 		ITfCompartment* ppTfConvMode = nullptr);
 
 	static ITfThreadMgrEx* m_tm;
@@ -401,11 +401,11 @@ protected:
 	}	// this class can't be instanciated
 
 public:
-	DXUTAPI static BOOL SetupSinks();
-	DXUTAPI static void ReleaseSinks();
-	DXUTAPI static BOOL CurrentInputLocaleIsIme();
-	DXUTAPI static void UpdateImeState(BOOL bResetCompartmentEventSink = FALSE);
-	DXUTAPI static void EnableUiUpdates(bool bEnable);
+	static BOOL SetupSinks();
+	static void ReleaseSinks();
+	static BOOL CurrentInputLocaleIsIme();
+	static void UpdateImeState(BOOL bResetCompartmentEventSink = FALSE);
+	static void EnableUiUpdates(bool bEnable);
 };
 
 ITfThreadMgrEx*                 CTsfUiLessMode::m_tm;
@@ -2679,16 +2679,16 @@ DXUTAPI void CTsfUiLessMode::ReleaseSinks()
 	}
 }
 
-CTsfUiLessMode::CUIElementSink::CUIElementSink()
+DXUTAPI CTsfUiLessMode::CUIElementSink::CUIElementSink()
 {
 	_cRef = 1;
 }
 
-CTsfUiLessMode::CUIElementSink::~CUIElementSink()
+DXUTAPI CTsfUiLessMode::CUIElementSink::~CUIElementSink()
 {
 }
 
-STDAPI CTsfUiLessMode::CUIElementSink::QueryInterface(_In_ REFIID riid, _COM_Outptr_ void** ppvObj)
+DXSTDAPI CTsfUiLessMode::CUIElementSink::QueryInterface(_In_ REFIID riid, _COM_Outptr_ void** ppvObj)
 {
 	if (!ppvObj)
 		return E_INVALIDARG;
@@ -2721,13 +2721,13 @@ STDAPI CTsfUiLessMode::CUIElementSink::QueryInterface(_In_ REFIID riid, _COM_Out
 	return E_NOINTERFACE;
 }
 
-STDAPI_(ULONG)
+DXSTDAPI_(ULONG)
 CTsfUiLessMode::CUIElementSink::AddRef()
 {
 	return ++_cRef;
 }
 
-STDAPI_(ULONG)
+DXSTDAPI_(ULONG)
 CTsfUiLessMode::CUIElementSink::Release()
 {
 	LONG cr = --_cRef;
@@ -2740,7 +2740,7 @@ CTsfUiLessMode::CUIElementSink::Release()
 	return cr;
 }
 
-STDAPI CTsfUiLessMode::CUIElementSink::BeginUIElement(DWORD dwUIElementId, BOOL* pbShow)
+DXSTDAPI CTsfUiLessMode::CUIElementSink::BeginUIElement(DWORD dwUIElementId, BOOL* pbShow)
 {
 	ITfUIElement* pElement = GetUIElement(dwUIElementId);
 	if (!pElement)
@@ -2767,7 +2767,7 @@ STDAPI CTsfUiLessMode::CUIElementSink::BeginUIElement(DWORD dwUIElementId, BOOL*
 	return S_OK;
 }
 
-STDAPI CTsfUiLessMode::CUIElementSink::UpdateUIElement(DWORD dwUIElementId)
+DXSTDAPI CTsfUiLessMode::CUIElementSink::UpdateUIElement(DWORD dwUIElementId)
 {
 	ITfUIElement* pElement = GetUIElement(dwUIElementId);
 	if (!pElement)
@@ -2792,7 +2792,7 @@ STDAPI CTsfUiLessMode::CUIElementSink::UpdateUIElement(DWORD dwUIElementId)
 	return S_OK;
 }
 
-STDAPI CTsfUiLessMode::CUIElementSink::EndUIElement(DWORD dwUIElementId)
+DXSTDAPI CTsfUiLessMode::CUIElementSink::EndUIElement(DWORD dwUIElementId)
 {
 	ITfUIElement* pElement = GetUIElement(dwUIElementId);
 	if (!pElement)
@@ -2859,7 +2859,7 @@ DXUTAPI void CTsfUiLessMode::UpdateImeState(BOOL bResetCompartmentEventSink)
 	}
 }
 
-STDAPI CTsfUiLessMode::CUIElementSink::OnActivated(DWORD dwProfileType, LANGID langid, _In_ REFCLSID clsid, _In_ REFGUID catid,
+DXSTDAPI CTsfUiLessMode::CUIElementSink::OnActivated(DWORD dwProfileType, LANGID langid, _In_ REFCLSID clsid, _In_ REFGUID catid,
 	_In_ REFGUID guidProfile, HKL hkl, DWORD dwFlags)
 {
 	UNREFERENCED_PARAMETER(clsid);
@@ -2884,7 +2884,7 @@ STDAPI CTsfUiLessMode::CUIElementSink::OnActivated(DWORD dwProfileType, LANGID l
 	return S_OK;
 }
 
-STDAPI CTsfUiLessMode::CUIElementSink::OnChange(_In_ REFGUID rguid)
+DXSTDAPI CTsfUiLessMode::CUIElementSink::OnChange(_In_ REFGUID rguid)
 {
 	UNREFERENCED_PARAMETER(rguid);
 	UpdateImeState();

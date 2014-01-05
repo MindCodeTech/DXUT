@@ -41,7 +41,7 @@ NAMESPACE_WICTextureLoader
 //-------------------------------------------------------------------------------------
 // WIC Pixel Format Translation Data
 //-------------------------------------------------------------------------------------
-struct WICTranslate
+struct DXUTAPI WICTranslate
 {
 	GUID                wic;
 	DXGI_FORMAT         format;
@@ -80,7 +80,7 @@ static WICTranslate g_WICFormats[] =
 // WIC Pixel Format nearest conversion table
 //-------------------------------------------------------------------------------------
 
-struct WICConvert
+struct DXUTAPI WICConvert
 {
 	GUID        source;
 	GUID        target;

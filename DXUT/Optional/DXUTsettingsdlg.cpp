@@ -42,7 +42,7 @@ DXUTAPI CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog()
 }
 
 //--------------------------------------------------------------------------------------
-CD3DSettingsDlg::CD3DSettingsDlg() :
+DXUTAPI CD3DSettingsDlg::CD3DSettingsDlg() :
 m_bActive(false),
 m_pActiveDialog(nullptr)
 {
@@ -56,7 +56,7 @@ m_pActiveDialog(nullptr)
 }
 
 //--------------------------------------------------------------------------------------
-CD3DSettingsDlg::~CD3DSettingsDlg()
+DXUTAPI CD3DSettingsDlg::~CD3DSettingsDlg()
 {
 	// Release the memory used to hold the D3D11 refresh data in the combo box
 	CDXUTComboBox* pComboBox = m_Dialog.GetComboBox(DXUTSETTINGSDLG_D3D11_REFRESH_RATE);

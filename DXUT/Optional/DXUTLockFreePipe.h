@@ -42,7 +42,7 @@ void _ReadWriteBarrier();
 // as a template parameter and restricted to powers of two less than 31.
 //
 
-template <BYTE cbBufferSizeLog2> class DXUTLockFreePipe
+template <BYTE cbBufferSizeLog2> class DXUTAPI DXUTLockFreePipe
 {
 public:
 	DXUTLockFreePipe() : m_readOffset(0),

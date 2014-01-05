@@ -110,7 +110,7 @@ enum FRAME_TRANSFORM_TYPE
 // Copied from ModelLoadSDKMESH.cpp
 #pragma pack(push,4)
 
-struct D3DVERTEXELEMENT9
+struct DXUTAPI D3DVERTEXELEMENT9
 {
 	WORD    Stream;     // Stream index
 	WORD    Offset;     // Offset in the stream in bytes
@@ -128,7 +128,7 @@ struct D3DVERTEXELEMENT9
 //--------------------------------------------------------------------------------------
 #pragma pack(push,8)
 
-struct SDKMESH_HEADER
+struct DXUTAPI SDKMESH_HEADER
 {
 	//Basic Info and sizes
 	UINT Version;
@@ -154,7 +154,7 @@ struct SDKMESH_HEADER
 	UINT64 MaterialDataOffset;
 };
 
-struct SDKMESH_VERTEX_BUFFER_HEADER
+struct DXUTAPI SDKMESH_VERTEX_BUFFER_HEADER
 {
 	UINT64 NumVertices;
 	UINT64 SizeBytes;
@@ -167,7 +167,7 @@ struct SDKMESH_VERTEX_BUFFER_HEADER
 	};
 };
 
-struct SDKMESH_INDEX_BUFFER_HEADER
+struct DXUTAPI SDKMESH_INDEX_BUFFER_HEADER
 {
 	UINT64 NumIndices;
 	UINT64 SizeBytes;
@@ -179,7 +179,7 @@ struct SDKMESH_INDEX_BUFFER_HEADER
 	};
 };
 
-struct SDKMESH_MESH
+struct DXUTAPI SDKMESH_MESH
 {
 	char Name[MAX_MESH_NAME];
 	BYTE NumVertexBuffers;
@@ -203,7 +203,7 @@ struct SDKMESH_MESH
 	};
 };
 
-struct SDKMESH_SUBSET
+struct DXUTAPI SDKMESH_SUBSET
 {
 	char Name[MAX_SUBSET_NAME];
 	UINT MaterialID;
@@ -214,7 +214,7 @@ struct SDKMESH_SUBSET
 	UINT64 VertexCount;
 };
 
-struct SDKMESH_FRAME
+struct DXUTAPI SDKMESH_FRAME
 {
 	char Name[MAX_FRAME_NAME];
 	UINT Mesh;
@@ -225,7 +225,7 @@ struct SDKMESH_FRAME
 	UINT AnimationDataIndex;		//Used to index which set of keyframes transforms this frame
 };
 
-struct SDKMESH_MATERIAL
+struct DXUTAPI SDKMESH_MATERIAL
 {
 	char    Name[MAX_MATERIAL_NAME];
 
@@ -276,7 +276,7 @@ struct SDKMESH_MATERIAL
 	};
 };
 
-struct SDKANIMATION_FILE_HEADER
+struct DXUTAPI SDKANIMATION_FILE_HEADER
 {
 	UINT Version;
 	BYTE IsBigEndian;
@@ -288,14 +288,14 @@ struct SDKANIMATION_FILE_HEADER
 	UINT64 AnimationDataOffset;
 };
 
-struct SDKANIMATION_DATA
+struct DXUTAPI SDKANIMATION_DATA
 {
 	DirectX::XMFLOAT3 Translation;
 	DirectX::XMFLOAT4 Orientation;
 	DirectX::XMFLOAT3 Scaling;
 };
 
-struct SDKANIMATION_FRAME_DATA
+struct DXUTAPI SDKANIMATION_FRAME_DATA
 {
 	char FrameName[MAX_FRAME_NAME];
 	union
@@ -330,7 +330,7 @@ typedef void (CALLBACK*LPCREATEVERTEXBUFFER11)(_In_ ID3D11Device* pDev, _Outptr_
 	_In_ D3D11_BUFFER_DESC BufferDesc, _In_ void* pData, _In_opt_ void* pContext);
 typedef void (CALLBACK*LPCREATEINDEXBUFFER11)(_In_ ID3D11Device* pDev, _Outptr_ ID3D11Buffer** ppBuffer,
 	_In_ D3D11_BUFFER_DESC BufferDesc, _In_ void* pData, _In_opt_ void* pContext);
-struct SDKMESH_CALLBACKS11
+struct DXUTAPI SDKMESH_CALLBACKS11
 {
 	LPCREATETEXTUREFROMFILE11 pCreateTextureFromFile;
 	LPCREATEVERTEXBUFFER11 pCreateVertexBuffer;
@@ -341,7 +341,7 @@ struct SDKMESH_CALLBACKS11
 //--------------------------------------------------------------------------------------
 // CDXUTSDKMesh class.  This class reads the sdkmesh file format for use by the samples
 //--------------------------------------------------------------------------------------
-class CDXUTSDKMesh
+class DXUTAPI CDXUTSDKMesh
 {
 private:
 	UINT m_NumOutstandingResources;
@@ -385,40 +385,40 @@ protected:
 	DirectX::XMFLOAT4X4* m_pWorldPoseFrameMatrices;
 
 protected:
-	DXUTAPI void LoadMaterials(_In_ ID3D11Device* pd3dDevice, _In_reads_(NumMaterials) SDKMESH_MATERIAL* pMaterials,
+	void LoadMaterials(_In_ ID3D11Device* pd3dDevice, _In_reads_(NumMaterials) SDKMESH_MATERIAL* pMaterials,
 		_In_ UINT NumMaterials, _In_opt_ SDKMESH_CALLBACKS11* pLoaderCallbacks = nullptr);
 
-	DXUTAPI HRESULT CreateVertexBuffer(_In_ ID3D11Device* pd3dDevice,
+	HRESULT CreateVertexBuffer(_In_ ID3D11Device* pd3dDevice,
 		_In_ SDKMESH_VERTEX_BUFFER_HEADER* pHeader, _In_reads_(pHeader->SizeBytes) void* pVertices,
 		_In_opt_ SDKMESH_CALLBACKS11* pLoaderCallbacks = nullptr);
 
-	DXUTAPI HRESULT CreateIndexBuffer(_In_ ID3D11Device* pd3dDevice,
+	HRESULT CreateIndexBuffer(_In_ ID3D11Device* pd3dDevice,
 		_In_ SDKMESH_INDEX_BUFFER_HEADER* pHeader, _In_reads_(pHeader->SizeBytes) void* pIndices,
 		_In_opt_ SDKMESH_CALLBACKS11* pLoaderCallbacks = nullptr);
 
-	virtual DXUTAPI HRESULT CreateFromFile(_In_opt_ ID3D11Device* pDev11,
+	virtual HRESULT CreateFromFile(_In_opt_ ID3D11Device* pDev11,
 		_In_z_ LPCWSTR szFileName,
 		_In_opt_ SDKMESH_CALLBACKS11* pLoaderCallbacks11 = nullptr);
 
-	virtual DXUTAPI HRESULT CreateFromMemory(_In_opt_ ID3D11Device* pDev11,
+	virtual HRESULT CreateFromMemory(_In_opt_ ID3D11Device* pDev11,
 		_In_reads_(DataBytes) BYTE* pData,
 		_In_ size_t DataBytes,
 		_In_ bool bCopyStatic,
 		_In_opt_ SDKMESH_CALLBACKS11* pLoaderCallbacks11 = nullptr);
 
 	//frame manipulation
-	DXUTAPI void TransformBindPoseFrame(_In_ UINT iFrame, _In_ DirectX::CXMMATRIX parentWorld);
-	DXUTAPI void TransformFrame(_In_ UINT iFrame, _In_ DirectX::CXMMATRIX parentWorld, _In_ double fTime);
-	DXUTAPI void TransformFrameAbsolute(_In_ UINT iFrame, _In_ double fTime);
+	void TransformBindPoseFrame(_In_ UINT iFrame, _In_ DirectX::CXMMATRIX parentWorld);
+	void TransformFrame(_In_ UINT iFrame, _In_ DirectX::CXMMATRIX parentWorld, _In_ double fTime);
+	void TransformFrameAbsolute(_In_ UINT iFrame, _In_ double fTime);
 
 	//Direct3D 11 rendering helpers
-	DXUTAPI void RenderMesh(_In_ UINT iMesh,
+	void RenderMesh(_In_ UINT iMesh,
 		_In_ bool bAdjacent,
 		_In_ ID3D11DeviceContext* pd3dDeviceContext,
 		_In_ UINT iDiffuseSlot,
 		_In_ UINT iNormalSlot,
 		_In_ UINT iSpecularSlot);
-	DXUTAPI void RenderFrame(_In_ UINT iFrame,
+	void RenderFrame(_In_ UINT iFrame,
 		_In_ bool bAdjacent,
 		_In_ ID3D11DeviceContext* pd3dDeviceContext,
 		_In_ UINT iDiffuseSlot,
@@ -429,76 +429,76 @@ public:
 	CDXUTSDKMesh();
 	virtual ~CDXUTSDKMesh();
 
-	virtual DXUTAPI HRESULT Create(_In_ ID3D11Device* pDev11, _In_z_ LPCWSTR szFileName, _In_opt_ SDKMESH_CALLBACKS11* pLoaderCallbacks = nullptr);
-	virtual DXUTAPI HRESULT Create(_In_ ID3D11Device* pDev11, BYTE* pData, size_t DataBytes, _In_ bool bCopyStatic = false,
+	virtual HRESULT Create(_In_ ID3D11Device* pDev11, _In_z_ LPCWSTR szFileName, _In_opt_ SDKMESH_CALLBACKS11* pLoaderCallbacks = nullptr);
+	virtual HRESULT Create(_In_ ID3D11Device* pDev11, BYTE* pData, size_t DataBytes, _In_ bool bCopyStatic = false,
 		_In_opt_ SDKMESH_CALLBACKS11* pLoaderCallbacks = nullptr);
-	virtual DXUTAPI HRESULT LoadAnimation(_In_z_ const WCHAR* szFileName);
-	virtual DXUTAPI void Destroy();
+	virtual HRESULT LoadAnimation(_In_z_ const WCHAR* szFileName);
+	virtual void Destroy();
 
 	//Frame manipulation
-	DXUTAPI void TransformBindPose(_In_ DirectX::CXMMATRIX world) { TransformBindPoseFrame(0, world); };
-	DXUTAPI void TransformMesh(_In_ DirectX::CXMMATRIX world, _In_ double fTime);
+	void TransformBindPose(_In_ DirectX::CXMMATRIX world) { TransformBindPoseFrame(0, world); };
+	void TransformMesh(_In_ DirectX::CXMMATRIX world, _In_ double fTime);
 
 	//Direct3D 11 Rendering
-	virtual DXUTAPI void Render(_In_ ID3D11DeviceContext* pd3dDeviceContext,
+	virtual void Render(_In_ ID3D11DeviceContext* pd3dDeviceContext,
 		_In_ UINT iDiffuseSlot = INVALID_SAMPLER_SLOT,
 		_In_ UINT iNormalSlot = INVALID_SAMPLER_SLOT,
 		_In_ UINT iSpecularSlot = INVALID_SAMPLER_SLOT);
-	virtual DXUTAPI void RenderAdjacent(_In_ ID3D11DeviceContext* pd3dDeviceContext,
+	virtual void RenderAdjacent(_In_ ID3D11DeviceContext* pd3dDeviceContext,
 		_In_ UINT iDiffuseSlot = INVALID_SAMPLER_SLOT,
 		_In_ UINT iNormalSlot = INVALID_SAMPLER_SLOT,
 		_In_ UINT iSpecularSlot = INVALID_SAMPLER_SLOT);
 
 	//Helpers (D3D11 specific)
-	DXUTAPI static D3D11_PRIMITIVE_TOPOLOGY GetPrimitiveType11(_In_ SDKMESH_PRIMITIVE_TYPE PrimType);
-	DXUTAPI DXGI_FORMAT GetIBFormat11(_In_ UINT iMesh) const;
-	DXUTAPI ID3D11Buffer* GetVB11(_In_ UINT iMesh, _In_ UINT iVB) const;
-	DXUTAPI ID3D11Buffer* GetIB11(_In_ UINT iMesh) const;
-	DXUTAPI SDKMESH_INDEX_TYPE GetIndexType(_In_ UINT iMesh) const;
+	static D3D11_PRIMITIVE_TOPOLOGY GetPrimitiveType11(_In_ SDKMESH_PRIMITIVE_TYPE PrimType);
+	DXGI_FORMAT GetIBFormat11(_In_ UINT iMesh) const;
+	ID3D11Buffer* GetVB11(_In_ UINT iMesh, _In_ UINT iVB) const;
+	ID3D11Buffer* GetIB11(_In_ UINT iMesh) const;
+	SDKMESH_INDEX_TYPE GetIndexType(_In_ UINT iMesh) const;
 
-	DXUTAPI ID3D11Buffer* GetAdjIB11(_In_ UINT iMesh) const;
+	ID3D11Buffer* GetAdjIB11(_In_ UINT iMesh) const;
 
 	//Helpers (general)
-	DXUTAPI const char* GetMeshPathA() const;
-	DXUTAPI const WCHAR* GetMeshPathW() const;
-	DXUTAPI UINT GetNumMeshes() const;
-	DXUTAPI UINT GetNumMaterials() const;
-	DXUTAPI UINT GetNumVBs() const;
-	DXUTAPI UINT GetNumIBs() const;
+	const char* GetMeshPathA() const;
+	const WCHAR* GetMeshPathW() const;
+	UINT GetNumMeshes() const;
+	UINT GetNumMaterials() const;
+	UINT GetNumVBs() const;
+	UINT GetNumIBs() const;
 
-	DXUTAPI ID3D11Buffer* GetVB11At(_In_ UINT iVB) const;
-	DXUTAPI ID3D11Buffer* GetIB11At(_In_ UINT iIB) const;
+	ID3D11Buffer* GetVB11At(_In_ UINT iVB) const;
+	ID3D11Buffer* GetIB11At(_In_ UINT iIB) const;
 
-	DXUTAPI BYTE* GetRawVerticesAt(_In_ UINT iVB) const;
-	DXUTAPI BYTE* GetRawIndicesAt(_In_ UINT iIB) const;
+	BYTE* GetRawVerticesAt(_In_ UINT iVB) const;
+	BYTE* GetRawIndicesAt(_In_ UINT iIB) const;
 
-	DXUTAPI SDKMESH_MATERIAL* GetMaterial(_In_ UINT iMaterial) const;
-	DXUTAPI SDKMESH_MESH*     GetMesh(_In_ UINT iMesh) const;
-	DXUTAPI UINT              GetNumSubsets(_In_ UINT iMesh) const;
-	DXUTAPI SDKMESH_SUBSET*   GetSubset(_In_ UINT iMesh, _In_ UINT iSubset) const;
-	DXUTAPI UINT              GetVertexStride(_In_ UINT iMesh, _In_ UINT iVB) const;
-	DXUTAPI UINT              GetNumFrames() const;
-	DXUTAPI SDKMESH_FRAME*    GetFrame(_In_ UINT iFrame) const;
-	DXUTAPI SDKMESH_FRAME*    FindFrame(_In_z_ const char* pszName) const;
-	DXUTAPI UINT64            GetNumVertices(_In_ UINT iMesh, _In_ UINT iVB) const;
-	DXUTAPI UINT64            GetNumIndices(_In_ UINT iMesh) const;
-	DXUTAPI DirectX::XMVECTOR GetMeshBBoxCenter(_In_ UINT iMesh) const;
-	DXUTAPI DirectX::XMVECTOR GetMeshBBoxExtents(_In_ UINT iMesh) const;
-	DXUTAPI UINT              GetOutstandingResources() const;
-	DXUTAPI UINT              GetOutstandingBufferResources() const;
-	DXUTAPI bool              CheckLoadDone();
-	DXUTAPI bool              IsLoaded() const;
-	DXUTAPI bool              IsLoading() const;
-	DXUTAPI void              SetLoading(_In_ bool bLoading);
-	DXUTAPI BOOL              HadLoadingError() const;
+	SDKMESH_MATERIAL* GetMaterial(_In_ UINT iMaterial) const;
+	SDKMESH_MESH*     GetMesh(_In_ UINT iMesh) const;
+	UINT              GetNumSubsets(_In_ UINT iMesh) const;
+	SDKMESH_SUBSET*   GetSubset(_In_ UINT iMesh, _In_ UINT iSubset) const;
+	UINT              GetVertexStride(_In_ UINT iMesh, _In_ UINT iVB) const;
+	UINT              GetNumFrames() const;
+	SDKMESH_FRAME*    GetFrame(_In_ UINT iFrame) const;
+	SDKMESH_FRAME*    FindFrame(_In_z_ const char* pszName) const;
+	UINT64            GetNumVertices(_In_ UINT iMesh, _In_ UINT iVB) const;
+	UINT64            GetNumIndices(_In_ UINT iMesh) const;
+	DirectX::XMVECTOR GetMeshBBoxCenter(_In_ UINT iMesh) const;
+	DirectX::XMVECTOR GetMeshBBoxExtents(_In_ UINT iMesh) const;
+	UINT              GetOutstandingResources() const;
+	UINT              GetOutstandingBufferResources() const;
+	bool              CheckLoadDone();
+	bool              IsLoaded() const;
+	bool              IsLoading() const;
+	void              SetLoading(_In_ bool bLoading);
+	BOOL              HadLoadingError() const;
 
 	//Animation
-	DXUTAPI UINT              GetNumInfluences(_In_ UINT iMesh) const;
-	DXUTAPI DirectX::XMMATRIX GetMeshInfluenceMatrix(_In_ UINT iMesh, _In_ UINT iInfluence) const;
-	DXUTAPI UINT              GetAnimationKeyFromTime(_In_ double fTime) const;
-	DXUTAPI DirectX::XMMATRIX GetWorldMatrix(_In_ UINT iFrameIndex) const;
-	DXUTAPI DirectX::XMMATRIX GetInfluenceMatrix(_In_ UINT iFrameIndex) const;
-	DXUTAPI bool              GetAnimationProperties(_Out_ UINT* pNumKeys, _Out_ float* pFrameTime) const;
+	UINT              GetNumInfluences(_In_ UINT iMesh) const;
+	DirectX::XMMATRIX GetMeshInfluenceMatrix(_In_ UINT iMesh, _In_ UINT iInfluence) const;
+	UINT              GetAnimationKeyFromTime(_In_ double fTime) const;
+	DirectX::XMMATRIX GetWorldMatrix(_In_ UINT iFrameIndex) const;
+	DirectX::XMMATRIX GetInfluenceMatrix(_In_ UINT iFrameIndex) const;
+	bool              GetAnimationProperties(_Out_ UINT* pNumKeys, _Out_ float* pFrameTime) const;
 };
 
 #endif

@@ -33,7 +33,7 @@ NAMESPACE_DXUT
 //--------------------------------------------------------------------------------------
 #define DXUT_MAX_CONTROLLERS 4  // XInput handles up to 4 controllers
 
-struct DXUT_GAMEPAD
+struct DXUTAPI DXUT_GAMEPAD
 {
 	// From XINPUT_GAMEPAD
 	WORD wButtons;
@@ -83,27 +83,27 @@ DXUTAPI HRESULT DXUTSnapD3D11Screenshot(_In_z_ LPCWSTR szFileName, _In_ bool use
 // Performs timer operations
 // Use DXUTGetGlobalTimer() to get the global instance
 //--------------------------------------------------------------------------------------
-class CDXUTTimer
+class DXUTAPI CDXUTTimer
 {
 public:
 	CDXUTTimer();
 
-	DXUTAPI void            Reset(); // resets the timer
-	DXUTAPI void            Start(); // starts the timer
-	DXUTAPI void            Stop();  // stop (or pause) the timer
-	DXUTAPI void            Advance(); // advance the timer by 0.1 seconds
-	DXUTAPI double          GetAbsoluteTime() const; // get the absolute system time
-	DXUTAPI double          GetTime() const; // get the current time
-	DXUTAPI float           GetElapsedTime(); // get the time that elapsed between Get*ElapsedTime() calls
-	DXUTAPI void            GetTimeValues(_Out_ double* pfTime, _Out_ double* pfAbsoluteTime, _Out_ float* pfElapsedTime); // get all time values at once
-	DXUTAPI bool            IsStopped() const { return m_bTimerStopped; } // returns true if timer stopped
+	void            Reset(); // resets the timer
+	void            Start(); // starts the timer
+	void            Stop();  // stop (or pause) the timer
+	void            Advance(); // advance the timer by 0.1 seconds
+	double          GetAbsoluteTime() const; // get the absolute system time
+	double          GetTime() const; // get the current time
+	float           GetElapsedTime(); // get the time that elapsed between Get*ElapsedTime() calls
+	void            GetTimeValues(_Out_ double* pfTime, _Out_ double* pfAbsoluteTime, _Out_ float* pfElapsedTime); // get all time values at once
+	bool            IsStopped() const { return m_bTimerStopped; } // returns true if timer stopped
 
 	// Limit the current thread to one processor (the current one). This ensures that timing code runs
 	// on only one processor, and will not suffer any ill effects from power management.
-	DXUTAPI void            LimitThreadAffinityToCurrentProc();
+	void            LimitThreadAffinityToCurrentProc();
 
 protected:
-	DXUTAPI LARGE_INTEGER   GetAdjustedCurrentTime() const;
+	LARGE_INTEGER   GetAdjustedCurrentTime() const;
 
 	bool m_bUsingQPF;
 	bool m_bTimerStopped;
@@ -241,7 +241,7 @@ const DWORD DXUT_PERFEVENTCOLOR3 = 0xFF6464C8;
 // the block of code begins, and the class's destructor will call DXUT_EndPerfEvent when
 // the block ends.
 //--------------------------------------------------------------------------------------
-class CDXUTPerfEventGenerator
+class DXUTAPI CDXUTPerfEventGenerator
 {
 public:
 	CDXUTPerfEventGenerator(_In_ DWORD color, _In_z_ LPCWSTR pstrMessage)
@@ -269,14 +269,14 @@ public:
 #define MONITOR_DEFAULTTONULL       0x00000000
 #define MONITOR_DEFAULTTOPRIMARY    0x00000001
 #define MONITOR_DEFAULTTONEAREST    0x00000002
-typedef struct tagMONITORINFO
+typedef struct DXUTAPI tagMONITORINFO
 {
 	DWORD cbSize;
 	RECT rcMonitor;
 	RECT rcWork;
 	DWORD dwFlags;
 }                           MONITORINFO, *LPMONITORINFO;
-typedef struct tagMONITORINFOEXW : public tagMONITORINFO
+typedef struct DXUTAPI tagMONITORINFOEXW : public tagMONITORINFO
 {
 	WCHAR szDevice[CCHDEVICENAME];
 }                           MONITORINFOEXW, *LPMONITORINFOEXW;

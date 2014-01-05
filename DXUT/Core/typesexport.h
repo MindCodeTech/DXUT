@@ -42,13 +42,19 @@ typedef vector mvector;
 };
 }*/
 
-namespace DirectX
-{
-	typedef struct XMFLOAT2 XMFLOAT2;
-	typedef struct XMFLOAT3 XMFLOAT3;
-	typedef struct XMFLOAT4 XMFLOAT4;
-	typedef struct XMFLOAT4X4 XMFLOAT4X4;
-}
+NAMESPACE_DirectX
+typedef struct DXUTAPI XMFLOAT2 XMFLOAT2;
+typedef struct DXUTAPI XMFLOAT3 XMFLOAT3;
+typedef struct DXUTAPI XMFLOAT4 XMFLOAT4;
+typedef struct DXUTAPI XMFLOAT4X4 XMFLOAT4X4;
+
+#if (DIRECTXMATH_VERSION < 305) && !defined(XM_CALLCONV)
+#define XM_CALLCONV __fastcall
+typedef DXUTAPI const XMVECTOR& HXMVECTOR;
+typedef DXUTAPI const XMMATRIX& FXMMATRIX;
+#endif
+
+NAMESPACE_DirectX_END
 
 #ifdef __cplusplus
 EXTERN_C_END

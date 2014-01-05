@@ -31,7 +31,7 @@ bool                g_bThreadSafe = true;
 //--------------------------------------------------------------------------------------
 // Automatically enters & leaves the CS upon object creation/deletion
 //--------------------------------------------------------------------------------------
-class DXUTLock
+class DXUTAPI DXUTLock
 {
 public:
 #pragma prefast( suppress:26166, "g_bThreadSafe controls behavior" )
@@ -54,7 +54,7 @@ public:
 //--------------------------------------------------------------------------------------
 // Stores timer callback info
 //--------------------------------------------------------------------------------------
-struct DXUT_TIMER
+struct DXUTAPI DXUT_TIMER
 {
 	LPDXUTCALLBACKTIMER pCallbackTimer;
 	void* pCallbackUserContext;
@@ -67,10 +67,10 @@ struct DXUT_TIMER
 //--------------------------------------------------------------------------------------
 // Stores DXUT state and data access is done with thread safety (if g_bThreadSafe==true)
 //--------------------------------------------------------------------------------------
-class DXUTState
+class DXUTAPI DXUTState
 {
 protected:
-	struct STATE
+	struct DXUTAPI STATE
 	{
 		DXUTDeviceSettings*     m_CurrentDeviceSettings;   // current device settings
 		IDXGIFactory1*          m_DXGIFactory;             // DXGI Factory object
@@ -240,7 +240,7 @@ public:
 	DXUTState()  { Create(); }
 	~DXUTState() { Destroy(); }
 
-	DXUTAPI void Create()
+	void Create()
 	{
 		g_bThreadSafe = true;
 		(void)InitializeCriticalSectionAndSpinCount(&g_cs, 1000);
@@ -268,7 +268,7 @@ public:
 		m_state.m_MessageWhenD3D11NotAvailable = true;
 	}
 
-	DXUTAPI void Destroy()
+	void Destroy()
 	{
 		SAFE_DELETE(m_state.m_TimerList);
 		DXUTShutdown();
@@ -455,7 +455,7 @@ DXUTAPI void WINAPI DXUTDestroyState()
 	SAFE_DELETE(g_pDXUTState);
 }
 
-class DXUTMemoryHelper
+class DXUTAPI DXUTMemoryHelper
 {
 public:
 	DXUTMemoryHelper()  { DXUTCreateState(); }

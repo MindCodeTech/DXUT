@@ -36,7 +36,7 @@ DXUTAPI CDXUTTimer* WINAPI DXUTGetGlobalTimer()
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTTimer::CDXUTTimer()
+DXUTAPI CDXUTTimer::CDXUTTimer()
 {
 	m_bTimerStopped = true;
 	m_llQPFTicksPerSec = 0;

@@ -5,6 +5,14 @@
 //-----------------------------------------------------------------------------
 #pragma once
 
+#ifdef __DDRAW_INCLUDED__
+#define __DDRAW_INCLUDED__
+#endif
+
+#include <audioclient.h>
+
+#undef __DDRAW_INCLUDED__
+
 #ifdef __cplusplus
 EXTERN_C_BEGIN
 #endif
@@ -21,7 +29,7 @@ NAMESPACE_DXUT
 // Name: class CWaveFile
 // Desc: Encapsulates reading or writing sound data to or from a wave file
 //-----------------------------------------------------------------------------
-class CWaveFile
+class DXUTAPI CWaveFile
 {
 public:
 	WAVEFORMATEX* m_pwfx;        // Pointer to WAVEFORMATEX structure
@@ -38,23 +46,23 @@ public:
 	CHAR* m_pResourceBuffer;
 
 protected:
-	DXUTAPI HRESULT WINAPI ReadMMIO();
-	DXUTAPI HRESULT WINAPI WriteMMIO(_In_z_ WAVEFORMATEX* pwfxDest);
+	HRESULT WINAPI ReadMMIO();
+	HRESULT WINAPI WriteMMIO(_In_z_ WAVEFORMATEX* pwfxDest);
 
 public:
 	CWaveFile();
 	~CWaveFile();
 
-	DXUTAPI HRESULT WINAPI Open(_In_z_ LPWSTR strFileName, _In_z_ WAVEFORMATEX* pwfx, _In_ DWORD dwFlags);
-	DXUTAPI HRESULT WINAPI OpenFromMemory(_In_reads_(ulDataSize) BYTE* pbData, _In_ ULONG ulDataSize, _In_z_ WAVEFORMATEX* pwfx, _In_ DWORD dwFlags);
-	DXUTAPI HRESULT WINAPI Close();
+	HRESULT WINAPI Open(_In_z_ LPWSTR strFileName, _In_z_ WAVEFORMATEX* pwfx, _In_ DWORD dwFlags);
+	HRESULT WINAPI OpenFromMemory(_In_reads_(ulDataSize) BYTE* pbData, _In_ ULONG ulDataSize, _In_z_ WAVEFORMATEX* pwfx, _In_ DWORD dwFlags);
+	HRESULT WINAPI Close();
 
-	DXUTAPI HRESULT WINAPI Read(_In_opt_ BYTE* pBuffer, _In_opt_ DWORD dwSizeToRead, _In_opt_ DWORD* pdwSizeRead);
-	DXUTAPI HRESULT WINAPI Write(_In_opt_ UINT nSizeToWrite, _In_opt_ BYTE* pbData, _In_opt_ UINT* pnSizeWrote);
+	HRESULT WINAPI Read(_In_opt_ BYTE* pBuffer, _In_opt_ DWORD dwSizeToRead, _In_opt_ DWORD* pdwSizeRead);
+	HRESULT WINAPI Write(_In_opt_ UINT nSizeToWrite, _In_opt_ BYTE* pbData, _In_opt_ UINT* pnSizeWrote);
 
-	DXUTAPI DWORD   WINAPI GetSize();
-	DXUTAPI HRESULT WINAPI ResetFile();
-	DXUTAPI WAVEFORMATEX* WINAPI GetFormat()
+	DWORD   WINAPI GetSize();
+	HRESULT WINAPI ResetFile();
+	WAVEFORMATEX* WINAPI GetFormat()
 	{
 		return m_pwfx;
 	};

@@ -25,7 +25,7 @@ EXTERN_C_BEGIN
 
 NAMESPACE_DXUT
 
-struct DXUTCache_Texture
+struct DXUTAPI DXUTCache_Texture
 {
 	WCHAR   wszSource[MAX_PATH];
 	bool    bSRGB;
@@ -37,17 +37,17 @@ struct DXUTCache_Texture
 	}
 };
 
-class CDXUTResourceCache
+class DXUTAPI CDXUTResourceCache
 {
 public:
 	~CDXUTResourceCache();
 
-	DXUTAPI HRESULT CreateTextureFromFile(_In_ ID3D11Device* pDevice, _In_ ID3D11DeviceContext *pContext, _In_z_ LPCWSTR pSrcFile,
+	HRESULT CreateTextureFromFile(_In_ ID3D11Device* pDevice, _In_ ID3D11DeviceContext *pContext, _In_z_ LPCWSTR pSrcFile,
 		_Outptr_ ID3D11ShaderResourceView** ppOutputRV, _In_ bool bSRGB = false);
-	DXUTAPI HRESULT CreateTextureFromFile(_In_ ID3D11Device* pDevice, _In_ ID3D11DeviceContext *pContext, _In_z_ LPCSTR pSrcFile,
+	HRESULT CreateTextureFromFile(_In_ ID3D11Device* pDevice, _In_ ID3D11DeviceContext *pContext, _In_z_ LPCSTR pSrcFile,
 		_Outptr_ ID3D11ShaderResourceView** ppOutputRV, _In_ bool bSRGB = false);
 public:
-	DXUTAPI HRESULT OnDestroyDevice();
+	HRESULT OnDestroyDevice();
 
 protected:
 	friend DXUTAPI CDXUTResourceCache& WINAPI DXUTGetGlobalResourceCache();
@@ -66,28 +66,28 @@ DXUTAPI CDXUTResourceCache& WINAPI DXUTGetGlobalResourceCache();
 // Manages the insertion point when drawing text
 //--------------------------------------------------------------------------------------
 class CDXUTDialogResourceManager;
-class CDXUTTextHelper
+class DXUTAPI CDXUTTextHelper
 {
 public:
 	CDXUTTextHelper(_In_ ID3D11Device* pd3d11Device, _In_ ID3D11DeviceContext* pd3dDeviceContext, _In_ CDXUTDialogResourceManager* pManager, _In_ int nLineHeight);
 	~CDXUTTextHelper();
 
-	DXUTAPI void Init(_In_ int nLineHeight = 15);
+	void Init(_In_ int nLineHeight = 15);
 
-	DXUTAPI void SetInsertionPos(_In_ int x, _In_ int y)
+	void SetInsertionPos(_In_ int x, _In_ int y)
 	{
 		m_pt.x = x;
 		m_pt.y = y;
 	}
-	DXUTAPI void SetForegroundColor(_In_ DirectX::XMFLOAT4 clr) { m_clr = clr; }
-	DXUTAPI void SetForegroundColor(_In_ DirectX::FXMVECTOR clr) { XMStoreFloat4(&m_clr, clr); }
+	void SetForegroundColor(_In_ DirectX::XMFLOAT4 clr) { m_clr = clr; }
+	void SetForegroundColor(_In_ DirectX::FXMVECTOR clr) { XMStoreFloat4(&m_clr, clr); }
 
-	DXUTAPI void    Begin();
-	DXUTAPI HRESULT DrawFormattedTextLine(_In_z_ const WCHAR* strMsg, ...);
-	DXUTAPI HRESULT DrawTextLine(_In_z_ const WCHAR* strMsg);
-	DXUTAPI HRESULT DrawFormattedTextLine(_In_ const RECT& rc, _In_z_ const WCHAR* strMsg, ...);
-	DXUTAPI HRESULT DrawTextLine(_In_ const RECT& rc, _In_z_ const WCHAR* strMsg);
-	DXUTAPI void    End();
+	void    Begin();
+	HRESULT DrawFormattedTextLine(_In_z_ const WCHAR* strMsg, ...);
+	HRESULT DrawTextLine(_In_z_ const WCHAR* strMsg);
+	HRESULT DrawFormattedTextLine(_In_ const RECT& rc, _In_z_ const WCHAR* strMsg, ...);
+	HRESULT DrawTextLine(_In_ const RECT& rc, _In_z_ const WCHAR* strMsg);
+	void    End();
 
 protected:
 	DirectX::XMFLOAT4 m_clr;

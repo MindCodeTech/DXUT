@@ -28,61 +28,61 @@ class CDXUTIMEEditBox;
 //-----------------------------------------------------------------------------
 #define MAX_COMPSTRING_SIZE 256
 
-class CDXUTIMEEditBox : public CDXUTEditBox
+class DXUTAPI CDXUTIMEEditBox : public CDXUTEditBox
 {
 public:
 
-	DXUTAPI static HRESULT CreateIMEEditBox(_In_ CDXUTDialog* pDialog, _In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width,
+	static HRESULT CreateIMEEditBox(_In_ CDXUTDialog* pDialog, _In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width,
 		_In_ int height, _In_ bool bIsDefault = false, _Outptr_opt_ CDXUTIMEEditBox** ppCreated = nullptr);
 
 	CDXUTIMEEditBox(_In_opt_ CDXUTDialog* pDialog = nullptr);
 	virtual ~CDXUTIMEEditBox();
 
-	DXUTAPI static void InitDefaultElements(_In_ CDXUTDialog* pDialog);
+	static void InitDefaultElements(_In_ CDXUTDialog* pDialog);
 
-	DXUTAPI static void WINAPI Initialize(_In_ HWND hWnd);
-	DXUTAPI static void WINAPI Uninitialize();
+	static void WINAPI Initialize(_In_ HWND hWnd);
+	static void WINAPI Uninitialize();
 
-	DXUTAPI static  HRESULT WINAPI  StaticOnCreateDevice();
-	DXUTAPI static  bool WINAPI     StaticMsgProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
+	static  HRESULT WINAPI  StaticOnCreateDevice();
+	static  bool WINAPI     StaticMsgProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
 
-	DXUTAPI static  void WINAPI     SetImeEnableFlag(_In_ bool bFlag);
+	static  void WINAPI     SetImeEnableFlag(_In_ bool bFlag);
 
-	virtual DXUTAPI void Render(_In_ float fElapsedTime) override;
-	virtual DXUTAPI bool MsgProc(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI void UpdateRects() override;
-	virtual DXUTAPI void OnFocusIn() override;
-	virtual DXUTAPI void OnFocusOut() override;
+	virtual void Render(_In_ float fElapsedTime) override;
+	virtual bool MsgProc(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual void UpdateRects() override;
+	virtual void OnFocusIn() override;
+	virtual void OnFocusOut() override;
 
-	DXUTAPI void PumpMessage();
+	void PumpMessage();
 
-	virtual DXUTAPI void RenderCandidateReadingWindow(_In_ bool bReading);
-	virtual DXUTAPI void RenderComposition();
-	virtual DXUTAPI void RenderIndicator(_In_ float fElapsedTime);
+	virtual void RenderCandidateReadingWindow(_In_ bool bReading);
+	virtual void RenderComposition();
+	virtual void RenderIndicator(_In_ float fElapsedTime);
 
 protected:
-	DXUTAPI static void WINAPI      EnableImeSystem(_In_ bool bEnable);
+	static void WINAPI      EnableImeSystem(_In_ bool bEnable);
 
-	DXUTAPI static WORD WINAPI      GetLanguage()
+	static WORD WINAPI      GetLanguage()
 	{
 		return ImeUi_GetLanguage();
 	}
-	DXUTAPI static WORD WINAPI      GetPrimaryLanguage()
+	static WORD WINAPI      GetPrimaryLanguage()
 	{
 		return ImeUi_GetPrimaryLanguage();
 	}
-	DXUTAPI static void WINAPI      SendKey(_In_ BYTE nVirtKey);
-	DXUTAPI static DWORD WINAPI     GetImeId(_In_ UINT uIndex = 0)
+	static void WINAPI      SendKey(_In_ BYTE nVirtKey);
+	static DWORD WINAPI     GetImeId(_In_ UINT uIndex = 0)
 	{
 		return ImeUi_GetImeId(uIndex);
 	};
-	DXUTAPI static void WINAPI      CheckInputLocale();
-	DXUTAPI static void WINAPI      CheckToggleState();
-	DXUTAPI static void WINAPI      SetupImeApi();
-	DXUTAPI static void WINAPI      ResetCompositionString();
+	static void WINAPI      CheckInputLocale();
+	static void WINAPI      CheckToggleState();
+	static void WINAPI      SetupImeApi();
+	static void WINAPI      ResetCompositionString();
 
-	DXUTAPI static void             SetupImeUiCallback();
+	static void             SetupImeUiCallback();
 
 protected:
 	enum
@@ -94,7 +94,7 @@ protected:
 		INDICATOR_JAPANESE
 	};
 
-	struct CCandList
+	struct DXUTAPI CCandList
 	{
 		CUniBuffer HoriCand; // Candidate list string (for horizontal candidate window)
 		int nFirstSelected; // First character position of the selected string in HoriCand

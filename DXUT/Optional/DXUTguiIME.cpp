@@ -110,7 +110,7 @@ DXUTAPI void CDXUTIMEEditBox::InitDefaultElements(_In_ CDXUTDialog* pDialog)
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTIMEEditBox::CDXUTIMEEditBox(_In_opt_ CDXUTDialog* pDialog)
+DXUTAPI CDXUTIMEEditBox::CDXUTIMEEditBox(_In_opt_ CDXUTDialog* pDialog)
 {
 	m_Type = DXUT_CONTROL_IMEEDITBOX;
 	m_pDialog = pDialog;
@@ -137,7 +137,7 @@ CDXUTIMEEditBox::CDXUTIMEEditBox(_In_opt_ CDXUTDialog* pDialog)
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTIMEEditBox::~CDXUTIMEEditBox()
+DXUTAPI CDXUTIMEEditBox::~CDXUTIMEEditBox()
 {
 }
 

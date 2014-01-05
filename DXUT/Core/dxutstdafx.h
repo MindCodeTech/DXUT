@@ -8,9 +8,8 @@
 #pragma once
 
 #include "DXUTvers.h"
-#include "DXUTvers.h"
 #include "DXUT.h"
-//#include "typesexport.h"
+#include "typesexport.h"
 #include "PlatformHelpers.h"
 
 #include "dxerr.h"

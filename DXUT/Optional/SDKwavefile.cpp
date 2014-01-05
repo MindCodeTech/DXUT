@@ -24,20 +24,20 @@ NAMESPACE_DXUT
 //       Then call Read() as needed.  Calling the destructor or Close()
 //       will close the file.
 //-----------------------------------------------------------------------------
-CWaveFile::CWaveFile()
+DXUTAPI CWaveFile::CWaveFile()
 {
 	m_pwfx = nullptr;
 	m_hmmio = nullptr;
 	m_pResourceBuffer = nullptr;
 	m_dwSize = 0;
-	m_bIsReadingFromMemory = FALSE;
+	m_bIsReadingFromMemory = false;
 }
 
 //-----------------------------------------------------------------------------
 // Name: CWaveFile::~CWaveFile()
 // Desc: Destructs the class
 //-----------------------------------------------------------------------------
-CWaveFile::~CWaveFile()
+DXUTAPI CWaveFile::~CWaveFile()
 {
 	Close();
 
@@ -54,7 +54,7 @@ DXUTAPI HRESULT WINAPI CWaveFile::Open(LPWSTR strFileName, WAVEFORMATEX* pwfx, D
 	HRESULT hr;
 
 	m_dwFlags = dwFlags;
-	m_bIsReadingFromMemory = FALSE;
+	m_bIsReadingFromMemory = false;
 
 	if (m_dwFlags == WAVEFILE_READ)
 	{

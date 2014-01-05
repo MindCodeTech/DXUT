@@ -35,14 +35,14 @@
 #endif
 
 // If app hasn't choosen, set to work with Windows 8 and beyond
+#if _WIN32_WINNT < _WIN32_WINNT_WIN8
+#define _WIN32_WINNT   _WIN32_WINNT_WIN8
+#endif
 #ifndef WINVER
-#define WINVER         0x0602
+#define WINVER         _WIN32_WINNT
 #endif
 #ifndef _WIN32_WINDOWS
-#define _WIN32_WINDOWS 0x0602
-#endif
-#if _WIN32_WINNT < 0x0602
-#define _WIN32_WINNT   0x0602
+#define _WIN32_WINDOWS _WIN32_WINNT
 #endif
 
 #if (_WIN32_WINNT >= _WIN32_WINNT_WIN8) && !defined(DXGI_1_2_FORMATS)
@@ -51,10 +51,10 @@
 
 #include "DXUTexp.h"
 
-// #define NO_LEGACY_API 1
+// #define NO_DSOUND_API 1
 
-#if defined(_MSC_VER) && defined(DXUTLIB_EXPORT) || defined(_LIB) || defined(DXUTLIB_IMPORT) || defined(_DLL)
-#define DXUT_AUTOLIB 1
+#if defined(_MSC_VER) && defined(DXUTLIB_EXPORTS) || defined(_LIB) || defined(DXUTLIB_IMPORTS) || defined(_DLL)
+#define DXUT_AUTOLIB 0
 #endif
 
 // #define DXUT_AUTOLIB to automatically include the libs needed for DXUT
@@ -72,7 +72,7 @@
 #pragma comment( lib, "ddraw.lib" )
 #pragma comment( lib, "d2d1.lib" )
 #pragma comment( lib, "dwrite.lib" )
-#ifndef NO_LEGACY_API
+#ifndef NO_DSOUND_API
 #pragma comment( lib, "dsound.lib" )
 #endif
 #ifdef _DEBUG
@@ -85,8 +85,11 @@
 #pragma comment( lib, "Version.Lib" )
 #pragma comment( lib, "xapobase.Lib" )
 #pragma comment( lib, "xaudio2.Lib" )
+#if(_WIN32_WINNT >= _WIN32_WINNT_WIN8)
 #pragma comment( lib, "Xinput.Lib" )
-
+#else 
+#pragma comment( lib, "Xinput9_1_0.lib" )
+#endif
 #endif
 
 #ifdef DXUTLIB_IMPORTS
@@ -103,7 +106,7 @@
 #pragma comment( lib, "DXUTs.lib" )
 #endif
 #else
-#pragma warning ("DXUTLIB_IMPORT import librarys aren't defined")
+#pragma warning ("DXUTLIB_IMPORTS import librarys aren't defined")
 #endif
 #endif
 
@@ -133,20 +136,28 @@
 #include <strsafe.h>
 #include <msctf.h>
 #include <mmsystem.h>
-#ifndef NO_LEGACY_API
+#ifndef NO_DSOUND_API
 #include <dsound.h>
 #endif
 #include <ks.h>
 #include <ole2.h>
+#include <wrl.h>
+#include <objbase.h>
+#include <mmreg.h>
 
 // Direct3D11 includes
 //#include <d3dcommon.h>
+#if (_WIN32_WINNT >= _WIN32_WINNT_WINBLUE)
 #include <dxgi1_3.h>
 #include <d3d11_2.h>
-#include <d3d11shader.h>
-//#include <d3d10_1.h>
-#include <d3dcompiler.h>
 #include <d2d1_2.h>
+#elif (_WIN32_WINNT >= _WIN32_WINNT_WIN8) || defined(_WIN7_PLATFORM_UPDATE)
+#include <dxgi1_2.h>
+#include <d3d11_1.h>
+#include <d2d1_1.h>
+#endif
+#include <d3d11shader.h>
+#include <d3dcompiler.h>
 #include <d3dcsx.h>
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -240,14 +251,14 @@
 EXTERN_C_BEGIN
 #endif
 
-// namespace DirectX
-// {
-// #if (DIRECTXMATH_VERSION < 305) && !defined(XM_CALLCONV)
-// #define XM_CALLCONV __fastcall
-// 			typedef const XMVECTOR& HXMVECTOR;
-// 			typedef const XMMATRIX& FXMMATRIX;
-// #endif
-// 		}
+/*
+NAMESPACE_DirectX
+#if (DIRECTXMATH_VERSION < 305) && !defined(XM_CALLCONV)
+#define XM_CALLCONV __fastcall
+			typedef const XMVECTOR& HXMVECTOR;
+			typedef const XMMATRIX& FXMMATRIX;
+#endif
+NAMESPACE_DirectX_END*/
 
 #if defined(DEBUG) || defined(_DEBUG)
 #ifndef V
@@ -355,7 +366,7 @@ NAMESPACE_DXUT
 //--------------------------------------------------------------------------------------
 // Structs
 //--------------------------------------------------------------------------------------
-struct DXUTD3D11DeviceSettings
+struct DXUTAPI DXUTD3D11DeviceSettings
 {
 	UINT AdapterOrdinal;
 	D3D_DRIVER_TYPE DriverType;
@@ -369,7 +380,7 @@ struct DXUTD3D11DeviceSettings
 	D3D_FEATURE_LEVEL DeviceFeatureLevel;
 };
 
-struct DXUTDeviceSettings
+struct DXUTAPI DXUTDeviceSettings
 {
 	D3D_FEATURE_LEVEL MinimumFeatureLevel;
 	DXUTD3D11DeviceSettings d3d11;

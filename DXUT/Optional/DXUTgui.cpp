@@ -155,7 +155,7 @@ CHAR g_strUIEffectFile[] = \
 "        SetBlendState( NoBlending, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );"\
 "    }"\
 "}";
-DXUTAPI const UINT              g_uUIEffectFileSize = sizeof(g_strUIEffectFile);
+const UINT              g_uUIEffectFileSize = sizeof(g_strUIEffectFile);
 
 // DXUT_MAX_EDITBOXLENGTH is the maximum string length allowed in edit boxes,
 // including the nul terminator.
@@ -169,20 +169,20 @@ double                  CDXUTDialog::s_fTimeRefresh = 0.0f;
 CDXUTControl*           CDXUTDialog::s_pControlFocus = nullptr;        // The control which has focus
 CDXUTControl*           CDXUTDialog::s_pControlPressed = nullptr;      // The control currently pressed
 
-struct DXUT_SCREEN_VERTEX
+struct DXUTAPI DXUT_SCREEN_VERTEX
 {
 	float x, y, z, h;
 	DWORD color;
 	float tu, tv;
 };
 
-struct DXUT_SCREEN_VERTEX_UNTEX
+struct DXUTAPI DXUT_SCREEN_VERTEX_UNTEX
 {
 	float x, y, z, h;
 	DWORD color;
 };
 
-struct DXUT_SCREEN_VERTEX_10
+struct DXUTAPI DXUT_SCREEN_VERTEX_10
 {
 	float x, y, z;
 	XMFLOAT4 color;
@@ -202,11 +202,11 @@ inline int RectHeight(RECT& rc)
 // Font11
 //======================================================================================
 
-DXUTAPI ID3D11Buffer* g_pFontBuffer11 = nullptr;
-DXUTAPI UINT g_FontBufferBytes11 = 0;
-DXUTAPI std::vector<DXUTSpriteVertex> g_FontVertices;
-DXUTAPI ID3D11ShaderResourceView* g_pFont11 = nullptr;
-DXUTAPI ID3D11InputLayout* g_pInputLayout11 = nullptr;
+ID3D11Buffer* g_pFontBuffer11 = nullptr;
+UINT g_FontBufferBytes11 = 0;
+std::vector<DXUTSpriteVertex> g_FontVertices;
+ID3D11ShaderResourceView* g_pFont11 = nullptr;
+ID3D11InputLayout* g_pInputLayout11 = nullptr;
 
 //--------------------------------------------------------------------------------------
 DXUTAPI HRESULT InitFont11(_In_ ID3D11Device* pd3d11Device, _In_ ID3D11InputLayout* pInputLayout)
@@ -395,7 +395,7 @@ DXUTAPI void EndText11(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pd3d11Devi
 // CDXUTDialog class
 //======================================================================================
 
-CDXUTDialog::CDXUTDialog() :
+DXUTAPI CDXUTDialog::CDXUTDialog() :
 m_x(0),
 m_y(0),
 m_width(0),
@@ -426,7 +426,7 @@ m_bMouseInput(true)
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTDialog::~CDXUTDialog()
+DXUTAPI CDXUTDialog::~CDXUTDialog()
 {
 	RemoveAllControls();
 
@@ -2162,7 +2162,7 @@ DXUTAPI void CDXUTDialog::InitDefaultElements()
 //======================================================================================
 
 //--------------------------------------------------------------------------------------
-CDXUTDialogResourceManager::CDXUTDialogResourceManager() :
+DXUTAPI CDXUTDialogResourceManager::CDXUTDialogResourceManager() :
 m_pVSRenderUI11(nullptr),
 m_pPSRenderUI11(nullptr),
 m_pPSRenderUIUntex11(nullptr),
@@ -2182,7 +2182,7 @@ m_SpriteBufferBytes11(0)
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTDialogResourceManager::~CDXUTDialogResourceManager()
+DXUTAPI CDXUTDialogResourceManager::~CDXUTDialogResourceManager()
 {
 	for (auto it = m_FontCache.begin(); it != m_FontCache.end(); ++it)
 	{
@@ -2734,7 +2734,7 @@ DXUTAPI HRESULT CDXUTDialogResourceManager::CreateTexture11(_In_ UINT iTexture)
 // CDXUTControl class
 //======================================================================================
 
-CDXUTControl::CDXUTControl(_In_opt_ CDXUTDialog* pDialog)
+DXUTAPI CDXUTControl::CDXUTControl(_In_opt_ CDXUTDialog* pDialog)
 {
 	m_Type = DXUT_CONTROL_BUTTON;
 	m_pDialog = pDialog;
@@ -2760,7 +2760,7 @@ CDXUTControl::CDXUTControl(_In_opt_ CDXUTDialog* pDialog)
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTControl::~CDXUTControl()
+DXUTAPI CDXUTControl::~CDXUTControl()
 {
 	for (auto it = m_Elements.begin(); it != m_Elements.end(); ++it)
 	{
@@ -2825,7 +2825,7 @@ DXUTAPI void CDXUTControl::UpdateRects()
 //======================================================================================
 
 //--------------------------------------------------------------------------------------
-CDXUTStatic::CDXUTStatic(_In_opt_ CDXUTDialog* pDialog)
+DXUTAPI CDXUTStatic::CDXUTStatic(_In_opt_ CDXUTDialog* pDialog)
 {
 	m_Type = DXUT_CONTROL_STATIC;
 	m_pDialog = pDialog;
@@ -2892,7 +2892,7 @@ DXUTAPI HRESULT CDXUTStatic::SetText(_In_z_ LPCWSTR strText)
 // CDXUTButton class
 //======================================================================================
 
-CDXUTButton::CDXUTButton(_In_opt_ CDXUTDialog* pDialog)
+DXUTAPI CDXUTButton::CDXUTButton(_In_opt_ CDXUTDialog* pDialog)
 {
 	m_Type = DXUT_CONTROL_BUTTON;
 	m_pDialog = pDialog;
@@ -3062,7 +3062,7 @@ DXUTAPI void CDXUTButton::Render(_In_ float fElapsedTime)
 // CDXUTCheckBox class
 //======================================================================================
 
-CDXUTCheckBox::CDXUTCheckBox(_In_opt_ CDXUTDialog* pDialog)
+DXUTAPI CDXUTCheckBox::CDXUTCheckBox(_In_opt_ CDXUTDialog* pDialog)
 {
 	m_Type = DXUT_CONTROL_CHECKBOX;
 	m_pDialog = pDialog;
@@ -3228,7 +3228,7 @@ DXUTAPI void CDXUTCheckBox::Render(_In_ float fElapsedTime)
 // CDXUTRadioButton class
 //======================================================================================
 
-CDXUTRadioButton::CDXUTRadioButton(_In_opt_ CDXUTDialog* pDialog)
+DXUTAPI CDXUTRadioButton::CDXUTRadioButton(_In_opt_ CDXUTDialog* pDialog)
 {
 	m_Type = DXUT_CONTROL_RADIOBUTTON;
 	m_pDialog = pDialog;
@@ -3347,7 +3347,7 @@ DXUTAPI void CDXUTRadioButton::SetCheckedInternal(bool bChecked, bool bClearGrou
 // CDXUTComboBox class
 //======================================================================================
 
-CDXUTComboBox::CDXUTComboBox(_In_opt_ CDXUTDialog* pDialog) : m_ScrollBar(pDialog)
+DXUTAPI CDXUTComboBox::CDXUTComboBox(_In_opt_ CDXUTDialog* pDialog) : m_ScrollBar(pDialog)
 {
 	m_Type = DXUT_CONTROL_COMBOBOX;
 	m_pDialog = pDialog;
@@ -3361,7 +3361,7 @@ CDXUTComboBox::CDXUTComboBox(_In_opt_ CDXUTDialog* pDialog) : m_ScrollBar(pDialo
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTComboBox::~CDXUTComboBox()
+DXUTAPI CDXUTComboBox::~CDXUTComboBox()
 {
 	RemoveAllItems();
 }
@@ -4023,7 +4023,7 @@ DXUTAPI HRESULT CDXUTComboBox::SetSelectedByData(_In_ void* pData)
 // CDXUTSlider class
 //======================================================================================
 
-CDXUTSlider::CDXUTSlider(_In_opt_ CDXUTDialog* pDialog)
+DXUTAPI CDXUTSlider::CDXUTSlider(_In_opt_ CDXUTDialog* pDialog)
 {
 	m_Type = DXUT_CONTROL_SLIDER;
 	m_pDialog = pDialog;
@@ -4287,7 +4287,7 @@ DXUTAPI void CDXUTSlider::Render(_In_ float fElapsedTime)
 // CDXUTScrollBar class
 //======================================================================================
 
-CDXUTScrollBar::CDXUTScrollBar(_In_opt_ CDXUTDialog* pDialog)
+DXUTAPI CDXUTScrollBar::CDXUTScrollBar(_In_opt_ CDXUTDialog* pDialog)
 {
 	m_Type = DXUT_CONTROL_SCROLLBAR;
 	m_pDialog = pDialog;
@@ -4308,7 +4308,7 @@ CDXUTScrollBar::CDXUTScrollBar(_In_opt_ CDXUTDialog* pDialog)
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTScrollBar::~CDXUTScrollBar()
+DXUTAPI CDXUTScrollBar::~CDXUTScrollBar()
 {
 }
 
@@ -4652,7 +4652,7 @@ DXUTAPI void CDXUTScrollBar::Cap()  // Clips position at boundaries. Ensures it 
 // CDXUTListBox class
 //======================================================================================
 
-CDXUTListBox::CDXUTListBox(_In_opt_ CDXUTDialog* pDialog) : m_ScrollBar(pDialog)
+DXUTAPI CDXUTListBox::CDXUTListBox(_In_opt_ CDXUTDialog* pDialog) : m_ScrollBar(pDialog)
 {
 	m_Type = DXUT_CONTROL_LISTBOX;
 	m_pDialog = pDialog;
@@ -4668,7 +4668,7 @@ CDXUTListBox::CDXUTListBox(_In_opt_ CDXUTDialog* pDialog) : m_ScrollBar(pDialog)
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTListBox::~CDXUTListBox()
+DXUTAPI CDXUTListBox::~CDXUTListBox()
 {
 	RemoveAllItems();
 }
@@ -5281,7 +5281,7 @@ bool CDXUTEditBox::s_bHideCaret;   // If true, we don't render the caret.
 #define EDITBOX_SCROLLEXTENT 4
 
 //--------------------------------------------------------------------------------------
-CDXUTEditBox::CDXUTEditBox(_In_opt_ CDXUTDialog* pDialog)
+DXUTAPI CDXUTEditBox::CDXUTEditBox(_In_opt_ CDXUTDialog* pDialog)
 {
 	m_Type = DXUT_CONTROL_EDITBOX;
 	m_pDialog = pDialog;
@@ -5305,7 +5305,7 @@ CDXUTEditBox::CDXUTEditBox(_In_opt_ CDXUTDialog* pDialog)
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTEditBox::~CDXUTEditBox()
+DXUTAPI CDXUTEditBox::~CDXUTEditBox()
 {
 }
 
@@ -6089,7 +6089,7 @@ DXUTAPI HRESULT CUniBuffer::Analyse()
 }
 
 //--------------------------------------------------------------------------------------
-CUniBuffer::CUniBuffer(_In_ int nInitialSize)
+DXUTAPI CUniBuffer::CUniBuffer(_In_ int nInitialSize)
 {
 	m_nBufferSize = 0;
 	m_pwszBuffer = nullptr;
@@ -6102,7 +6102,7 @@ CUniBuffer::CUniBuffer(_In_ int nInitialSize)
 }
 
 //--------------------------------------------------------------------------------------
-CUniBuffer::~CUniBuffer()
+DXUTAPI CUniBuffer::~CUniBuffer()
 {
 	delete[] m_pwszBuffer;
 	if (m_Analysis)
@@ -6110,7 +6110,7 @@ CUniBuffer::~CUniBuffer()
 }
 
 //--------------------------------------------------------------------------------------
-WCHAR& CUniBuffer::operator[](_In_ int n)  // No param checking
+DXUTAPI WCHAR& CUniBuffer::operator[](_In_ int n)  // No param checking
 {
 	// This version of operator[] is called only
 	// if we are asking for write access, so

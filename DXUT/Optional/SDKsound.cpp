@@ -10,7 +10,7 @@
 
 #include "dxutstdafx.h"
 
-#ifndef NO_LEGACY_API
+#ifndef NO_DSOUND_API
 
 #ifdef __cplusplus
 EXTERN_C_BEGIN
@@ -22,7 +22,7 @@ NAMESPACE_DXUT
 // Name: CSoundManager::CSoundManager()
 // Desc: Constructs the class
 //-----------------------------------------------------------------------------
-CSoundManager::CSoundManager()
+DXUTAPI CSoundManager::CSoundManager()
 {
 	m_pDS = nullptr;
 }
@@ -31,7 +31,7 @@ CSoundManager::CSoundManager()
 // Name: CSoundManager::~CSoundManager()
 // Desc: Destroys the class
 //-----------------------------------------------------------------------------
-CSoundManager::~CSoundManager()
+DXUTAPI CSoundManager::~CSoundManager()
 {
 	SAFE_RELEASE(m_pDS);
 }
@@ -463,7 +463,7 @@ DXUTAPI HRESULT CSoundManager::CreateStreaming(CStreamingSound** ppStreamingSoun
 // Name: CSound::CSound()
 // Desc: Constructs the class
 //-----------------------------------------------------------------------------
-CSound::CSound(LPDIRECTSOUNDBUFFER* apDSBuffer, DWORD dwDSBufferSize,
+DXUTAPI CSound::CSound(LPDIRECTSOUNDBUFFER* apDSBuffer, DWORD dwDSBufferSize,
 	DWORD dwNumBuffers, CWaveFile* pWaveFile, DWORD dwCreationFlags)
 {
 	DWORD i;
@@ -490,7 +490,7 @@ CSound::CSound(LPDIRECTSOUNDBUFFER* apDSBuffer, DWORD dwDSBufferSize,
 // Name: CSound::~CSound()
 // Desc: Destroys the class
 //-----------------------------------------------------------------------------
-CSound::~CSound()
+DXUTAPI CSound::~CSound()
 {
 	for (DWORD i = 0; i < m_dwNumBuffers; i++)
 	{
@@ -847,7 +847,7 @@ DXUTAPI BOOL CSound::IsSoundPlaying()
 //       as sound is played the notification events are signaled and more data
 //       is written into the buffer by calling HandleWaveStreamNotification()
 //-----------------------------------------------------------------------------
-CStreamingSound::CStreamingSound(LPDIRECTSOUNDBUFFER pDSBuffer, DWORD dwDSBufferSize,
+DXUTAPI CStreamingSound::CStreamingSound(LPDIRECTSOUNDBUFFER pDSBuffer, DWORD dwDSBufferSize,
 	CWaveFile* pWaveFile, DWORD dwNotifySize) : CSound(&pDSBuffer, dwDSBufferSize, 1,
 	pWaveFile, 0)
 {
@@ -862,7 +862,7 @@ CStreamingSound::CStreamingSound(LPDIRECTSOUNDBUFFER pDSBuffer, DWORD dwDSBuffer
 // Name: CStreamingSound::~CStreamingSound()
 // Desc: Destroys the class
 //-----------------------------------------------------------------------------
-CStreamingSound::~CStreamingSound()
+DXUTAPI CStreamingSound::~CStreamingSound()
 {
 }
 
@@ -1035,4 +1035,4 @@ NAMESPACE_DXUT_END
 EXTERN_C_END
 #endif
 
-#endif // NO_LEGACY_API
+#endif // NO_DSOUND_API

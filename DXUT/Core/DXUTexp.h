@@ -20,6 +20,9 @@
 #include <windows.h>
 #endif
 
+#define NAMESPACE_DirectX namespace DirectX {
+#define NAMESPACE_DirectX_END }
+
 #define NAMESPACE_DXUT namespace DXUT {
 #define NAMESPACE_DXUT_END }
 
@@ -66,6 +69,16 @@ EXTERN_C_END
 #define _EXTERN extern "C"
 #elif defined(extern_cplusplus)
 #define _EXTERN extern "C++"
+#endif
+#else
+#define _EXTERN extern
+#endif
+
+#ifdef __cplusplus
+#if defined(extern_cplus)
+#define _EXTERN_C extern "C"
+#elif defined(extern_cplusplus)
+#define _EXTERN_C extern "C++"
 #endif
 #else
 #define _EXTERN extern
@@ -142,5 +155,6 @@ EXTERN_C_END
 #	define DXUTAPI
 #endif // _WINDOWS
 
-//#define DXSTDAPI                  EXTERN_C DXUTAPI HRESULT STDAPICALLTYPE
-//#define DXSTDAPI_(type)           EXTERN_C DXUTAPI type STDAPICALLTYPE
+#define DXSTDAPI                  EXTERN_C DXUTAPI HRESULT STDAPICALLTYPE
+
+#define DXSTDAPI_(type)           EXTERN_C DXUTAPI type STDAPICALLTYPE

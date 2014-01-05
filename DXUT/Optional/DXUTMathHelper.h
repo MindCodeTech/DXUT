@@ -13,7 +13,7 @@ EXTERN_C_BEGIN
 
 NAMESPACE_DXUT
 
-class MathHelper
+class DXUTAPI MathHelper
 {
 public:
 	// Returns random float in [0, 1).
@@ -53,9 +53,9 @@ public:
 	}
 
 	// Returns the polar angle of the point (x,y) in [0, 2*PI).
-	DXUTAPI static float AngleFromXY(float x, float y);
+	static float AngleFromXY(float x, float y);
 
-	DXUTAPI static XMMATRIX InverseTranspose(CXMMATRIX M)
+	static XMMATRIX InverseTranspose(CXMMATRIX M)
 	{
 		// Inverse-transpose is just applied to normals.  So zero out
 		// translation row so that it doesn't get into our inverse-transpose
@@ -67,8 +67,8 @@ public:
 		return XMMatrixTranspose(XMMatrixInverse(&det, A));
 	}
 
-	DXUTAPI static XMVECTOR RandUnitVec3();
-	DXUTAPI static XMVECTOR RandHemisphereUnitVec3(XMVECTOR n);
+	static XMVECTOR RandUnitVec3();
+	static XMVECTOR RandHemisphereUnitVec3(XMVECTOR n);
 
 	static const float Infinity;
 	static const float Pi;

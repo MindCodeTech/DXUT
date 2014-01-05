@@ -25,7 +25,7 @@ NAMESPACE_DXUT
 //======================================================================================
 
 //--------------------------------------------------------------------------------------
-CD3DArcBall::CD3DArcBall()
+DXUTAPI CD3DArcBall::CD3DArcBall()
 {
 	Reset();
 
@@ -181,7 +181,7 @@ DXUTAPI LRESULT CD3DArcBall::HandleMessages(HWND hWnd, UINT uMsg, WPARAM wParam,
 //--------------------------------------------------------------------------------------
 // Constructor
 //--------------------------------------------------------------------------------------
-CBaseCamera::CBaseCamera() :
+DXUTAPI CBaseCamera::CBaseCamera() :
 m_cKeysDown(0),
 m_nCurrentButtonMask(0),
 m_nMouseWheelDelta(0),
@@ -666,7 +666,7 @@ DXUTAPI void CBaseCamera::Reset()
 // CFirstPersonCamera
 //======================================================================================
 
-CFirstPersonCamera::CFirstPersonCamera() :
+DXUTAPI CFirstPersonCamera::CFirstPersonCamera() :
 m_nActiveButtonMask(0x07),
 m_bRotateWithoutButtonDown(false)
 {
@@ -777,7 +777,7 @@ DXUTAPI void CFirstPersonCamera::SetRotateButtons(bool bLeft, bool bMiddle, bool
 // CModelViewerCamera
 //======================================================================================
 
-CModelViewerCamera::CModelViewerCamera() :
+DXUTAPI CModelViewerCamera::CModelViewerCamera() :
 m_nRotateModelButtonMask(MOUSE_LEFT_BUTTON),
 m_nZoomButtonMask(MOUSE_WHEEL),
 m_nRotateCameraButtonMask(MOUSE_RIGHT_BUTTON),
@@ -1049,7 +1049,7 @@ DXUTAPI LRESULT CModelViewerCamera::HandleMessages(HWND hWnd, UINT uMsg, WPARAM 
 // CDXUTDirectionWidget
 //======================================================================================
 
-CDXUTDirectionWidget::CDXUTDirectionWidget() :
+DXUTAPI CDXUTDirectionWidget::CDXUTDirectionWidget() :
 m_fRadius(1.0f),
 m_nRotateMask(MOUSE_RIGHT_BUTTON)
 {

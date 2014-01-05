@@ -90,27 +90,27 @@ enum DXUT_CONTROL_STATE
 
 #define MAX_CONTROL_STATES 6
 
-struct DXUTBlendColor
+struct DXUTAPI DXUTBlendColor
 {
-	DXUTAPI void Init(_In_ DWORD defaultColor, _In_ DWORD disabledColor = D3DCOLOR_ARGB(200, 128, 128, 128), _In_ DWORD hiddenColor = 0);
-	DXUTAPI void Blend(_In_ UINT iState, _In_ float fElapsedTime, _In_ float fRate = 0.7f);
+	void Init(_In_ DWORD defaultColor, _In_ DWORD disabledColor = D3DCOLOR_ARGB(200, 128, 128, 128), _In_ DWORD hiddenColor = 0);
+	void Blend(_In_ UINT iState, _In_ float fElapsedTime, _In_ float fRate = 0.7f);
 
 	DWORD States[MAX_CONTROL_STATES]; // Modulate colors for all possible control states
 	DirectX::XMFLOAT4 Current;
 
-	DXUTAPI void SetCurrent(DWORD color);
+	void SetCurrent(DWORD color);
 };
 
 //-----------------------------------------------------------------------------
 // Contains all the display tweakables for a sub-control
 //-----------------------------------------------------------------------------
-class CDXUTElement
+class DXUTAPI CDXUTElement
 {
 public:
-	DXUTAPI void SetTexture(_In_ UINT iTexture, _In_ RECT* prcTexture, _In_ DWORD defaultTextureColor = D3DCOLOR_ARGB(255, 255, 255, 255));
-	DXUTAPI void SetFont(_In_ UINT iFont, _In_ DWORD defaultFontColor = D3DCOLOR_ARGB(255, 255, 255, 255), DWORD dwTextFormat = DT_CENTER | DT_VCENTER);
+	void SetTexture(_In_ UINT iTexture, _In_ RECT* prcTexture, _In_ DWORD defaultTextureColor = D3DCOLOR_ARGB(255, 255, 255, 255));
+	void SetFont(_In_ UINT iFont, _In_ DWORD defaultFontColor = D3DCOLOR_ARGB(255, 255, 255, 255), DWORD dwTextFormat = DT_CENTER | DT_VCENTER);
 
-	DXUTAPI void Refresh();
+	void Refresh();
 
 	UINT iTexture;          // Index of the texture for this Element
 	UINT iFont;             // Index of the font for this Element
@@ -126,167 +126,167 @@ public:
 // All controls must be assigned to a dialog, which handles
 // input and rendering for the controls.
 //-----------------------------------------------------------------------------
-class CDXUTDialog
+class DXUTAPI CDXUTDialog
 {
-	friend class CDXUTDialogResourceManager;
+	friend class DXUTAPI CDXUTDialogResourceManager;
 
 public:
 	CDXUTDialog();
 	~CDXUTDialog();
 
 	// Need to call this now
-	DXUTAPI void Init(_In_ CDXUTDialogResourceManager* pManager, _In_ bool bRegisterDialog = true);
-	DXUTAPI void Init(_In_ CDXUTDialogResourceManager* pManager, _In_ bool bRegisterDialog,
+	void Init(_In_ CDXUTDialogResourceManager* pManager, _In_ bool bRegisterDialog = true);
+	void Init(_In_ CDXUTDialogResourceManager* pManager, _In_ bool bRegisterDialog,
 		_In_z_ LPCWSTR pszControlTextureFilename);
-	DXUTAPI void Init(_In_ CDXUTDialogResourceManager* pManager, _In_ bool bRegisterDialog,
+	void Init(_In_ CDXUTDialogResourceManager* pManager, _In_ bool bRegisterDialog,
 		_In_z_ LPCWSTR szControlTextureResourceName, _In_ HMODULE hControlTextureResourceModule);
 
 	// Windows message handler
-	DXUTAPI bool MsgProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
+	bool MsgProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
 
 	// Control creation
-	DXUTAPI HRESULT AddStatic(_In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ bool bIsDefault = false,
+	HRESULT AddStatic(_In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ bool bIsDefault = false,
 		_Out_opt_ CDXUTStatic** ppCreated = nullptr);
-	DXUTAPI HRESULT AddButton(_In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ UINT nHotkey = 0,
+	HRESULT AddButton(_In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ UINT nHotkey = 0,
 		_In_ bool bIsDefault = false, _Out_opt_ CDXUTButton** ppCreated = nullptr);
-	DXUTAPI HRESULT AddCheckBox(_In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ bool bChecked = false,
+	HRESULT AddCheckBox(_In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ bool bChecked = false,
 		_In_ UINT nHotkey = 0, _In_ bool bIsDefault = false, _Out_opt_ CDXUTCheckBox** ppCreated = nullptr);
-	DXUTAPI HRESULT AddRadioButton(_In_ int ID, _In_ UINT nButtonGroup, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width,
+	HRESULT AddRadioButton(_In_ int ID, _In_ UINT nButtonGroup, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width,
 		_In_ int height, _In_ bool bChecked = false, _In_ UINT nHotkey = 0, _In_ bool bIsDefault = false,
 		_Out_opt_ CDXUTRadioButton** ppCreated = nullptr);
-	DXUTAPI HRESULT AddComboBox(_In_ int ID, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ UINT nHotKey = 0, _In_ bool bIsDefault = false,
+	HRESULT AddComboBox(_In_ int ID, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ UINT nHotKey = 0, _In_ bool bIsDefault = false,
 		_Out_opt_ CDXUTComboBox** ppCreated = nullptr);
-	DXUTAPI HRESULT AddSlider(_In_ int ID, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ int __min = 0, _In_ int __max = 100, _In_ int value = 50,
+	HRESULT AddSlider(_In_ int ID, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ int __min = 0, _In_ int __max = 100, _In_ int value = 50,
 		_In_ bool bIsDefault = false, _Out_opt_ CDXUTSlider** ppCreated = nullptr);
 	//      AddIMEEditBox has been renamed into DXUTguiIME.cpp as CDXUTIMEEditBox::CreateIMEEditBox
-	DXUTAPI HRESULT AddEditBox(_In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ bool bIsDefault = false,
+	HRESULT AddEditBox(_In_ int ID, _In_z_ LPCWSTR strText, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ bool bIsDefault = false,
 		_Out_opt_ CDXUTEditBox** ppCreated = nullptr);
-	DXUTAPI HRESULT AddListBox(_In_ int ID, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ DWORD dwStyle = 0,
+	HRESULT AddListBox(_In_ int ID, _In_ int x, _In_ int y, _In_ int width, _In_ int height, _In_ DWORD dwStyle = 0,
 		_Out_opt_ CDXUTListBox** ppCreated = nullptr);
-	DXUTAPI HRESULT AddControl(_In_ CDXUTControl* pControl);
-	DXUTAPI HRESULT InitControl(_In_ CDXUTControl* pControl);
+	HRESULT AddControl(_In_ CDXUTControl* pControl);
+	HRESULT InitControl(_In_ CDXUTControl* pControl);
 
 	// Control retrieval
-	DXUTAPI CDXUTStatic* GetStatic(_In_ int ID) const
+	CDXUTStatic* GetStatic(_In_ int ID) const
 	{
 		return (CDXUTStatic*)GetControl(ID, DXUT_CONTROL_STATIC);
 	}
-	DXUTAPI CDXUTButton* GetButton(_In_ int ID) const
+	CDXUTButton* GetButton(_In_ int ID) const
 	{
 		return (CDXUTButton*)GetControl(ID, DXUT_CONTROL_BUTTON);
 	}
-	DXUTAPI CDXUTCheckBox* GetCheckBox(_In_ int ID) const
+	CDXUTCheckBox* GetCheckBox(_In_ int ID) const
 	{
 		return (CDXUTCheckBox*)GetControl(ID, DXUT_CONTROL_CHECKBOX);
 	}
-	DXUTAPI CDXUTRadioButton* GetRadioButton(_In_ int ID) const
+	CDXUTRadioButton* GetRadioButton(_In_ int ID) const
 	{
 		return (CDXUTRadioButton*)GetControl(ID, DXUT_CONTROL_RADIOBUTTON);
 	}
-	DXUTAPI CDXUTComboBox* GetComboBox(_In_ int ID) const
+	CDXUTComboBox* GetComboBox(_In_ int ID) const
 	{
 		return (CDXUTComboBox*)GetControl(ID, DXUT_CONTROL_COMBOBOX);
 	}
-	DXUTAPI CDXUTSlider* GetSlider(_In_ int ID) const
+	CDXUTSlider* GetSlider(_In_ int ID) const
 	{
 		return (CDXUTSlider*)GetControl(ID, DXUT_CONTROL_SLIDER);
 	}
-	DXUTAPI CDXUTEditBox* GetEditBox(_In_ int ID) const
+	CDXUTEditBox* GetEditBox(_In_ int ID) const
 	{
 		return (CDXUTEditBox*)GetControl(ID, DXUT_CONTROL_EDITBOX);
 	}
-	DXUTAPI CDXUTListBox* GetListBox(_In_ int ID) const
+	CDXUTListBox* GetListBox(_In_ int ID) const
 	{
 		return (CDXUTListBox*)GetControl(ID, DXUT_CONTROL_LISTBOX);
 	}
 
-	DXUTAPI CDXUTControl* GetControl(_In_ int ID) const;
-	DXUTAPI CDXUTControl* GetControl(_In_ int ID, _In_ UINT nControlType) const;
-	DXUTAPI CDXUTControl* GetControlAtPoint(_In_ const POINT& pt) const;
+	CDXUTControl* GetControl(_In_ int ID) const;
+	CDXUTControl* GetControl(_In_ int ID, _In_ UINT nControlType) const;
+	CDXUTControl* GetControlAtPoint(_In_ const POINT& pt) const;
 
-	DXUTAPI bool GetControlEnabled(_In_ int ID) const;
-	DXUTAPI void SetControlEnabled(_In_ int ID, _In_ bool bEnabled);
+	bool GetControlEnabled(_In_ int ID) const;
+	void SetControlEnabled(_In_ int ID, _In_ bool bEnabled);
 
-	DXUTAPI void ClearRadioButtonGroup(_In_ UINT nGroup);
-	DXUTAPI void ClearComboBox(_In_ int ID);
+	void ClearRadioButtonGroup(_In_ UINT nGroup);
+	void ClearComboBox(_In_ int ID);
 
 	// Access the default display Elements used when adding new controls
-	DXUTAPI HRESULT SetDefaultElement(_In_ UINT nControlType, _In_ UINT iElement, _In_ CDXUTElement* pElement);
-	DXUTAPI CDXUTElement* GetDefaultElement(_In_ UINT nControlType, _In_ UINT iElement) const;
+	HRESULT SetDefaultElement(_In_ UINT nControlType, _In_ UINT iElement, _In_ CDXUTElement* pElement);
+	CDXUTElement* GetDefaultElement(_In_ UINT nControlType, _In_ UINT iElement) const;
 
 	// Methods called by controls
-	DXUTAPI void SendEvent(_In_ UINT nEvent, _In_ bool bTriggeredByUser, _In_ CDXUTControl* pControl);
-	DXUTAPI void RequestFocus(_In_ CDXUTControl* pControl);
+	void SendEvent(_In_ UINT nEvent, _In_ bool bTriggeredByUser, _In_ CDXUTControl* pControl);
+	void RequestFocus(_In_ CDXUTControl* pControl);
 
 	// Render helpers
-	DXUTAPI HRESULT DrawRect(_In_ const RECT* pRect, _In_ DWORD color);
-	DXUTAPI HRESULT DrawSprite(_In_ CDXUTElement* pElement, _In_ const RECT* prcDest, _In_ float fDepth);
-	DXUTAPI HRESULT DrawSprite11(_In_ CDXUTElement* pElement, _In_ const RECT* prcDest, _In_ float fDepth);
-	DXUTAPI HRESULT CalcTextRect(_In_z_ LPCWSTR strText, _In_ CDXUTElement* pElement, _In_ const RECT* prcDest, _In_ int nCount = -1);
-	DXUTAPI HRESULT DrawText(_In_z_ LPCWSTR strText, _In_ CDXUTElement* pElement, _In_ const RECT* prcDest, _In_ bool bShadow = false,
+	HRESULT DrawRect(_In_ const RECT* pRect, _In_ DWORD color);
+	HRESULT DrawSprite(_In_ CDXUTElement* pElement, _In_ const RECT* prcDest, _In_ float fDepth);
+	HRESULT DrawSprite11(_In_ CDXUTElement* pElement, _In_ const RECT* prcDest, _In_ float fDepth);
+	HRESULT CalcTextRect(_In_z_ LPCWSTR strText, _In_ CDXUTElement* pElement, _In_ const RECT* prcDest, _In_ int nCount = -1);
+	HRESULT DrawText(_In_z_ LPCWSTR strText, _In_ CDXUTElement* pElement, _In_ const RECT* prcDest, _In_ bool bShadow = false,
 		_In_ bool bCenter = false);
 
 	// Attributes
-	DXUTAPI bool GetVisible() const { return m_bVisible; }
-	DXUTAPI void SetVisible(_In_ bool bVisible) { m_bVisible = bVisible; }
-	DXUTAPI bool GetMinimized() const { return m_bMinimized; }
-	DXUTAPI void SetMinimized(_In_ bool bMinimized) { m_bMinimized = bMinimized; }
-	DXUTAPI void SetBackgroundColors(_In_ DWORD colorAllCorners) { SetBackgroundColors(colorAllCorners, colorAllCorners, colorAllCorners, colorAllCorners); }
-	DXUTAPI void SetBackgroundColors(_In_ DWORD colorTopLeft, _In_ DWORD colorTopRight, _In_ DWORD colorBottomLeft, _In_ DWORD colorBottomRight);
-	DXUTAPI void EnableCaption(_In_ bool bEnable) { m_bCaption = bEnable; }
-	DXUTAPI int GetCaptionHeight() const { return m_nCaptionHeight; }
-	DXUTAPI void SetCaptionHeight(_In_ int nHeight) { m_nCaptionHeight = nHeight; }
-	DXUTAPI void SetCaptionText(_In_ const WCHAR* pwszText) { wcscpy_s(m_wszCaption, sizeof(m_wszCaption) / sizeof(m_wszCaption[0]), pwszText); }
-	DXUTAPI void GetLocation(_Out_ POINT& Pt) const
+	bool GetVisible() const { return m_bVisible; }
+	void SetVisible(_In_ bool bVisible) { m_bVisible = bVisible; }
+	bool GetMinimized() const { return m_bMinimized; }
+	void SetMinimized(_In_ bool bMinimized) { m_bMinimized = bMinimized; }
+	void SetBackgroundColors(_In_ DWORD colorAllCorners) { SetBackgroundColors(colorAllCorners, colorAllCorners, colorAllCorners, colorAllCorners); }
+	void SetBackgroundColors(_In_ DWORD colorTopLeft, _In_ DWORD colorTopRight, _In_ DWORD colorBottomLeft, _In_ DWORD colorBottomRight);
+	void EnableCaption(_In_ bool bEnable) { m_bCaption = bEnable; }
+	int GetCaptionHeight() const { return m_nCaptionHeight; }
+	void SetCaptionHeight(_In_ int nHeight) { m_nCaptionHeight = nHeight; }
+	void SetCaptionText(_In_ const WCHAR* pwszText) { wcscpy_s(m_wszCaption, sizeof(m_wszCaption) / sizeof(m_wszCaption[0]), pwszText); }
+	void GetLocation(_Out_ POINT& Pt) const
 	{
 		Pt.x = m_x;
 		Pt.y = m_y;
 	}
-	DXUTAPI void SetLocation(_In_ int x, _In_ int y)
+	void SetLocation(_In_ int x, _In_ int y)
 	{
 		m_x = x;
 		m_y = y;
 	}
-	DXUTAPI void SetSize(_In_ int width, _In_ int height)
+	void SetSize(_In_ int width, _In_ int height)
 	{
 		m_width = width;
 		m_height = height;
 	}
-	DXUTAPI int GetWidth() const { return m_width; }
-	DXUTAPI int GetHeight() const { return m_height; }
+	int GetWidth() const { return m_width; }
+	int GetHeight() const { return m_height; }
 
-	DXUTAPI static void WINAPI SetRefreshTime(_In_ float fTime) { s_fTimeRefresh = fTime; }
+	static void WINAPI SetRefreshTime(_In_ float fTime) { s_fTimeRefresh = fTime; }
 
-	DXUTAPI static CDXUTControl* WINAPI GetNextControl(_In_ CDXUTControl* pControl);
-	DXUTAPI static CDXUTControl* WINAPI GetPrevControl(_In_ CDXUTControl* pControl);
+	static CDXUTControl* WINAPI GetNextControl(_In_ CDXUTControl* pControl);
+	static CDXUTControl* WINAPI GetPrevControl(_In_ CDXUTControl* pControl);
 
-	DXUTAPI void RemoveControl(_In_ int ID);
-	DXUTAPI void RemoveAllControls();
+	void RemoveControl(_In_ int ID);
+	void RemoveAllControls();
 
 	// Sets the callback used to notify the app of control events
-	DXUTAPI void SetCallback(_In_ PCALLBACKDXUTGUIEVENT pCallback, _In_opt_ void* pUserContext = nullptr);
-	DXUTAPI void EnableNonUserEvents(_In_ bool bEnable) { m_bNonUserEvents = bEnable; }
-	DXUTAPI void EnableKeyboardInput(_In_ bool bEnable) { m_bKeyboardInput = bEnable; }
-	DXUTAPI void EnableMouseInput(_In_ bool bEnable) { m_bMouseInput = bEnable; }
-	DXUTAPI bool IsKeyboardInputEnabled() const { return m_bKeyboardInput; }
+	void SetCallback(_In_ PCALLBACKDXUTGUIEVENT pCallback, _In_opt_ void* pUserContext = nullptr);
+	void EnableNonUserEvents(_In_ bool bEnable) { m_bNonUserEvents = bEnable; }
+	void EnableKeyboardInput(_In_ bool bEnable) { m_bKeyboardInput = bEnable; }
+	void EnableMouseInput(_In_ bool bEnable) { m_bMouseInput = bEnable; }
+	bool IsKeyboardInputEnabled() const { return m_bKeyboardInput; }
 
 	// Device state notification
-	DXUTAPI void Refresh();
-	DXUTAPI HRESULT OnRender(_In_ float fElapsedTime);
+	void Refresh();
+	HRESULT OnRender(_In_ float fElapsedTime);
 
 	// Shared resource access. Indexed fonts and textures are shared among
 	// all the controls.
-	DXUTAPI HRESULT SetFont(_In_ UINT index, _In_z_ LPCWSTR strFaceName, _In_ LONG height, _In_ LONG weight);
-	DXUTAPI DXUTFontNode* GetFont(_In_ UINT index) const;
+	HRESULT SetFont(_In_ UINT index, _In_z_ LPCWSTR strFaceName, _In_ LONG height, _In_ LONG weight);
+	DXUTFontNode* GetFont(_In_ UINT index) const;
 
-	DXUTAPI HRESULT SetTexture(_In_ UINT index, _In_z_ LPCWSTR strFilename);
-	DXUTAPI HRESULT SetTexture(_In_ UINT index, _In_z_ LPCWSTR strResourceName, _In_ HMODULE hResourceModule);
-	DXUTAPI DXUTTextureNode* GetTexture(_In_ UINT index) const;
+	HRESULT SetTexture(_In_ UINT index, _In_z_ LPCWSTR strFilename);
+	HRESULT SetTexture(_In_ UINT index, _In_z_ LPCWSTR strResourceName, _In_ HMODULE hResourceModule);
+	DXUTTextureNode* GetTexture(_In_ UINT index) const;
 
-	DXUTAPI CDXUTDialogResourceManager* GetManager() const { return m_pManager; }
+	CDXUTDialogResourceManager* GetManager() const { return m_pManager; }
 
-	DXUTAPI static void WINAPI  ClearFocus();
-	DXUTAPI void FocusDefaultControl();
+	static void WINAPI  ClearFocus();
+	void FocusDefaultControl();
 
 	bool m_bNonUserEvents;
 	bool m_bKeyboardInput;
@@ -299,16 +299,16 @@ private:
 	double m_fTimeLastRefresh;
 
 	// Initialize default Elements
-	DXUTAPI void InitDefaultElements();
+	void InitDefaultElements();
 
 	// Windows message handlers
-	DXUTAPI void OnMouseMove(_In_ const POINT& pt);
-	DXUTAPI void OnMouseUp(_In_ const POINT& pt);
+	void OnMouseMove(_In_ const POINT& pt);
+	void OnMouseUp(_In_ const POINT& pt);
 
-	DXUTAPI void SetNextDialog(_In_ CDXUTDialog* pNextDialog);
+	void SetNextDialog(_In_ CDXUTDialog* pNextDialog);
 
 	// Control events
-	DXUTAPI bool OnCycleFocus(_In_ bool bForward);
+	bool OnCycleFocus(_In_ bool bForward);
 
 	static CDXUTControl* s_pControlFocus;        // The control which has focus
 	static CDXUTControl* s_pControlPressed;      // The control currently pressed
@@ -351,7 +351,7 @@ private:
 //--------------------------------------------------------------------------------------
 // Structs for shared resources
 //--------------------------------------------------------------------------------------
-struct DXUTTextureNode
+struct DXUTAPI DXUTTextureNode
 {
 	bool bFileSource;  // True if this texture is loaded from a file. False if from resource.
 	HMODULE hResourceModule;
@@ -363,14 +363,14 @@ struct DXUTTextureNode
 	ID3D11ShaderResourceView* pTexResView11;
 };
 
-struct DXUTFontNode
+struct DXUTAPI DXUTFontNode
 {
 	WCHAR strFace[MAX_PATH];
 	LONG nHeight;
 	LONG nWeight;
 };
 
-struct DXUTSpriteVertex
+struct DXUTAPI DXUTSpriteVertex
 {
 	DirectX::XMFLOAT3 vPos;
 	DirectX::XMFLOAT4 vColor;
@@ -380,39 +380,39 @@ struct DXUTSpriteVertex
 //-----------------------------------------------------------------------------
 // Manages shared resources of dialogs
 //-----------------------------------------------------------------------------
-class CDXUTDialogResourceManager
+class DXUTAPI CDXUTDialogResourceManager
 {
 public:
 	CDXUTDialogResourceManager();
 	~CDXUTDialogResourceManager();
 
-	DXUTAPI bool MsgProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
+	bool MsgProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
 
 	// D3D11 specific
-	DXUTAPI HRESULT WINAPI OnD3D11CreateDevice(_In_ ID3D11Device* pd3dDevice, _In_ ID3D11DeviceContext* pd3d11DeviceContext);
-	DXUTAPI HRESULT WINAPI OnD3D11ResizedSwapChain(_In_ ID3D11Device* pd3dDevice, _In_ const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc);
-	DXUTAPI void OnD3D11ReleasingSwapChain();
-	DXUTAPI void OnD3D11DestroyDevice();
-	DXUTAPI void StoreD3D11State(_In_ ID3D11DeviceContext* pd3dImmediateContext);
-	DXUTAPI void RestoreD3D11State(_In_ ID3D11DeviceContext* pd3dImmediateContext);
-	DXUTAPI void ApplyRenderUI11(_In_ ID3D11DeviceContext* pd3dImmediateContext);
-	DXUTAPI void ApplyRenderUIUntex11(_In_ ID3D11DeviceContext* pd3dImmediateContext);
-	DXUTAPI void BeginSprites11();
-	DXUTAPI void EndSprites11(_In_ ID3D11Device* pd3dDevice, _In_ ID3D11DeviceContext* pd3dImmediateContext);
+	HRESULT WINAPI OnD3D11CreateDevice(_In_ ID3D11Device* pd3dDevice, _In_ ID3D11DeviceContext* pd3d11DeviceContext);
+	HRESULT WINAPI OnD3D11ResizedSwapChain(_In_ ID3D11Device* pd3dDevice, _In_ const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc);
+	void OnD3D11ReleasingSwapChain();
+	void OnD3D11DestroyDevice();
+	void StoreD3D11State(_In_ ID3D11DeviceContext* pd3dImmediateContext);
+	void RestoreD3D11State(_In_ ID3D11DeviceContext* pd3dImmediateContext);
+	void ApplyRenderUI11(_In_ ID3D11DeviceContext* pd3dImmediateContext);
+	void ApplyRenderUIUntex11(_In_ ID3D11DeviceContext* pd3dImmediateContext);
+	void BeginSprites11();
+	void EndSprites11(_In_ ID3D11Device* pd3dDevice, _In_ ID3D11DeviceContext* pd3dImmediateContext);
 
-	DXUTAPI ID3D11Device* GetD3D11Device() const { return m_pd3d11Device; }
-	DXUTAPI ID3D11DeviceContext* GetD3D11DeviceContext() const { return m_pd3d11DeviceContext; }
+	ID3D11Device* GetD3D11Device() const { return m_pd3d11Device; }
+	ID3D11DeviceContext* GetD3D11DeviceContext() const { return m_pd3d11DeviceContext; }
 
-	DXUTAPI DXUTFontNode* GetFontNode(_In_ size_t iIndex) const { return m_FontCache[iIndex]; }
-	DXUTAPI DXUTTextureNode* GetTextureNode(_In_ size_t iIndex) const { return m_TextureCache[iIndex]; }
+	DXUTFontNode* GetFontNode(_In_ size_t iIndex) const { return m_FontCache[iIndex]; }
+	DXUTTextureNode* GetTextureNode(_In_ size_t iIndex) const { return m_TextureCache[iIndex]; }
 
-	DXUTAPI int AddFont(_In_z_ LPCWSTR strFaceName, _In_ LONG height, _In_ LONG weight);
-	DXUTAPI int AddTexture(_In_z_ LPCWSTR strFilename);
-	DXUTAPI int AddTexture(_In_z_ LPCWSTR strResourceName, _In_ HMODULE hResourceModule);
+	int AddFont(_In_z_ LPCWSTR strFaceName, _In_ LONG height, _In_ LONG weight);
+	int AddTexture(_In_z_ LPCWSTR strFilename);
+	int AddTexture(_In_z_ LPCWSTR strResourceName, _In_ HMODULE hResourceModule);
 
-	DXUTAPI bool RegisterDialog(_In_ CDXUTDialog* pDialog);
-	DXUTAPI void UnregisterDialog(_In_ CDXUTDialog* pDialog);
-	DXUTAPI void EnableKeyboardInputForAllDialogs();
+	bool RegisterDialog(_In_ CDXUTDialog* pDialog);
+	void UnregisterDialog(_In_ CDXUTDialog* pDialog);
+	void EnableKeyboardInputForAllDialogs();
 
 	// Shared between all dialogs
 
@@ -454,7 +454,7 @@ protected:
 	// D3D11 specific
 	ID3D11Device* m_pd3d11Device;
 	ID3D11DeviceContext* m_pd3d11DeviceContext;
-	DXUTAPI HRESULT CreateTexture11(_In_ UINT index);
+	HRESULT CreateTexture11(_In_ UINT index);
 
 	std::vector<DXUTTextureNode*> m_TextureCache;   // Shared textures
 	std::vector<DXUTFontNode*> m_FontCache;         // Shared fonts
@@ -463,18 +463,18 @@ protected:
 //-----------------------------------------------------------------------------
 // Base class for controls
 //-----------------------------------------------------------------------------
-class CDXUTControl
+class DXUTAPI CDXUTControl
 {
 public:
 	CDXUTControl(_In_opt_ CDXUTDialog* pDialog = nullptr);
 	virtual ~CDXUTControl();
 
-	virtual DXUTAPI HRESULT OnInit() { return S_OK; }
-	virtual DXUTAPI void Refresh();
-	virtual DXUTAPI void Render(_In_ float fElapsedTime) { UNREFERENCED_PARAMETER(fElapsedTime); }
+	virtual HRESULT OnInit() { return S_OK; }
+	virtual void Refresh();
+	virtual void Render(_In_ float fElapsedTime) { UNREFERENCED_PARAMETER(fElapsedTime); }
 
 	// Windows message handler
-	virtual DXUTAPI bool MsgProc(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)
+	virtual bool MsgProc(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)
 	{
 		UNREFERENCED_PARAMETER(uMsg);
 		UNREFERENCED_PARAMETER(wParam);
@@ -482,14 +482,14 @@ public:
 		return false;
 	}
 
-	virtual DXUTAPI bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)
+	virtual bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)
 	{
 		UNREFERENCED_PARAMETER(uMsg);
 		UNREFERENCED_PARAMETER(wParam);
 		UNREFERENCED_PARAMETER(lParam);
 		return false;
 	}
-	virtual DXUTAPI bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam)
+	virtual bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam)
 	{
 		UNREFERENCED_PARAMETER(uMsg);
 		UNREFERENCED_PARAMETER(pt);
@@ -498,47 +498,47 @@ public:
 		return false;
 	}
 
-	virtual DXUTAPI bool CanHaveFocus() { return false; }
-	virtual DXUTAPI void OnFocusIn() { m_bHasFocus = true; }
-	virtual DXUTAPI void OnFocusOut() { m_bHasFocus = false; }
-	virtual DXUTAPI void OnMouseEnter() { m_bMouseOver = true; }
-	virtual DXUTAPI void OnMouseLeave() { m_bMouseOver = false; }
-	virtual DXUTAPI void OnHotkey() { }
+	virtual bool CanHaveFocus() { return false; }
+	virtual void OnFocusIn() { m_bHasFocus = true; }
+	virtual void OnFocusOut() { m_bHasFocus = false; }
+	virtual void OnMouseEnter() { m_bMouseOver = true; }
+	virtual void OnMouseLeave() { m_bMouseOver = false; }
+	virtual void OnHotkey() { }
 
-	virtual DXUTAPI bool ContainsPoint(_In_ const POINT& pt) { return PtInRect(&m_rcBoundingBox, pt) != 0; }
+	virtual bool ContainsPoint(_In_ const POINT& pt) { return PtInRect(&m_rcBoundingBox, pt) != 0; }
 
-	virtual DXUTAPI void SetEnabled(_In_ bool bEnabled) { m_bEnabled = bEnabled; }
-	virtual DXUTAPI bool GetEnabled() const { return m_bEnabled; }
-	virtual DXUTAPI void SetVisible(_In_ bool bVisible) { m_bVisible = bVisible; }
-	virtual DXUTAPI bool GetVisible() const { return m_bVisible; }
+	virtual void SetEnabled(_In_ bool bEnabled) { m_bEnabled = bEnabled; }
+	virtual bool GetEnabled() const { return m_bEnabled; }
+	virtual void SetVisible(_In_ bool bVisible) { m_bVisible = bVisible; }
+	virtual bool GetVisible() const { return m_bVisible; }
 
-	DXUTAPI UINT GetType() const { return m_Type; }
+	UINT GetType() const { return m_Type; }
 
-	DXUTAPI int GetID() const { return m_ID; }
-	DXUTAPI void SetID(_In_ int ID) { m_ID = ID; }
+	int GetID() const { return m_ID; }
+	void SetID(_In_ int ID) { m_ID = ID; }
 
-	DXUTAPI void SetLocation(_In_ int x, _In_ int y)
+	void SetLocation(_In_ int x, _In_ int y)
 	{
 		m_x = x;
 		m_y = y;
 		UpdateRects();
 	}
-	DXUTAPI void SetSize(int width, int height)
+	void SetSize(int width, int height)
 	{
 		m_width = width;
 		m_height = height;
 		UpdateRects();
 	}
 
-	DXUTAPI void SetHotkey(_In_ UINT nHotkey) { m_nHotkey = nHotkey; }
-	DXUTAPI UINT GetHotkey() const { return m_nHotkey; }
+	void SetHotkey(_In_ UINT nHotkey) { m_nHotkey = nHotkey; }
+	UINT GetHotkey() const { return m_nHotkey; }
 
-	DXUTAPI void SetUserData(_In_opt_ void* pUserData) { m_pUserData = pUserData; }
-	DXUTAPI void* GetUserData() const { return m_pUserData; }
+	void SetUserData(_In_opt_ void* pUserData) { m_pUserData = pUserData; }
+	void* GetUserData() const { return m_pUserData; }
 
-	virtual DXUTAPI void SetTextColor(_In_ DWORD Color);
-	DXUTAPI CDXUTElement* GetElement(_In_ UINT iElement) const { return m_Elements[iElement]; }
-	DXUTAPI HRESULT SetElement(_In_ UINT iElement, _In_ CDXUTElement* pElement);
+	virtual void SetTextColor(_In_ DWORD Color);
+	CDXUTElement* GetElement(_In_ UINT iElement) const { return m_Elements[iElement]; }
+	HRESULT SetElement(_In_ UINT iElement, _In_ CDXUTElement* pElement);
 
 	bool m_bVisible;                // Shown/hidden flag
 	bool m_bMouseOver;              // Mouse pointer is above control
@@ -556,7 +556,7 @@ public:
 	std::vector<CDXUTElement*> m_Elements;  // All display elements
 
 protected:
-	virtual DXUTAPI void UpdateRects();
+	virtual void UpdateRects();
 
 	int m_ID;                 // ID number
 	DXUT_CONTROL_TYPE m_Type;  // Control type, set once in constructor
@@ -571,7 +571,7 @@ protected:
 //-----------------------------------------------------------------------------
 // Contains all the display information for a given control type
 //-----------------------------------------------------------------------------
-struct DXUTElementHolder
+struct DXUTAPI DXUTElementHolder
 {
 	UINT nControlType;
 	UINT iElement;
@@ -582,21 +582,21 @@ struct DXUTElementHolder
 //-----------------------------------------------------------------------------
 // Static control
 //-----------------------------------------------------------------------------
-class CDXUTStatic : public CDXUTControl
+class DXUTAPI CDXUTStatic : public CDXUTControl
 {
 public:
 	CDXUTStatic(_In_opt_ CDXUTDialog* pDialog = nullptr);
 
-	virtual DXUTAPI void Render(_In_ float fElapsedTime) override;
-	virtual DXUTAPI bool ContainsPoint(_In_ const POINT& pt) override
+	virtual void Render(_In_ float fElapsedTime) override;
+	virtual bool ContainsPoint(_In_ const POINT& pt) override
 	{
 		UNREFERENCED_PARAMETER(pt);
 		return false;
 	}
 
-	DXUTAPI HRESULT GetTextCopy(_Out_writes_(bufferCount) LPWSTR strDest, _In_ UINT bufferCount) const;
-	DXUTAPI LPCWSTR GetText() const { return m_strText; }
-	DXUTAPI HRESULT SetText(_In_z_ LPCWSTR strText);
+	HRESULT GetTextCopy(_Out_writes_(bufferCount) LPWSTR strDest, _In_ UINT bufferCount) const;
+	LPCWSTR GetText() const { return m_strText; }
+	HRESULT SetText(_In_z_ LPCWSTR strText);
 
 protected:
 	WCHAR m_strText[MAX_PATH];      // Window text
@@ -605,29 +605,29 @@ protected:
 //-----------------------------------------------------------------------------
 // Button control
 //-----------------------------------------------------------------------------
-class CDXUTButton : public CDXUTStatic
+class DXUTAPI CDXUTButton : public CDXUTStatic
 {
 public:
 	CDXUTButton(_In_opt_ CDXUTDialog* pDialog = nullptr);
 
-	virtual DXUTAPI bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI void OnHotkey() override
+	virtual bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual void OnHotkey() override
 	{
 		if (m_pDialog->IsKeyboardInputEnabled()) m_pDialog->RequestFocus(this);
 		m_pDialog->SendEvent(EVENT_BUTTON_CLICKED, true, this);
 	}
 
-	virtual DXUTAPI bool ContainsPoint(_In_ const POINT& pt) override
+	virtual bool ContainsPoint(_In_ const POINT& pt) override
 	{
 		return PtInRect(&m_rcBoundingBox, pt) != 0;
 	}
-	virtual DXUTAPI bool CanHaveFocus() override
+	virtual bool CanHaveFocus() override
 	{
 		return (m_bVisible && m_bEnabled);
 	}
 
-	virtual DXUTAPI void Render(_In_ float fElapsedTime) override;
+	virtual void Render(_In_ float fElapsedTime) override;
 
 protected:
 	bool m_bPressed;
@@ -636,29 +636,29 @@ protected:
 //-----------------------------------------------------------------------------
 // CheckBox control
 //-----------------------------------------------------------------------------
-class CDXUTCheckBox : public CDXUTButton
+class DXUTAPI CDXUTCheckBox : public CDXUTButton
 {
 public:
 	CDXUTCheckBox(_In_opt_ CDXUTDialog* pDialog = nullptr);
 
-	virtual DXUTAPI bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI void OnHotkey() override
+	virtual bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual void OnHotkey() override
 	{
 		if (m_pDialog->IsKeyboardInputEnabled()) m_pDialog->RequestFocus(this);
 		SetCheckedInternal(!m_bChecked, true);
 	}
 
-	virtual DXUTAPI bool ContainsPoint(_In_ const POINT& pt) override;
-	virtual DXUTAPI void UpdateRects() override;
+	virtual bool ContainsPoint(_In_ const POINT& pt) override;
+	virtual void UpdateRects() override;
 
-	virtual DXUTAPI void Render(_In_ float fElapsedTime) override;
+	virtual void Render(_In_ float fElapsedTime) override;
 
-	DXUTAPI bool GetChecked() const { return m_bChecked; }
-	DXUTAPI void SetChecked(_In_ bool bChecked) { SetCheckedInternal(bChecked, false); }
+	bool GetChecked() const { return m_bChecked; }
+	void SetChecked(_In_ bool bChecked) { SetCheckedInternal(bChecked, false); }
 
 protected:
-	virtual DXUTAPI void SetCheckedInternal(_In_ bool bChecked, _In_ bool bFromInput);
+	virtual void SetCheckedInternal(_In_ bool bChecked, _In_ bool bFromInput);
 
 	bool m_bChecked;
 	RECT m_rcButton;
@@ -668,62 +668,62 @@ protected:
 //-----------------------------------------------------------------------------
 // RadioButton control
 //-----------------------------------------------------------------------------
-class CDXUTRadioButton : public CDXUTCheckBox
+class DXUTAPI CDXUTRadioButton : public CDXUTCheckBox
 {
 public:
 	CDXUTRadioButton(_In_opt_ CDXUTDialog* pDialog = nullptr);
 
-	virtual DXUTAPI bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI void OnHotkey() override
+	virtual bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual void OnHotkey() override
 	{
 		if (m_pDialog->IsKeyboardInputEnabled()) m_pDialog->RequestFocus(this);
 		SetCheckedInternal(true, true, true);
 	}
 
-	DXUTAPI void SetChecked(_In_ bool bChecked, _In_ bool bClearGroup = true) { SetCheckedInternal(bChecked, bClearGroup, false); }
-	DXUTAPI void SetButtonGroup(_In_ UINT nButtonGroup) { m_nButtonGroup = nButtonGroup; }
-	DXUTAPI UINT GetButtonGroup() const { return m_nButtonGroup; }
+	void SetChecked(_In_ bool bChecked, _In_ bool bClearGroup = true) { SetCheckedInternal(bChecked, bClearGroup, false); }
+	void SetButtonGroup(_In_ UINT nButtonGroup) { m_nButtonGroup = nButtonGroup; }
+	UINT GetButtonGroup() const { return m_nButtonGroup; }
 
 protected:
-	virtual DXUTAPI void SetCheckedInternal(_In_ bool bChecked, _In_ bool bClearGroup, _In_ bool bFromInput);
+	virtual void SetCheckedInternal(_In_ bool bChecked, _In_ bool bClearGroup, _In_ bool bFromInput);
 	UINT m_nButtonGroup;
 };
 
 //-----------------------------------------------------------------------------
 // Scrollbar control
 //-----------------------------------------------------------------------------
-class CDXUTScrollBar : public CDXUTControl
+class DXUTAPI CDXUTScrollBar : public CDXUTControl
 {
 public:
 	CDXUTScrollBar(_In_opt_ CDXUTDialog* pDialog = nullptr);
 	virtual ~CDXUTScrollBar();
 
-	virtual DXUTAPI bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI bool MsgProc(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool MsgProc(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
 
-	virtual DXUTAPI void Render(_In_ float fElapsedTime) override;
-	virtual DXUTAPI void UpdateRects() override;
+	virtual void Render(_In_ float fElapsedTime) override;
+	virtual void UpdateRects() override;
 
-	DXUTAPI void SetTrackRange(_In_ int nStart, _In_ int nEnd);
-	DXUTAPI int GetTrackPos() const { return m_nPosition; }
-	DXUTAPI void SetTrackPos(_In_ int nPosition)
+	void SetTrackRange(_In_ int nStart, _In_ int nEnd);
+	int GetTrackPos() const { return m_nPosition; }
+	void SetTrackPos(_In_ int nPosition)
 	{
 		m_nPosition = nPosition;
 		Cap();
 		UpdateThumbRect();
 	}
-	DXUTAPI int GetPageSize() const { return m_nPageSize; }
-	DXUTAPI void SetPageSize(_In_ int nPageSize)
+	int GetPageSize() const { return m_nPageSize; }
+	void SetPageSize(_In_ int nPageSize)
 	{
 		m_nPageSize = nPageSize;
 		Cap();
 		UpdateThumbRect();
 	}
 
-	DXUTAPI void Scroll(_In_ int nDelta);    // Scroll by nDelta items (plus or minus)
-	DXUTAPI void ShowItem(_In_ int nIndex);  // Ensure that item nIndex is displayed, scroll if necessary
+	void Scroll(_In_ int nDelta);    // Scroll by nDelta items (plus or minus)
+	void ShowItem(_In_ int nIndex);  // Ensure that item nIndex is displayed, scroll if necessary
 
 protected:
 	// ARROWSTATE indicates the state of the arrow buttons.
@@ -741,8 +741,8 @@ protected:
 		HELD_DOWN
 	};
 
-	DXUTAPI void            UpdateThumbRect();
-	DXUTAPI void            Cap();  // Clips position at boundaries. Ensures it stays within legal range.
+	void            UpdateThumbRect();
+	void            Cap();  // Clips position at boundaries. Ensures it stays within legal range.
 
 	bool m_bShowThumb;
 	bool m_bDrag;
@@ -762,7 +762,7 @@ protected:
 //-----------------------------------------------------------------------------
 // ListBox control
 //-----------------------------------------------------------------------------
-struct DXUTListBoxItem
+struct DXUTAPI DXUTListBoxItem
 {
 	WCHAR strText[256];
 	void* pData;
@@ -771,53 +771,53 @@ struct DXUTListBoxItem
 	bool bSelected;
 };
 
-class CDXUTListBox : public CDXUTControl
+class DXUTAPI CDXUTListBox : public CDXUTControl
 {
 public:
 	CDXUTListBox(_In_opt_ CDXUTDialog* pDialog = nullptr);
 	virtual ~CDXUTListBox();
 
-	virtual DXUTAPI HRESULT OnInit() override
+	virtual HRESULT OnInit() override
 	{
 		return m_pDialog->InitControl(&m_ScrollBar);
 	}
-	virtual DXUTAPI bool CanHaveFocus() override
+	virtual bool CanHaveFocus() override
 	{
 		return (m_bVisible && m_bEnabled);
 	}
-	virtual DXUTAPI bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)  override;
-	virtual DXUTAPI bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam)  override;
-	virtual DXUTAPI bool MsgProc(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)  override;
+	virtual bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)  override;
+	virtual bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam)  override;
+	virtual bool MsgProc(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam)  override;
 
-	virtual DXUTAPI void Render(_In_ float fElapsedTime) override;
-	virtual DXUTAPI void UpdateRects() override;
+	virtual void Render(_In_ float fElapsedTime) override;
+	virtual void UpdateRects() override;
 
-	DXUTAPI DWORD GetStyle() const { return m_dwStyle; }
-	DXUTAPI size_t GetSize() const { return m_Items.size(); }
-	DXUTAPI void SetStyle(_In_ DWORD dwStyle) { m_dwStyle = dwStyle; }
-	DXUTAPI int GetScrollBarWidth() const{ return m_nSBWidth; }
-	DXUTAPI void SetScrollBarWidth(_In_ int nWidth)
+	DWORD GetStyle() const { return m_dwStyle; }
+	size_t GetSize() const { return m_Items.size(); }
+	void SetStyle(_In_ DWORD dwStyle) { m_dwStyle = dwStyle; }
+	int GetScrollBarWidth() const{ return m_nSBWidth; }
+	void SetScrollBarWidth(_In_ int nWidth)
 	{
 		m_nSBWidth = nWidth;
 		UpdateRects();
 	}
-	DXUTAPI void SetBorder(_In_ int nBorder, _In_ int nMargin)
+	void SetBorder(_In_ int nBorder, _In_ int nMargin)
 	{
 		m_nBorder = nBorder;
 		m_nMargin = nMargin;
 	}
-	DXUTAPI HRESULT AddItem(_In_z_ const WCHAR* wszText, _In_opt_ void* pData);
-	DXUTAPI HRESULT InsertItem(_In_ int nIndex, _In_z_ const WCHAR* wszText, _In_opt_ void* pData);
-	DXUTAPI void    RemoveItem(_In_ int nIndex);
-	DXUTAPI void    RemoveAllItems();
+	HRESULT AddItem(_In_z_ const WCHAR* wszText, _In_opt_ void* pData);
+	HRESULT InsertItem(_In_ int nIndex, _In_z_ const WCHAR* wszText, _In_opt_ void* pData);
+	void    RemoveItem(_In_ int nIndex);
+	void    RemoveAllItems();
 
-	DXUTAPI DXUTListBoxItem* GetItem(_In_ int nIndex) const;
-	DXUTAPI int              GetSelectedIndex(_In_ int nPreviousSelected = -1) const;
-	DXUTAPI DXUTListBoxItem* GetSelectedItem(_In_ int nPreviousSelected = -1) const
+	DXUTListBoxItem* GetItem(_In_ int nIndex) const;
+	int              GetSelectedIndex(_In_ int nPreviousSelected = -1) const;
+	DXUTListBoxItem* GetSelectedItem(_In_ int nPreviousSelected = -1) const
 	{
 		return GetItem(GetSelectedIndex(nPreviousSelected));
 	}
-	DXUTAPI void             SelectItem(_In_ int nNewIndex);
+	void             SelectItem(_In_ int nNewIndex);
 
 	enum STYLE
 	{
@@ -843,7 +843,7 @@ protected:
 //-----------------------------------------------------------------------------
 // ComboBox control
 //-----------------------------------------------------------------------------
-struct DXUTComboBoxItem
+struct DXUTAPI DXUTComboBoxItem
 {
 	WCHAR strText[256];
 	void* pData;
@@ -852,60 +852,60 @@ struct DXUTComboBoxItem
 	bool bVisible;
 };
 
-class CDXUTComboBox : public CDXUTButton
+class DXUTAPI CDXUTComboBox : public CDXUTButton
 {
 public:
 	CDXUTComboBox(_In_opt_ CDXUTDialog* pDialog = nullptr);
 	virtual ~CDXUTComboBox();
 
-	virtual DXUTAPI void SetTextColor(_In_ DWORD Color) override;
-	virtual DXUTAPI HRESULT OnInit() override
+	virtual void SetTextColor(_In_ DWORD Color) override;
+	virtual HRESULT OnInit() override
 	{
 		return m_pDialog->InitControl(&m_ScrollBar);
 	}
 
-	virtual DXUTAPI bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI void OnHotkey() override;
+	virtual bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual void OnHotkey() override;
 
-	virtual DXUTAPI bool CanHaveFocus() override
+	virtual bool CanHaveFocus() override
 	{
 		return (m_bVisible && m_bEnabled);
 	}
-	virtual DXUTAPI void OnFocusOut() override;
-	virtual DXUTAPI void Render(_In_ float fElapsedTime) override;
+	virtual void OnFocusOut() override;
+	virtual void Render(_In_ float fElapsedTime) override;
 
-	virtual DXUTAPI void UpdateRects() override;
+	virtual void UpdateRects() override;
 
-	DXUTAPI HRESULT AddItem(_In_z_ const WCHAR* strText, _In_opt_ void* pData);
-	DXUTAPI void    RemoveAllItems();
-	DXUTAPI void    RemoveItem(_In_ UINT index);
-	DXUTAPI bool    ContainsItem(_In_z_ const WCHAR* strText, _In_ UINT iStart = 0);
-	DXUTAPI int     FindItem(_In_z_ const WCHAR* strText, _In_ UINT iStart = 0) const;
-	DXUTAPI void*   GetItemData(_In_z_ const WCHAR* strText) const;
-	DXUTAPI void*   GetItemData(_In_ int nIndex) const;
-	DXUTAPI void    SetDropHeight(_In_ UINT nHeight)
+	HRESULT AddItem(_In_z_ const WCHAR* strText, _In_opt_ void* pData);
+	void    RemoveAllItems();
+	void    RemoveItem(_In_ UINT index);
+	bool    ContainsItem(_In_z_ const WCHAR* strText, _In_ UINT iStart = 0);
+	int     FindItem(_In_z_ const WCHAR* strText, _In_ UINT iStart = 0) const;
+	void*   GetItemData(_In_z_ const WCHAR* strText) const;
+	void*   GetItemData(_In_ int nIndex) const;
+	void    SetDropHeight(_In_ UINT nHeight)
 	{
 		m_nDropHeight = nHeight;
 		UpdateRects();
 	}
-	DXUTAPI int     GetScrollBarWidth() const { return m_nSBWidth; }
-	DXUTAPI void    SetScrollBarWidth(_In_ int nWidth)
+	int     GetScrollBarWidth() const { return m_nSBWidth; }
+	void    SetScrollBarWidth(_In_ int nWidth)
 	{
 		m_nSBWidth = nWidth;
 		UpdateRects();
 	}
 
-	DXUTAPI int GetSelectedIndex() const { return m_iSelected; }
-	DXUTAPI void* GetSelectedData() const;
-	DXUTAPI DXUTComboBoxItem* GetSelectedItem() const;
+	int GetSelectedIndex() const { return m_iSelected; }
+	void* GetSelectedData() const;
+	DXUTComboBoxItem* GetSelectedItem() const;
 
-	DXUTAPI UINT GetNumItems() { return static_cast<UINT>(m_Items.size()); }
-	DXUTAPI DXUTComboBoxItem* GetItem(_In_ UINT index) { return m_Items[index]; }
+	UINT GetNumItems() { return static_cast<UINT>(m_Items.size()); }
+	DXUTComboBoxItem* GetItem(_In_ UINT index) { return m_Items[index]; }
 
-	DXUTAPI HRESULT SetSelectedByIndex(_In_ UINT index);
-	DXUTAPI HRESULT SetSelectedByText(_In_z_ const WCHAR* strText);
-	DXUTAPI HRESULT SetSelectedByData(_In_ void* pData);
+	HRESULT SetSelectedByIndex(_In_ UINT index);
+	HRESULT SetSelectedByText(_In_z_ const WCHAR* strText);
+	HRESULT SetSelectedByData(_In_ void* pData);
 
 protected:
 	int m_iSelected;
@@ -927,36 +927,36 @@ protected:
 //-----------------------------------------------------------------------------
 // Slider control
 //-----------------------------------------------------------------------------
-class CDXUTSlider : public CDXUTControl
+class DXUTAPI CDXUTSlider : public CDXUTControl
 {
 public:
 	CDXUTSlider(_In_opt_ CDXUTDialog* pDialog = nullptr);
 
-	virtual DXUTAPI bool ContainsPoint(_In_ const POINT& pt) override;
-	virtual DXUTAPI bool CanHaveFocus() override
+	virtual bool ContainsPoint(_In_ const POINT& pt) override;
+	virtual bool CanHaveFocus() override
 	{
 		return (m_bVisible && m_bEnabled);
 	}
-	virtual DXUTAPI bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
 
-	virtual DXUTAPI void UpdateRects() override;
+	virtual void UpdateRects() override;
 
-	virtual DXUTAPI void Render(_In_ float fElapsedTime) override;
+	virtual void Render(_In_ float fElapsedTime) override;
 
-	DXUTAPI void SetValue(int nValue) { SetValueInternal(nValue, false); }
-	DXUTAPI int GetValue() const { return m_nValue; }
+	void SetValue(int nValue) { SetValueInternal(nValue, false); }
+	int GetValue() const { return m_nValue; }
 
-	DXUTAPI void GetRange(_Out_ int& nMin, _Out_ int& nMax) const
+	void GetRange(_Out_ int& nMin, _Out_ int& nMax) const
 	{
 		nMin = m_nMin;
 		nMax = m_nMax;
 	}
-	DXUTAPI void SetRange(_In_ int nMin, _In_ int nMax);
+	void SetRange(_In_ int nMin, _In_ int nMax);
 
 protected:
-	DXUTAPI void SetValueInternal(_In_ int nValue, _In_ bool bFromInput);
-	DXUTAPI int ValueFromPos(_In_ int x);
+	void SetValueInternal(_In_ int nValue, _In_ bool bFromInput);
+	int ValueFromPos(_In_ int x);
 
 	int m_nValue;
 
@@ -974,16 +974,16 @@ protected:
 //-----------------------------------------------------------------------------
 // CUniBuffer class for the edit control
 //-----------------------------------------------------------------------------
-class CUniBuffer
+class DXUTAPI CUniBuffer
 {
 public:
 	CUniBuffer(_In_ int nInitialSize = 1);
 	~CUniBuffer();
 
-	DXUTAPI size_t GetBufferSize() const { return m_nBufferSize; }
-	DXUTAPI bool SetBufferSize(_In_ int nSize);
-	DXUTAPI int GetTextSize() const { return (int)wcslen(m_pwszBuffer); }
-	DXUTAPI const WCHAR* GetBuffer() const
+	size_t GetBufferSize() const { return m_nBufferSize; }
+	bool SetBufferSize(_In_ int nSize);
+	int GetTextSize() const { return (int)wcslen(m_pwszBuffer); }
+	const WCHAR* GetBuffer() const
 	{
 		return m_pwszBuffer;
 	}
@@ -992,29 +992,29 @@ public:
 		return m_pwszBuffer[n];
 	}
 	WCHAR& operator[](_In_ int n);
-	DXUTAPI DXUTFontNode* GetFontNode() const { return m_pFontNode; }
-	DXUTAPI void SetFontNode(_In_opt_ DXUTFontNode* pFontNode) { m_pFontNode = pFontNode; }
-	DXUTAPI void Clear();
+	DXUTFontNode* GetFontNode() const { return m_pFontNode; }
+	void SetFontNode(_In_opt_ DXUTFontNode* pFontNode) { m_pFontNode = pFontNode; }
+	void Clear();
 
-	DXUTAPI bool InsertChar(_In_ int nIndex, _In_ WCHAR wChar);
+	bool InsertChar(_In_ int nIndex, _In_ WCHAR wChar);
 	// Inserts the char at specified index. If nIndex == -1, insert to the end.
 
-	DXUTAPI bool RemoveChar(_In_ int nIndex);
+	bool RemoveChar(_In_ int nIndex);
 	// Removes the char at specified index. If nIndex == -1, remove the last char.
 
-	DXUTAPI bool InsertString(_In_ int nIndex, _In_z_ const WCHAR* pStr, _In_ int nCount = -1);
+	bool InsertString(_In_ int nIndex, _In_z_ const WCHAR* pStr, _In_ int nCount = -1);
 	// Inserts the first nCount characters of the string pStr at specified index.  If nCount == -1, the entire string is inserted. If nIndex == -1, insert to the end.
 
-	DXUTAPI bool SetText(_In_z_ LPCWSTR wszText);
+	bool SetText(_In_z_ LPCWSTR wszText);
 
 	// Uniscribe
-	DXUTAPI bool CPtoX(_In_ int nCP, _In_ bool bTrail, _Out_ int* pX);
-	DXUTAPI bool XtoCP(_In_ int nX, _Out_ int* pCP, _Out_ int* pnTrail);
-	DXUTAPI void GetPriorItemPos(_In_ int nCP, _Out_ int* pPrior);
-	DXUTAPI void GetNextItemPos(_In_ int nCP, _Out_ int* pPrior);
+	bool CPtoX(_In_ int nCP, _In_ bool bTrail, _Out_ int* pX);
+	bool XtoCP(_In_ int nX, _Out_ int* pCP, _Out_ int* pnTrail);
+	void GetPriorItemPos(_In_ int nCP, _Out_ int* pPrior);
+	void GetNextItemPos(_In_ int nCP, _Out_ int* pPrior);
 
 private:
-	DXUTAPI HRESULT Analyse();      // Uniscribe -- Analyse() analyses the string in the buffer
+	HRESULT Analyse();      // Uniscribe -- Analyse() analyses the string in the buffer
 
 	WCHAR* m_pwszBuffer;    // Buffer to hold text
 	int m_nBufferSize;   // Size of the buffer allocated, in characters
@@ -1028,52 +1028,52 @@ private:
 //-----------------------------------------------------------------------------
 // EditBox control
 //-----------------------------------------------------------------------------
-class CDXUTEditBox : public CDXUTControl
+class DXUTAPI CDXUTEditBox : public CDXUTControl
 {
 public:
 	CDXUTEditBox(_In_opt_ CDXUTDialog* pDialog = nullptr);
 	virtual ~CDXUTEditBox();
 
-	virtual DXUTAPI bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI bool MsgProc(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI void UpdateRects() override;
-	virtual DXUTAPI bool CanHaveFocus() override
+	virtual bool HandleKeyboard(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool HandleMouse(_In_ UINT uMsg, _In_ const POINT& pt, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual bool MsgProc(_In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual void UpdateRects() override;
+	virtual bool CanHaveFocus() override
 	{
 		return (m_bVisible && m_bEnabled);
 	}
-	virtual DXUTAPI void Render(_In_ float fElapsedTime) override;
-	virtual DXUTAPI void OnFocusIn() override;
+	virtual void Render(_In_ float fElapsedTime) override;
+	virtual void OnFocusIn() override;
 
-	DXUTAPI void    SetText(_In_z_ LPCWSTR wszText, _In_ bool bSelected = false);
-	DXUTAPI LPCWSTR GetText() const { return m_Buffer.GetBuffer(); }
-	DXUTAPI size_t  GetTextLength() const { return m_Buffer.GetTextSize(); }  // Returns text length in chars excluding nul.
-	DXUTAPI HRESULT GetTextCopy(_Out_writes_(bufferCount) LPWSTR strDest, _In_ UINT bufferCount) const;
-	DXUTAPI void    ClearText();
+	void    SetText(_In_z_ LPCWSTR wszText, _In_ bool bSelected = false);
+	LPCWSTR GetText() const { return m_Buffer.GetBuffer(); }
+	size_t  GetTextLength() const { return m_Buffer.GetTextSize(); }  // Returns text length in chars excluding nul.
+	HRESULT GetTextCopy(_Out_writes_(bufferCount) LPWSTR strDest, _In_ UINT bufferCount) const;
+	void    ClearText();
 
-	virtual DXUTAPI void SetTextColor(_In_ DWORD Color) override { m_TextColor = Color; }  // Text color
-	DXUTAPI void SetSelectedTextColor(_In_ DWORD Color) { m_SelTextColor = Color; }  // Selected text color
-	DXUTAPI void SetSelectedBackColor(_In_ DWORD Color) { m_SelBkColor = Color; }  // Selected background color
-	DXUTAPI void SetCaretColor(_In_ DWORD Color) { m_CaretColor = Color; }  // Caret color
-	DXUTAPI void SetBorderWidth(_In_ int nBorder)
+	virtual void SetTextColor(_In_ DWORD Color) override { m_TextColor = Color; }  // Text color
+	void SetSelectedTextColor(_In_ DWORD Color) { m_SelTextColor = Color; }  // Selected text color
+	void SetSelectedBackColor(_In_ DWORD Color) { m_SelBkColor = Color; }  // Selected background color
+	void SetCaretColor(_In_ DWORD Color) { m_CaretColor = Color; }  // Caret color
+	void SetBorderWidth(_In_ int nBorder)
 	{
 		m_nBorder = nBorder;
 		UpdateRects();
 	}  // Border of the window
-	DXUTAPI void SetSpacing(_In_ int nSpacing)
+	void SetSpacing(_In_ int nSpacing)
 	{
 		m_nSpacing = nSpacing;
 		UpdateRects();
 	}
-	DXUTAPI void ParseFloatArray(_In_reads_(nCount) float* pNumbers, _In_ int nCount);
-	DXUTAPI void SetTextFloatArray(_In_reads_(nCount) const float* pNumbers, _In_ int nCount);
+	void ParseFloatArray(_In_reads_(nCount) float* pNumbers, _In_ int nCount);
+	void SetTextFloatArray(_In_reads_(nCount) const float* pNumbers, _In_ int nCount);
 
 protected:
-	DXUTAPI void PlaceCaret(_In_ int nCP);
-	DXUTAPI void DeleteSelectionText();
-	DXUTAPI void ResetCaretBlink();
-	DXUTAPI void CopyToClipboard();
-	DXUTAPI void PasteFromClipboard();
+	void PlaceCaret(_In_ int nCP);
+	void DeleteSelectionText();
+	void ResetCaretBlink();
+	void CopyToClipboard();
+	void PasteFromClipboard();
 
 	CUniBuffer m_Buffer;     // Buffer to hold text
 	int m_nBorder;      // Border of the window

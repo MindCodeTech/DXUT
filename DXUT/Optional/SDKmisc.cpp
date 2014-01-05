@@ -15,11 +15,8 @@
 #include "dxutstdafx.h"
 
 using namespace DirectX;
-
 using namespace DXUT::DDSTextureLoader;
-
 using namespace DXUT::ScreenGrab;
-
 using namespace DXUT::WICTextureLoader;
 
 #ifdef __cplusplus
@@ -460,13 +457,13 @@ namespace
 
 	inline HANDLE safe_handle( HANDLE h ) { return (h == INVALID_HANDLE_VALUE) ? 0 : h; }
 
-	class CIncludeHandler : public ID3DInclude
+	class DXUTAPI CIncludeHandler : public ID3DInclude
 		// Not as robust as D3D_COMPILE_STANDARD_FILE_INCLUDE, but it works in most cases
 	{
 	private:
 		static const unsigned int MAX_INCLUDES = 9;
 
-		struct sInclude
+		struct DXUTAPI sInclude
 		{
 			HANDLE         hFile;
 			HANDLE         hFileMap;
@@ -474,7 +471,7 @@ namespace
 			void           *pMapData;
 		};
 
-		struct sInclude     m_includeFiles[MAX_INCLUDES];
+		struct DXUTAPI sInclude     m_includeFiles[MAX_INCLUDES];
 		size_t              m_nIncludes;
 		bool                m_reset;
 		WCHAR               m_workingPath[MAX_PATH];
@@ -513,7 +510,7 @@ namespace
 			}
 		}
 
-		DXUTAPI STDMETHOD(Open( D3D_INCLUDE_TYPE IncludeType, LPCSTR pFileName, LPCVOID pParentData, LPCVOID *ppData, UINT *pBytes ) )
+		STDMETHOD(Open( D3D_INCLUDE_TYPE IncludeType, LPCSTR pFileName, LPCVOID pParentData, LPCVOID *ppData, UINT *pBytes ) )
 		{
 			UNREFERENCED_PARAMETER(IncludeType);
 			UNREFERENCED_PARAMETER(pParentData);
@@ -553,14 +550,14 @@ namespace
 			return S_OK;
 		}
 
-		DXUTAPI STDMETHOD(Close( LPCVOID pData ))
+		STDMETHOD(Close( LPCVOID pData ))
 		{
 			UNREFERENCED_PARAMETER(pData);
 			// Defer Closure until the container destructor
 			return S_OK;
 		}
 
-		DXUTAPI void SetCWD( LPCWSTR pFileName )
+		void SetCWD( LPCWSTR pFileName )
 		{
 			WCHAR filePath[MAX_PATH];
 			wcscpy_s( filePath, MAX_PATH, pFileName );
@@ -793,7 +790,7 @@ DXUTAPI XMMATRIX WINAPI DXUTGetCubeMapViewMatrix(_In_ DWORD dwFace)
 // CDXUTResourceCache
 //======================================================================================
 
-CDXUTResourceCache::~CDXUTResourceCache()
+DXUTAPI CDXUTResourceCache::~CDXUTResourceCache()
 {
 	OnDestroyDevice();
 
@@ -886,7 +883,7 @@ DXUTAPI HRESULT CDXUTResourceCache::OnDestroyDevice()
 //======================================================================================
 
 _Use_decl_annotations_
-CDXUTTextHelper::CDXUTTextHelper(ID3D11Device* pd3d11Device, ID3D11DeviceContext* pd3d11DeviceContext, CDXUTDialogResourceManager* pManager, int nLineHeight)
+DXUTAPI CDXUTTextHelper::CDXUTTextHelper(ID3D11Device* pd3d11Device, ID3D11DeviceContext* pd3d11DeviceContext, CDXUTDialogResourceManager* pManager, int nLineHeight)
 {
 	Init(nLineHeight);
 	m_pd3d11Device = pd3d11Device;
@@ -894,7 +891,7 @@ CDXUTTextHelper::CDXUTTextHelper(ID3D11Device* pd3d11Device, ID3D11DeviceContext
 	m_pManager = pManager;
 }
 
-CDXUTTextHelper::~CDXUTTextHelper()
+DXUTAPI CDXUTTextHelper::~CDXUTTextHelper()
 {
 }
 

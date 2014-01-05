@@ -713,7 +713,7 @@ UINT iSpecularSlot)
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTSDKMesh::CDXUTSDKMesh() : m_NumOutstandingResources(0),
+DXUTAPI CDXUTSDKMesh::CDXUTSDKMesh() : m_NumOutstandingResources(0),
 m_bLoading(false),
 m_hFile(0),
 m_hFileMappingObject(0),
@@ -733,7 +733,7 @@ m_pDev11(nullptr)
 }
 
 //--------------------------------------------------------------------------------------
-CDXUTSDKMesh::~CDXUTSDKMesh()
+DXUTAPI CDXUTSDKMesh::~CDXUTSDKMesh()
 {
 	Destroy();
 }

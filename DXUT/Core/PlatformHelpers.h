@@ -19,6 +19,8 @@
 EXTERN_C_BEGIN
 #endif
 
+NAMESPACE_DXUT
+
 // Helper utility converts D3D API failures into exceptions.
 inline void ThrowIfFailed(HRESULT hr)
 {
@@ -51,6 +53,21 @@ inline void SetDebugObjectName(_In_ ID3D11DeviceChild* resource, _In_z_ const ch
 #endif
 }
 
+    // Helper for output debug tracing
+    inline void DebugTrace( _In_z_ _Printf_format_string_ const char* format, ... )
+    {
+#ifdef _DEBUG
+        va_list args;
+        va_start( args, format );
+
+        char buff[1024];
+        vsprintf_s( buff, format, args );
+        OutputDebugStringA( buff );
+#else
+        UNREFERENCED_PARAMETER( format );
+#endif
+    }
+
 // Helper smart-pointers
 /*
 	struct handle_closer { void operator()(HANDLE h) { if (h) CloseHandle(h); } };
@@ -60,14 +77,14 @@ inline void SetDebugObjectName(_In_ ID3D11DeviceChild* resource, _In_z_ const ch
 	inline HANDLE safe_handle( HANDLE h ) { return (h == INVALID_HANDLE_VALUE) ? 0 : h; }*/
 
 //---------------------------------------------------------------------------------
-struct handle_closer { void operator()(HANDLE h) { assert(h != INVALID_HANDLE_VALUE); if (h) CloseHandle(h); } };
+struct DXUTAPI handle_closer { void operator()(HANDLE h) { assert(h != INVALID_HANDLE_VALUE); if (h) CloseHandle(h); } };
 
 typedef public std::unique_ptr<void, handle_closer> ScopedHandle;
 
 inline HANDLE safe_handle(HANDLE h) { return (h == INVALID_HANDLE_VALUE) ? 0 : h; }
 
 //---------------------------------------------------------------------------------
-struct aligned_deleter { void operator()(void* p) { _aligned_free(p); } };
+struct DXUTAPI aligned_deleter { void operator()(void* p) { _aligned_free(p); } };
 
 typedef std::unique_ptr<float, aligned_deleter> ScopedAlignedArrayFloat;
 
@@ -82,7 +99,7 @@ typedef std::unique_ptr<DirectX::XMVECTOR, aligned_deleter> ScopedAlignedArrayXM
 
 #include <wrl.h>
 
-template<class T> class ScopedObject : public Microsoft::WRL::ComPtr<T>
+template<class T> class DXUTAPI ScopedObject : public Microsoft::WRL::ComPtr<T>
 {
 public:
 	ScopedObject() : Microsoft::WRL::ComPtr<T>() {}
@@ -92,7 +109,7 @@ public:
 
 #else
 
-template<class T> class ScopedObject
+template<class T> class DXUTAPI ScopedObject
 {
 public:
 	ScopedObject() : _pointer(nullptr) {}
@@ -156,6 +173,7 @@ private:
 };
 
 #endif
+NAMESPACE_DXUT_END
 
 #if defined(_MSC_VER) && (_MSC_VER < 1610)
 

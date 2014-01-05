@@ -18,17 +18,17 @@ EXTERN_C_BEGIN
 
 NAMESPACE_DXUT
 
-class CImeUiFont_Base
+class DXUTAPI CImeUiFont_Base
 {
 public:
-	virtual DXUTAPI void    SetHeight(_In_ UINT uHeight)
+	virtual void    SetHeight(_In_ UINT uHeight)
 	{
 		uHeight;
 	}; // for backward compatibility
-	virtual DXUTAPI void    SetColor(_In_ DWORD color) = 0;
-	virtual DXUTAPI void    SetPosition(_In_ int x, _In_ int y) = 0;
-	virtual DXUTAPI void    GetTextExtent(_In_z_ LPCTSTR szText, _Out_ DWORD* puWidth, _Out_ DWORD* puHeight) = 0;
-	virtual DXUTAPI void    DrawText(_In_z_ LPCTSTR pszText) = 0;
+	virtual void    SetColor(_In_ DWORD color) = 0;
+	virtual void    SetPosition(_In_ int x, _In_ int y) = 0;
+	virtual void    GetTextExtent(_In_z_ LPCTSTR szText, _Out_ DWORD* puWidth, _Out_ DWORD* puHeight) = 0;
+	virtual void    DrawText(_In_z_ LPCTSTR pszText) = 0;
 };
 
 typedef struct
@@ -59,7 +59,7 @@ typedef struct
 	// caret
 	BYTE caretWidth;
 	BYTE caretYMargin;
-}              DXUTAPI IMEUI_APPEARANCE;
+}               DXUTAPI IMEUI_APPEARANCE;
 
 typedef struct	// D3DTLVERTEX compatible
 {

@@ -45,7 +45,7 @@ DXUTAPI void WINAPI DXUTDestroyD3D11Enumeration()
 	SAFE_DELETE(g_pDXUTD3D11Enumeration);
 }
 
-class DXUTMemoryHelperD3D11Enum
+class DXUTAPI DXUTMemoryHelperD3D11Enum
 {
 public:
 	DXUTMemoryHelperD3D11Enum() { DXUTCreateD3D11Enumeration(); }
@@ -73,7 +73,7 @@ DXUTAPI CD3D11Enumeration* WINAPI DXUTGetD3D11Enumeration(bool bForceEnumerate, 
 }
 
 //--------------------------------------------------------------------------------------
-CD3D11Enumeration::CD3D11Enumeration() :
+DXUTAPI CD3D11Enumeration::CD3D11Enumeration() :
 m_bHasEnumerated(false),
 m_IsD3D11DeviceAcceptableFunc(nullptr),
 m_pIsD3D11DeviceAcceptableFuncUserContext(nullptr),
@@ -86,7 +86,7 @@ m_refFL(D3D_FEATURE_LEVEL_11_0)
 }
 
 //--------------------------------------------------------------------------------------
-CD3D11Enumeration::~CD3D11Enumeration()
+DXUTAPI CD3D11Enumeration::~CD3D11Enumeration()
 {
 	ClearAdapterInfoList();
 }
@@ -896,19 +896,19 @@ DXGI_FORMAT BackBufferFormat, BOOL Windowed) const
 }
 
 //--------------------------------------------------------------------------------------
-CD3D11EnumOutputInfo::~CD3D11EnumOutputInfo()
+DXUTAPI CD3D11EnumOutputInfo::~CD3D11EnumOutputInfo()
 {
 	SAFE_RELEASE(m_pOutput);
 	displayModeList.clear();
 }
 
 //--------------------------------------------------------------------------------------
-CD3D11EnumDeviceInfo::~CD3D11EnumDeviceInfo()
+DXUTAPI CD3D11EnumDeviceInfo::~CD3D11EnumDeviceInfo()
 {
 }
 
 //--------------------------------------------------------------------------------------
-CD3D11EnumAdapterInfo::~CD3D11EnumAdapterInfo()
+DXUTAPI CD3D11EnumAdapterInfo::~CD3D11EnumAdapterInfo()
 {
 	for (size_t j = 0; j < outputInfoList.size(); ++j)
 	{

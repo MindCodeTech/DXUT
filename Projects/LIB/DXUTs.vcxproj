@@ -175,6 +175,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
     <Lib />
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Windows</SubSystem>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">
@@ -216,6 +217,9 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <Command>copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Lib64
 copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</Command>
     </PostBuildEvent>
+    <Lib>
+      <SubSystem>Windows</SubSystem>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -263,6 +267,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
     <Lib />
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Windows</SubSystem>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'">
@@ -307,6 +312,9 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <Command>copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Lib64
 copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</Command>
     </PostBuildEvent>
+    <Lib>
+      <SubSystem>Windows</SubSystem>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'">
     <ClCompile>
@@ -349,6 +357,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
     <Lib />
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Windows</SubSystem>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|X64'">
@@ -389,6 +398,9 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <Command>copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Lib64
 copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</Command>
     </PostBuildEvent>
+    <Lib>
+      <SubSystem>Windows</SubSystem>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup />
   <ItemGroup>

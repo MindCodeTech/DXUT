@@ -31,18 +31,18 @@ EXTERN_C_BEGIN
 NAMESPACE_DXUT
 
 //--------------------------------------------------------------------------------------
-class CD3DArcBall
+class DXUTAPI CD3DArcBall
 {
 public:
 	CD3DArcBall();
 
 	// Functions to change behavior
-	DXUTAPI void Reset();
-	DXUTAPI void SetTranslationRadius(_In_ float fRadiusTranslation)
+	void Reset();
+	void SetTranslationRadius(_In_ float fRadiusTranslation)
 	{
 		m_fRadiusTranslation = fRadiusTranslation;
 	}
-	DXUTAPI void SetWindow(_In_ INT nWidth, _In_ INT nHeight, _In_ float fRadius = 0.9f)
+	void SetWindow(_In_ INT nWidth, _In_ INT nHeight, _In_ float fRadius = 0.9f)
 	{
 		m_nWidth = nWidth;
 		m_nHeight = nHeight;
@@ -50,30 +50,30 @@ public:
 		m_vCenter.x = float(m_nWidth) / 2.0f;
 		m_vCenter.y = float(m_nHeight) / 2.0f;
 	}
-	DXUTAPI void SetOffset(_In_ INT nX, _In_ INT nY) { m_Offset.x = nX; m_Offset.y = nY; }
+	void SetOffset(_In_ INT nX, _In_ INT nY) { m_Offset.x = nX; m_Offset.y = nY; }
 
 	// Call these from client and use GetRotationMatrix() to read new rotation matrix
-	DXUTAPI void OnBegin(_In_ int nX, _In_ int nY);   // start the rotation (pass current mouse position)
-	DXUTAPI void OnMove(_In_ int nX, _In_ int nY);    // continue the rotation (pass current mouse position)
-	DXUTAPI void OnEnd();                               // end the rotation
+	void OnBegin(_In_ int nX, _In_ int nY);   // start the rotation (pass current mouse position)
+	void OnMove(_In_ int nX, _In_ int nY);    // continue the rotation (pass current mouse position)
+	void OnEnd();                               // end the rotation
 
 	// Or call this to automatically handle left, middle, right buttons
-	DXUTAPI LRESULT HandleMessages(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
+	LRESULT HandleMessages(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
 
 	// Functions to get/set state
-	DXUTAPI DirectX::XMMATRIX GetRotationMatrix() const
+	DirectX::XMMATRIX GetRotationMatrix() const
 	{
 		using namespace DirectX;
 		XMVECTOR q = XMLoadFloat4(&m_qNow);
 		return DirectX::XMMatrixRotationQuaternion(q);
 	}
-	DXUTAPI DirectX::XMMATRIX GetTranslationMatrix() const { return DirectX::XMLoadFloat4x4(&m_mTranslation); }
-	DXUTAPI DirectX::XMMATRIX GetTranslationDeltaMatrix() const { return DirectX::XMLoadFloat4x4(&m_mTranslationDelta); }
-	DXUTAPI bool IsBeingDragged() const { return m_bDrag; }
-	DXUTAPI DirectX::XMVECTOR GetQuatNow() const { return DirectX::XMLoadFloat4(&m_qNow); }
-	DXUTAPI void SetQuatNow(_In_ DirectX::FXMVECTOR& q) { DirectX::XMStoreFloat4(&m_qNow, q); }
+	DirectX::XMMATRIX GetTranslationMatrix() const { return DirectX::XMLoadFloat4x4(&m_mTranslation); }
+	DirectX::XMMATRIX GetTranslationDeltaMatrix() const { return DirectX::XMLoadFloat4x4(&m_mTranslationDelta); }
+	bool IsBeingDragged() const { return m_bDrag; }
+	DirectX::XMVECTOR GetQuatNow() const { return DirectX::XMLoadFloat4(&m_qNow); }
+	void SetQuatNow(_In_ DirectX::FXMVECTOR& q) { DirectX::XMStoreFloat4(&m_qNow, q); }
 
-	DXUTAPI static DirectX::XMVECTOR QuatFromBallPoints(_In_ DirectX::FXMVECTOR vFrom, _In_ DirectX::FXMVECTOR vTo)
+	static DirectX::XMVECTOR QuatFromBallPoints(_In_ DirectX::FXMVECTOR vFrom, _In_ DirectX::FXMVECTOR vTo)
 	{
 		using namespace DirectX;
 
@@ -102,7 +102,7 @@ protected:
 	DirectX::XMFLOAT3 m_vDownPt;            // starting point of rotation arc
 	DirectX::XMFLOAT3 m_vCurrentPt;         // current point of rotation arc
 
-	DXUTAPI DirectX::XMVECTOR ScreenToVector(_In_ float fScreenPtX, _In_ float fScreenPtY)
+	DirectX::XMVECTOR ScreenToVector(_In_ float fScreenPtX, _In_ float fScreenPtY)
 	{
 		// Scale to screen
 		float x = -(fScreenPtX - m_Offset.x - m_nWidth / 2) / (m_fRadius * m_nWidth / 2);
@@ -146,65 +146,65 @@ enum D3DUtil_CameraKeys
 //       records mouse and keyboard input for use by a derived class, and
 //       keeps common state.
 //--------------------------------------------------------------------------------------
-class CBaseCamera
+class DXUTAPI CBaseCamera
 {
 public:
 	CBaseCamera();
 
 	// Call these from client and use Get*Matrix() to read new matrices
-	virtual DXUTAPI LRESULT HandleMessages(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
-	virtual DXUTAPI void FrameMove(_In_ float fElapsedTime) = 0;
+	virtual LRESULT HandleMessages(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
+	virtual void FrameMove(_In_ float fElapsedTime) = 0;
 
 	// Functions to change camera matrices
-	virtual DXUTAPI void Reset();
-	virtual DXUTAPI void SetViewParams(_In_ DirectX::FXMVECTOR vEyePt, _In_ DirectX::FXMVECTOR vLookatPt);
-	virtual DXUTAPI void SetProjParams(_In_ float fFOV, _In_ float fAspect, _In_ float fNearPlane, _In_ float fFarPlane);
+	virtual void Reset();
+	virtual void SetViewParams(_In_ DirectX::FXMVECTOR vEyePt, _In_ DirectX::FXMVECTOR vLookatPt);
+	virtual void SetProjParams(_In_ float fFOV, _In_ float fAspect, _In_ float fNearPlane, _In_ float fFarPlane);
 
 	// Functions to change behavior
-	virtual DXUTAPI void SetDragRect(_In_ const RECT& rc) { m_rcDrag = rc; }
-	DXUTAPI void SetInvertPitch(_In_ bool bInvertPitch) { m_bInvertPitch = bInvertPitch; }
-	DXUTAPI void SetDrag(_In_ bool bMovementDrag, _In_ float fTotalDragTimeToZero = 0.25f)
+	virtual void SetDragRect(_In_ const RECT& rc) { m_rcDrag = rc; }
+	void SetInvertPitch(_In_ bool bInvertPitch) { m_bInvertPitch = bInvertPitch; }
+	void SetDrag(_In_ bool bMovementDrag, _In_ float fTotalDragTimeToZero = 0.25f)
 	{
 		m_bMovementDrag = bMovementDrag;
 		m_fTotalDragTimeToZero = fTotalDragTimeToZero;
 	}
-	DXUTAPI void SetEnableYAxisMovement(_In_ bool bEnableYAxisMovement) { m_bEnableYAxisMovement = bEnableYAxisMovement; }
-	DXUTAPI void SetEnablePositionMovement(_In_ bool bEnablePositionMovement) { m_bEnablePositionMovement = bEnablePositionMovement; }
-	DXUTAPI void SetClipToBoundary(_In_ bool bClipToBoundary, _In_opt_ DirectX::XMFLOAT3* pvMinBoundary, _In_opt_ DirectX::XMFLOAT3* pvMaxBoundary)
+	void SetEnableYAxisMovement(_In_ bool bEnableYAxisMovement) { m_bEnableYAxisMovement = bEnableYAxisMovement; }
+	void SetEnablePositionMovement(_In_ bool bEnablePositionMovement) { m_bEnablePositionMovement = bEnablePositionMovement; }
+	void SetClipToBoundary(_In_ bool bClipToBoundary, _In_opt_ DirectX::XMFLOAT3* pvMinBoundary, _In_opt_ DirectX::XMFLOAT3* pvMaxBoundary)
 	{
 		m_bClipToBoundary = bClipToBoundary;
 		if (pvMinBoundary) m_vMinBoundary = *pvMinBoundary;
 		if (pvMaxBoundary) m_vMaxBoundary = *pvMaxBoundary;
 	}
-	DXUTAPI void SetScalers(_In_ float fRotationScaler = 0.01f, _In_ float fMoveScaler = 5.0f)
+	void SetScalers(_In_ float fRotationScaler = 0.01f, _In_ float fMoveScaler = 5.0f)
 	{
 		m_fRotationScaler = fRotationScaler;
 		m_fMoveScaler = fMoveScaler;
 	}
-	DXUTAPI void SetNumberOfFramesToSmoothMouseData(_In_ int nFrames) { if (nFrames > 0) m_fFramesToSmoothMouseData = (float)nFrames; }
-	DXUTAPI void SetResetCursorAfterMove(_In_ bool bResetCursorAfterMove) { m_bResetCursorAfterMove = bResetCursorAfterMove; }
+	void SetNumberOfFramesToSmoothMouseData(_In_ int nFrames) { if (nFrames > 0) m_fFramesToSmoothMouseData = (float)nFrames; }
+	void SetResetCursorAfterMove(_In_ bool bResetCursorAfterMove) { m_bResetCursorAfterMove = bResetCursorAfterMove; }
 
 	// Functions to get state
-	DXUTAPI DirectX::XMMATRIX GetViewMatrix() const { return DirectX::XMLoadFloat4x4(&m_mView); }
-	DXUTAPI DirectX::XMMATRIX GetProjMatrix() const { return DirectX::XMLoadFloat4x4(&m_mProj); }
-	DXUTAPI DirectX::XMVECTOR GetEyePt() const { return DirectX::XMLoadFloat3(&m_vEye); }
-	DXUTAPI DirectX::XMVECTOR GetLookAtPt() const { return DirectX::XMLoadFloat3(&m_vLookAt); }
-	DXUTAPI float GetNearClip() const { return m_fNearPlane; }
-	DXUTAPI float GetFarClip() const { return m_fFarPlane; }
+	DirectX::XMMATRIX GetViewMatrix() const { return DirectX::XMLoadFloat4x4(&m_mView); }
+	DirectX::XMMATRIX GetProjMatrix() const { return DirectX::XMLoadFloat4x4(&m_mProj); }
+	DirectX::XMVECTOR GetEyePt() const { return DirectX::XMLoadFloat3(&m_vEye); }
+	DirectX::XMVECTOR GetLookAtPt() const { return DirectX::XMLoadFloat3(&m_vLookAt); }
+	float GetNearClip() const { return m_fNearPlane; }
+	float GetFarClip() const { return m_fFarPlane; }
 
-	DXUTAPI bool IsBeingDragged() const { return (m_bMouseLButtonDown || m_bMouseMButtonDown || m_bMouseRButtonDown); }
-	DXUTAPI bool IsMouseLButtonDown() const { return m_bMouseLButtonDown; }
-	DXUTAPI bool IsMouseMButtonDown() const { return m_bMouseMButtonDown; }
-	DXUTAPI bool sMouseRButtonDown() const { return m_bMouseRButtonDown; }
+	bool IsBeingDragged() const { return (m_bMouseLButtonDown || m_bMouseMButtonDown || m_bMouseRButtonDown); }
+	bool IsMouseLButtonDown() const { return m_bMouseLButtonDown; }
+	bool IsMouseMButtonDown() const { return m_bMouseMButtonDown; }
+	bool sMouseRButtonDown() const { return m_bMouseRButtonDown; }
 
 protected:
 	// Functions to map a WM_KEYDOWN key to a D3DUtil_CameraKeys enum
-	virtual DXUTAPI D3DUtil_CameraKeys MapKey(_In_ UINT nKey);
+	virtual D3DUtil_CameraKeys MapKey(_In_ UINT nKey);
 
-	DXUTAPI bool IsKeyDown(_In_ BYTE key) const { return((key & KEY_IS_DOWN_MASK) == KEY_IS_DOWN_MASK); }
-	DXUTAPI bool WasKeyDown(_In_ BYTE key) const { return((key & KEY_WAS_DOWN_MASK) == KEY_WAS_DOWN_MASK); }
+	bool IsKeyDown(_In_ BYTE key) const { return((key & KEY_IS_DOWN_MASK) == KEY_IS_DOWN_MASK); }
+	bool WasKeyDown(_In_ BYTE key) const { return((key & KEY_WAS_DOWN_MASK) == KEY_WAS_DOWN_MASK); }
 
-	DXUTAPI DirectX::XMVECTOR ConstrainToBoundary(_In_ DirectX::FXMVECTOR v)
+	DirectX::XMVECTOR ConstrainToBoundary(_In_ DirectX::FXMVECTOR v)
 	{
 		using namespace DirectX;
 
@@ -215,9 +215,9 @@ protected:
 		return XMVectorClamp(v, vMin, vMax);
 	}
 
-	DXUTAPI void UpdateMouseDelta();
-	DXUTAPI void UpdateVelocity(_In_ float fElapsedTime);
-	DXUTAPI void GetInput(_In_ bool bGetKeyboardInput, _In_ bool bGetMouseInput, _In_ bool bGetGamepadInput);
+	void UpdateMouseDelta();
+	void UpdateVelocity(_In_ float fElapsedTime);
+	void GetInput(_In_ bool bGetKeyboardInput, _In_ bool bGetMouseInput, _In_ bool bGetGamepadInput);
 
 	DirectX::XMFLOAT4X4 m_mView;                    // View matrix
 	DirectX::XMFLOAT4X4 m_mProj;                    // Projection matrix
@@ -277,24 +277,24 @@ protected:
 //       GetCursorPos() to respond to keyboard and mouse input and updates the
 //       view matrix based on input.
 //--------------------------------------------------------------------------------------
-class CFirstPersonCamera : public CBaseCamera
+class DXUTAPI CFirstPersonCamera : public CBaseCamera
 {
 public:
 	CFirstPersonCamera();
 
 	// Call these from client and use Get*Matrix() to read new matrices
-	virtual DXUTAPI void FrameMove(_In_ float fElapsedTime) override;
+	virtual void FrameMove(_In_ float fElapsedTime) override;
 
 	// Functions to change behavior
-	DXUTAPI void SetRotateButtons(_In_ bool bLeft, _In_ bool bMiddle, _In_ bool bRight, _In_ bool bRotateWithoutButtonDown = false);
+	void SetRotateButtons(_In_ bool bLeft, _In_ bool bMiddle, _In_ bool bRight, _In_ bool bRotateWithoutButtonDown = false);
 
 	// Functions to get state
-	DXUTAPI DirectX::XMMATRIX GetWorldMatrix() const { return DirectX::XMLoadFloat4x4(&m_mCameraWorld); }
+	DirectX::XMMATRIX GetWorldMatrix() const { return DirectX::XMLoadFloat4x4(&m_mCameraWorld); }
 
-	DXUTAPI DirectX::XMVECTOR GetWorldRight() const { return DirectX::XMLoadFloat3(reinterpret_cast<const DirectX::XMFLOAT3*>(&m_mCameraWorld._11)); }
-	DXUTAPI DirectX::XMVECTOR GetWorldUp() const { return DirectX::XMLoadFloat3(reinterpret_cast<const DirectX::XMFLOAT3*>(&m_mCameraWorld._21)); }
-	DXUTAPI DirectX::XMVECTOR GetWorldAhead() const { return DirectX::XMLoadFloat3(reinterpret_cast<const DirectX::XMFLOAT3*>(&m_mCameraWorld._31)); }
-	DXUTAPI DirectX::XMVECTOR GetEyePt() const { return DirectX::XMLoadFloat3(reinterpret_cast<const DirectX::XMFLOAT3*>(&m_mCameraWorld._41)); }
+	DirectX::XMVECTOR GetWorldRight() const { return DirectX::XMLoadFloat3(reinterpret_cast<const DirectX::XMFLOAT3*>(&m_mCameraWorld._11)); }
+	DirectX::XMVECTOR GetWorldUp() const { return DirectX::XMLoadFloat3(reinterpret_cast<const DirectX::XMFLOAT3*>(&m_mCameraWorld._21)); }
+	DirectX::XMVECTOR GetWorldAhead() const { return DirectX::XMLoadFloat3(reinterpret_cast<const DirectX::XMFLOAT3*>(&m_mCameraWorld._31)); }
+	DirectX::XMVECTOR GetEyePt() const { return DirectX::XMLoadFloat3(reinterpret_cast<const DirectX::XMFLOAT3*>(&m_mCameraWorld._41)); }
 
 protected:
 	DirectX::XMFLOAT4X4 m_mCameraWorld; // World matrix of the camera (inverse of the view matrix)
@@ -306,52 +306,52 @@ protected:
 //--------------------------------------------------------------------------------------
 // Simple model viewing camera class that rotates around the object.
 //--------------------------------------------------------------------------------------
-class CModelViewerCamera : public CBaseCamera
+class DXUTAPI CModelViewerCamera : public CBaseCamera
 {
 public:
 	CModelViewerCamera();
 
 	// Call these from client and use Get*Matrix() to read new matrices
-	virtual DXUTAPI LRESULT HandleMessages(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
-	virtual DXUTAPI void FrameMove(_In_ float fElapsedTime) override;
+	virtual LRESULT HandleMessages(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam) override;
+	virtual void FrameMove(_In_ float fElapsedTime) override;
 
 	// Functions to change behavior
-	virtual DXUTAPI void SetDragRect(_In_ const RECT& rc) override;
-	virtual DXUTAPI void Reset() override;
-	virtual DXUTAPI void SetViewParams(_In_ DirectX::FXMVECTOR pvEyePt, _In_ DirectX::FXMVECTOR pvLookatPt) override;
-	DXUTAPI void SetButtonMasks(_In_ int nRotateModelButtonMask = MOUSE_LEFT_BUTTON, _In_ int nZoomButtonMask = MOUSE_WHEEL,
+	virtual void SetDragRect(_In_ const RECT& rc) override;
+	virtual void Reset() override;
+	virtual void SetViewParams(_In_ DirectX::FXMVECTOR pvEyePt, _In_ DirectX::FXMVECTOR pvLookatPt) override;
+	void SetButtonMasks(_In_ int nRotateModelButtonMask = MOUSE_LEFT_BUTTON, _In_ int nZoomButtonMask = MOUSE_WHEEL,
 		_In_ int nRotateCameraButtonMask = MOUSE_RIGHT_BUTTON)
 	{
 		m_nRotateModelButtonMask = nRotateModelButtonMask, m_nZoomButtonMask = nZoomButtonMask;
 		m_nRotateCameraButtonMask = nRotateCameraButtonMask;
 	}
-	DXUTAPI void SetAttachCameraToModel(_In_ bool bEnable = false) { m_bAttachCameraToModel = bEnable; }
-	DXUTAPI void SetWindow(_In_ int nWidth, _In_ int nHeight, _In_ float fArcballRadius = 0.9f)
+	void SetAttachCameraToModel(_In_ bool bEnable = false) { m_bAttachCameraToModel = bEnable; }
+	void SetWindow(_In_ int nWidth, _In_ int nHeight, _In_ float fArcballRadius = 0.9f)
 	{
 		m_WorldArcBall.SetWindow(nWidth, nHeight, fArcballRadius);
 		m_ViewArcBall.SetWindow(nWidth, nHeight, fArcballRadius);
 	}
-	DXUTAPI void SetRadius(_In_ float fDefaultRadius = 5.0f, _In_ float fMinRadius = 1.0f, _In_ float fMaxRadius = FLT_MAX)
+	void SetRadius(_In_ float fDefaultRadius = 5.0f, _In_ float fMinRadius = 1.0f, _In_ float fMaxRadius = FLT_MAX)
 	{
 		m_fDefaultRadius = m_fRadius = fDefaultRadius; m_fMinRadius = fMinRadius; m_fMaxRadius = fMaxRadius;
 		m_bDragSinceLastUpdate = true;
 	}
-	DXUTAPI void SetModelCenter(_In_ const DirectX::XMFLOAT3& vModelCenter) { m_vModelCenter = vModelCenter; }
-	DXUTAPI void SetLimitPitch(_In_ bool bLimitPitch) { m_bLimitPitch = bLimitPitch; }
-	DXUTAPI void SetViewQuat(_In_ DirectX::FXMVECTOR q)
+	void SetModelCenter(_In_ const DirectX::XMFLOAT3& vModelCenter) { m_vModelCenter = vModelCenter; }
+	void SetLimitPitch(_In_ bool bLimitPitch) { m_bLimitPitch = bLimitPitch; }
+	void SetViewQuat(_In_ DirectX::FXMVECTOR q)
 	{
 		m_ViewArcBall.SetQuatNow(q);
 		m_bDragSinceLastUpdate = true;
 	}
-	DXUTAPI void SetWorldQuat(_In_ DirectX::FXMVECTOR q)
+	void SetWorldQuat(_In_ DirectX::FXMVECTOR q)
 	{
 		m_WorldArcBall.SetQuatNow(q);
 		m_bDragSinceLastUpdate = true;
 	}
 
 	// Functions to get state
-	DXUTAPI DirectX::XMMATRIX GetWorldMatrix() const { return DirectX::XMLoadFloat4x4(&m_mWorld); }
-	DXUTAPI void SetWorldMatrix(_In_ DirectX::CXMMATRIX mWorld)
+	DirectX::XMMATRIX GetWorldMatrix() const { return DirectX::XMLoadFloat4x4(&m_mWorld); }
+	void SetWorldMatrix(_In_ DirectX::CXMMATRIX mWorld)
 	{
 		XMStoreFloat4x4(&m_mWorld, mWorld);
 		m_bDragSinceLastUpdate = true;
@@ -384,37 +384,37 @@ protected:
 // Manages the mesh, direction, mouse events of a directional arrow that
 // rotates around a radius controlled by an arcball
 //--------------------------------------------------------------------------------------
-class CDXUTDirectionWidget
+class DXUTAPI CDXUTDirectionWidget
 {
 public:
 	CDXUTDirectionWidget();
 
-	DXUTAPI LRESULT HandleMessages(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
+	LRESULT HandleMessages(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
 
-	DXUTAPI HRESULT OnRender(_In_ DirectX::FXMVECTOR color, _In_ DirectX::CXMMATRIX pmView, _In_ DirectX::CXMMATRIX pmProj, _In_ DirectX::FXMVECTOR vEyePt);
+	HRESULT OnRender(_In_ DirectX::FXMVECTOR color, _In_ DirectX::CXMMATRIX pmView, _In_ DirectX::CXMMATRIX pmProj, _In_ DirectX::FXMVECTOR vEyePt);
 
-	DXUTAPI DirectX::XMVECTOR GetLightDirection() const { return DirectX::XMLoadFloat3(&m_vCurrentDir); }
-	DXUTAPI void SetLightDirection(_In_ DirectX::FXMVECTOR vDir)
+	DirectX::XMVECTOR GetLightDirection() const { return DirectX::XMLoadFloat3(&m_vCurrentDir); }
+	void SetLightDirection(_In_ DirectX::FXMVECTOR vDir)
 	{
 		DirectX::XMStoreFloat3(&m_vCurrentDir, vDir);
 		m_vDefaultDir = m_vCurrentDir;
 	}
-	DXUTAPI void SetLightDirection(_In_ DirectX::XMFLOAT3 vDir)
+	void SetLightDirection(_In_ DirectX::XMFLOAT3 vDir)
 	{
 		m_vDefaultDir = m_vCurrentDir = vDir;
 	}
-	DXUTAPI void SetButtonMask(_In_ int nRotate = MOUSE_RIGHT_BUTTON) { m_nRotateMask = nRotate; }
+	void SetButtonMask(_In_ int nRotate = MOUSE_RIGHT_BUTTON) { m_nRotateMask = nRotate; }
 
-	DXUTAPI float GetRadius() const { return m_fRadius; }
-	DXUTAPI void SetRadius(_In_ float fRadius) { m_fRadius = fRadius; }
+	float GetRadius() const { return m_fRadius; }
+	void SetRadius(_In_ float fRadius) { m_fRadius = fRadius; }
 
-	DXUTAPI bool IsBeingDragged() { return m_ArcBall.IsBeingDragged(); }
+	bool IsBeingDragged() { return m_ArcBall.IsBeingDragged(); }
 
-	DXUTAPI static HRESULT WINAPI StaticOnD3D11CreateDevice(_In_ ID3D11Device* pd3dDevice, _In_ ID3D11DeviceContext* pd3dImmediateContext);
-	DXUTAPI static void WINAPI StaticOnD3D11DestroyDevice();
+	static HRESULT WINAPI StaticOnD3D11CreateDevice(_In_ ID3D11Device* pd3dDevice, _In_ ID3D11DeviceContext* pd3dImmediateContext);
+	static void WINAPI StaticOnD3D11DestroyDevice();
 
 protected:
-	DXUTAPI HRESULT UpdateLightDir();
+	HRESULT UpdateLightDir();
 
 	// TODO - need support for Direct3D 11 widget
 
