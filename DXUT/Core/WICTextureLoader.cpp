@@ -23,13 +23,14 @@
 //
 // http://go.microsoft.com/fwlink/?LinkId=248926
 //--------------------------------------------------------------------------------------
-#include "dxutstdafx.h"
+#include "dxutpch.h"
 
 // We could load multi-frame images (TIFF/GIF) into a texture array.
 // For now, we just load the first frame (note: DirectXTex supports multi-frame images)
 
 using namespace DirectX;
-//using namespace DXUT;
+using namespace DXUT;
+using namespace WICTextureLoader;
 
 #ifdef __cplusplus
 EXTERN_C_BEGIN

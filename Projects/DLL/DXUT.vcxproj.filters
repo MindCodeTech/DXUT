@@ -64,7 +64,6 @@
     <ClCompile Include="..\..\DXUT\Optional\SDKwavefile.cpp">
       <Filter>Optional</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\DXUT\Core\dxutstdafx.cpp" />
     <ClCompile Include="..\..\DXUT\Core\DXUTDLL.cpp" />
     <ClCompile Include="..\..\DXUT\Core\DDSTextureLoader.cpp">
       <Filter>DDSTextureLoader</Filter>
@@ -75,6 +74,7 @@
     <ClCompile Include="..\..\DXUT\Core\ScreenGrab.cpp">
       <Filter>ScreenGrab</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\DXUT\Core\dxutpch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="..\..\DXUT\Core\DXErr.h">
@@ -131,7 +131,6 @@
     <ClInclude Include="..\..\DXUT\Optional\SDKwavefile.h">
       <Filter>Optional</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\DXUT\Core\dxutstdafx.h" />
     <ClInclude Include="..\..\DXUT\Core\DXUTvers.h" />
     <ClInclude Include="..\..\DXUT\Core\DXUTexp.h" />
     <ClInclude Include="..\..\DXUT\Core\DDS.h">
@@ -149,6 +148,7 @@
     <ClInclude Include="..\..\DXUT\Core\typesexport.h" />
     <ClInclude Include="..\..\DXUT\..\DXUT\Resources\resource.h" />
     <ClInclude Include="..\..\DXUT\Core\PlatformHelpers.h" />
+    <ClInclude Include="..\..\DXUT\Core\dxutpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\DXUT\Core\DXUT.cpp">

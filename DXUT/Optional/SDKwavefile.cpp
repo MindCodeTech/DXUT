@@ -8,7 +8,7 @@
 //
 // Copyright (c) Microsoft Corp. All rights reserved.
 //-----------------------------------------------------------------------------
-#include "dxutstdafx.h"
+#include "dxutpch.h"
 
 #ifdef __cplusplus
 EXTERN_C_BEGIN

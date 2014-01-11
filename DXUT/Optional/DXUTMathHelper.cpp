@@ -2,22 +2,25 @@
 // MathHelper.cpp by Frank Luna (C) 2011 All Rights Reserved.
 //***************************************************************************************
 
-#include "dxutstdafx.h"
+#include "dxutpch.h"
 
 using namespace DirectX;
 
 using namespace DXUT;
+
+using MathHelper::CMathHelper;
 
 #ifdef __cplusplus
 EXTERN_C_BEGIN
 #endif
 
 NAMESPACE_DXUT
+NAMESPACE_MathHelper
 
-const float MathHelper::Infinity = FLT_MAX;
-const float MathHelper::Pi = 3.1415926535f;
+static const float Infinity = FLT_MAX;
+static const float Pi = 3.1415926535f;
 
-DXUTAPI float MathHelper::AngleFromXY(float x, float y)
+DXUTAPI float CMathHelper::AngleFromXY(float x, float y)
 {
 	float theta = 0.0f;
 
@@ -39,7 +42,7 @@ DXUTAPI float MathHelper::AngleFromXY(float x, float y)
 	return theta;
 }
 
-DXUTAPI XMVECTOR MathHelper::RandUnitVec3()
+DXUTAPI XMVECTOR CMathHelper::RandUnitVec3()
 {
 	XMVECTOR One = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
 	XMVECTOR Zero = XMVectorZero();
@@ -48,7 +51,7 @@ DXUTAPI XMVECTOR MathHelper::RandUnitVec3()
 	while (true)
 	{
 		// Generate random point in the cube [-1,1]^3.
-		XMVECTOR v = XMVectorSet(MathHelper::RandF(-1.0f, 1.0f), MathHelper::RandF(-1.0f, 1.0f), MathHelper::RandF(-1.0f, 1.0f), 0.0f);
+		XMVECTOR v = XMVectorSet(CMathHelper::SRand(-1.0f, 1.0f), CMathHelper::SRand(-1.0f, 1.0f), CMathHelper::SRand(-1.0f, 1.0f), 0.0f);
 
 		// Ignore points outside the unit sphere in order to get an even distribution
 		// over the unit sphere.  Otherwise points will clump more on the sphere near
@@ -61,7 +64,7 @@ DXUTAPI XMVECTOR MathHelper::RandUnitVec3()
 	}
 }
 
-DXUTAPI XMVECTOR MathHelper::RandHemisphereUnitVec3(XMVECTOR n)
+DXUTAPI XMVECTOR CMathHelper::RandHemisphereUnitVec3(XMVECTOR n)
 {
 	XMVECTOR One = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
 	XMVECTOR Zero = XMVectorZero();
@@ -70,7 +73,7 @@ DXUTAPI XMVECTOR MathHelper::RandHemisphereUnitVec3(XMVECTOR n)
 	while (true)
 	{
 		// Generate random point in the cube [-1,1]^3.
-		XMVECTOR v = XMVectorSet(MathHelper::RandF(-1.0f, 1.0f), MathHelper::RandF(-1.0f, 1.0f), MathHelper::RandF(-1.0f, 1.0f), 0.0f);
+		XMVECTOR v = XMVectorSet(CMathHelper::SRand(-1.0f, 1.0f), CMathHelper::SRand(-1.0f, 1.0f), CMathHelper::SRand(-1.0f, 1.0f), 0.0f);
 
 		// Ignore points outside the unit sphere in order to get an even distribution
 		// over the unit sphere.  Otherwise points will clump more on the sphere near
@@ -87,6 +90,7 @@ DXUTAPI XMVECTOR MathHelper::RandHemisphereUnitVec3(XMVECTOR n)
 	}
 }
 
+NAMESPACE_MathHelper_END
 NAMESPACE_DXUT_END
 
 #ifdef __cplusplus

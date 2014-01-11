@@ -70,4 +70,4 @@ BOOL WINAPI DllMain(
 	return TRUE;  // Successful DLL_PROCESS_ATTACH.
 }
 
-#include "dxutstdafx.h"
+#include "dxutpch.h"

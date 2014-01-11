@@ -1,4 +1,7 @@
+
+#ifdef _MSC_VER
 #pragma once
+#endif
 
 //using namespace std;
 
@@ -43,6 +46,7 @@ typedef vector mvector;
 }*/
 
 NAMESPACE_DirectX
+
 typedef struct DXUTAPI XMFLOAT2 XMFLOAT2;
 typedef struct DXUTAPI XMFLOAT3 XMFLOAT3;
 typedef struct DXUTAPI XMFLOAT4 XMFLOAT4;

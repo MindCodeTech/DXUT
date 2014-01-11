@@ -5,7 +5,7 @@
 //
 // Copyright (c) Microsoft Corporation. All rights reserved.
 //-----------------------------------------------------------------------------
-#include "dxutstdafx.h"
+#include "dxutpch.h"
 
 using namespace DXUT;
 
@@ -22,12 +22,12 @@ NAMESPACE_DXUT
 CDXUTMesh::CDXUTMesh(LPCWSTR strName)
 {
 	StringCchCopy(m_strName, 512, strName);
-	m_pSysMemMesh = NULL;
-	m_pLocalMesh = NULL;
+	m_pSysMemMesh = nullptr;
+	m_pLocalMesh = nullptr;
 	m_dwNumMaterials = 0L;
-	m_pMaterials = NULL;
-	m_pTextures = NULL;
-	m_bUseMaterials = TRUE;
+	m_pMaterials = nullptr;
+	m_pTextures = nullptr;
+	m_bUseMaterials = true;
 }
 
 //-----------------------------------------------------------------------------
@@ -150,7 +150,7 @@ HRESULT CDXUTMesh::CreateMaterials(LPCWSTR strPath, ID3D11Device *pd3dDevice, ID
 			{
 				WCHAR strTexture[MAX_PATH];
 				WCHAR strTextureTemp[MAX_PATH];
-				D3DXIMAGE_INFO ImgInfo;
+				DDSIMAGE_INFO ImgInfo;
 
 				// First attempt to look for texture in the same folder as the input folder.
 				MultiByteToWideChar(CP_ACP, 0, d3dxMtrls[i].pTextureFilename, -1, strTextureTemp, MAX_PATH);
@@ -172,7 +172,7 @@ HRESULT CDXUTMesh::CreateMaterials(LPCWSTR strPath, ID3D11Device *pd3dDevice, ID
 				// Call the appropriate loader according to the texture type.
 				switch (ImgInfo.ResourceType)
 				{
-				case D3DRTYPE_TEXTURE:
+				case DDSRTYPE_TEXTURE:
 				{
 										 ID3D11Resource *pTex;
 										 if (SUCCEEDED(DXUTCreateTextureFromFile(pd3dDevice, strTexture, &pTex)))
@@ -184,25 +184,25 @@ HRESULT CDXUTMesh::CreateMaterials(LPCWSTR strPath, ID3D11Device *pd3dDevice, ID
 										 }
 										 break;
 				}
-				case D3DRTYPE_CUBETEXTURE:
+				case DDSRTYPE_CUBETEXTURE:
 				{
-											 IDirect3DCubeTexture9 *pTex;
-											 if (SUCCEEDED(D3DXCreateCubeTextureFromFile(pd3dDevice, strTexture, &pTex)))
+											 ID3D11Texture2D *pTex;
+											 if (SUCCEEDED(DXUTCreateTextureFromFile(pd3dDevice, strTexture, &pTex)))
 											 {
 												 // Obtain the base texture interface
-												 pTex->QueryInterface(IID_ID3D11Resource, (LPVOID*)&m_pTextures[i]);
+												 pTex->QueryInterface(IID_ID3D11Texture2D, (LPVOID*)&m_pTextures[i]);
 												 // Release the specialized instance
 												 pTex->Release();
 											 }
 											 break;
 				}
-				case D3DRTYPE_VOLUMETEXTURE:
+				case DDSRTYPE_VOLUMETEXTURE:
 				{
-											   IDirect3DVolumeTexture9 *pTex;
-											   if (SUCCEEDED(D3DXCreateVolumeTextureFromFile(pd3dDevice, strTexture, &pTex)))
+											   ID3D11Texture3D *pTex;
+											   if (SUCCEEDED(DXUTCreateTextureFromFile(pd3dDevice, strTexture, &pTex)))
 											   {
 												   // Obtain the base texture interface
-												   pTex->QueryInterface(IID_ID3D11Resource, (LPVOID*)&m_pTextures[i]);
+												   pTex->QueryInterface(IID_ID3D11Texture3D, (LPVOID*)&m_pTextures[i]);
 												   // Release the specialized instance
 												   pTex->Release();
 											   }
@@ -397,7 +397,7 @@ HRESULT CDXUTMesh::Destroy()
 // Name:
 // Desc:
 //-----------------------------------------------------------------------------
-HRESULT CDXUTMesh::Render(ID3D11Device* pd3dDevice, bool bDrawOpaqueSubsets,
+HRESULT CDXUTMesh::Render(ID3D11DeviceContext* pd3dDeviceContext, bool bDrawOpaqueSubsets,
 	bool bDrawAlphaSubsets)
 {
 	if (NULL == m_pLocalMesh)
@@ -412,8 +412,8 @@ HRESULT CDXUTMesh::Render(ID3D11Device* pd3dDevice, bool bDrawOpaqueSubsets,
 			{
 				if (m_pMaterials[i].Diffuse.a < 1.0f)
 					continue;
-				pd3dDevice->SetMaterial(&m_pMaterials[i]);
-				pd3dDevice->SetTexture(0, m_pTextures[i]);
+				pd3dDeviceContext->SetMaterial(&m_pMaterials[i]);
+				pd3dDeviceContext->SetTexture(0, m_pTextures[i]);
 			}
 			m_pLocalMesh->DrawSubset(i);
 		}
@@ -473,15 +473,15 @@ HRESULT CDXUTMesh::Render(ID3DX11Effect *pEffect,
 					// D3DCOLORVALUE and XMFLOAT4 are data-wise identical.
 					// No conversion is needed.
 					if (hDiffuse)
-						pEffect->SetVector(hDiffuse, (XMFLOAT4*)&m_pMaterials[i].Diffuse);
+						pEffect->SetVector(hDiffuse, (XMVECTOR*)&m_pMaterials[i].Diffuse);
 					if (hAmbient)
-						pEffect->SetVector(hAmbient, (XMFLOAT4*)&m_pMaterials[i].Ambient);
+						pEffect->SetVector(hAmbient, (XMVECTOR*)&m_pMaterials[i].Ambient);
 					if (hSpecular)
-						pEffect->SetVector(hSpecular, (XMFLOAT4*)&m_pMaterials[i].Specular);
+						pEffect->SetVector(hSpecular, (XMVECTOR*)&m_pMaterials[i].Specular);
 					if (hEmissive)
-						pEffect->SetVector(hEmissive, (XMFLOAT4*)&m_pMaterials[i].Emissive);
+						pEffect->SetVector(hEmissive, (XMVECTOR*)&m_pMaterials[i].Emissive);
 					if (hPower)
-						pEffect->SetVector(hPower, (XMFLOAT4*)&m_pMaterials[i].Power);
+						pEffect->SetVector(hPower, (XMVECTOR*)&m_pMaterials[i].Power);
 					pEffect->CommitChanges();
 				}
 				m_pLocalMesh->DrawSubset(i);

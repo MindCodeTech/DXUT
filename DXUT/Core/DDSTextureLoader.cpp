@@ -16,11 +16,11 @@
 //
 // http://go.microsoft.com/fwlink/?LinkId=248926
 //--------------------------------------------------------------------------------------
-#include "dxutstdafx.h"
+#include "dxutpch.h"
 
 using namespace DirectX;
-
 using namespace DXUT;
+using namespace DDSTextureLoader;
 
 #ifdef __cplusplus
 EXTERN_C_BEGIN

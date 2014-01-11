@@ -15,7 +15,10 @@
 //
 // http://go.microsoft.com/fwlink/?LinkId=320437
 //--------------------------------------------------------------------------------------
+
+#ifdef _MSC_VER
 #pragma once
+#endif
 
 #ifdef __cplusplus
 EXTERN_C_BEGIN
@@ -42,7 +45,7 @@ void _ReadWriteBarrier();
 // as a template parameter and restricted to powers of two less than 31.
 //
 
-template <BYTE cbBufferSizeLog2> class DXUTAPI DXUTLockFreePipe
+template <BYTE cbBufferSizeLog2> class DXUTLockFreePipe
 {
 public:
 	DXUTLockFreePipe() : m_readOffset(0),

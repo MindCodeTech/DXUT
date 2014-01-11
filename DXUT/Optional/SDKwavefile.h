@@ -3,7 +3,10 @@
 //
 // Copyright (c) Microsoft Corp. All rights reserved.
 //-----------------------------------------------------------------------------
+
+#ifdef _MSC_VER
 #pragma once
+#endif
 
 #ifdef __DDRAW_INCLUDED__
 #define __DDRAW_INCLUDED__

@@ -12,7 +12,10 @@
 //
 // http://go.microsoft.com/fwlink/?LinkId=320437
 //--------------------------------------------------------------------------------------
+
+#ifdef _MSC_VER
 #pragma once
+#endif
 
 using namespace DirectX;
 
