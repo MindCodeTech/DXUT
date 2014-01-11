@@ -1,6 +1,16 @@
-/* DXUTLibExports.c -- DXUT library export types definitions  Entry point
- : Public domain */
+//--------------------------------------------------------------------------------------
+// File: DXUTexp.h
+//
+// Desc: Header file that is the standard exports definitions for the
+//		 DXUT for Win32 Desktop
+//
+// Copyright (c) Microsoft Corporation. All rights reserved.
+//--------------------------------------------------------------------------------------
+
+#ifdef _MSC_VER
 #pragma once
+#endif
+
 
 // Exclude rarely-used stuff from Windows headers
 #ifndef VC_EXTRALEAN
@@ -25,6 +35,9 @@
 
 #define NAMESPACE_DXUT namespace DXUT {
 #define NAMESPACE_DXUT_END }
+
+#define NAMESPACE_MathHelper namespace MathHelper {
+#define NAMESPACE_MathHelper_END }
 
 #define NAMESPACE_DDSTextureLoader namespace DDSTextureLoader {
 #define NAMESPACE_DDSTextureLoader_END }

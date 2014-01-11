@@ -10,7 +10,10 @@
 //
 // http://go.microsoft.com/fwlink/?LinkId=320437
 //--------------------------------------------------------------------------------------
+
+#ifdef _MSC_VER
 #pragma once
+#endif
 
 #ifndef UNICODE
 #error "DXUT requires a Unicode build."
@@ -36,6 +39,9 @@
 
 // If app hasn't choosen, set to work with Windows 8 and beyond
 #if _WIN32_WINNT < _WIN32_WINNT_WIN8
+#undef _WIN32_WINNT
+#endif
+#ifndef _WIN32_WINNT
 #define _WIN32_WINNT   _WIN32_WINNT_WIN8
 #endif
 #ifndef WINVER
@@ -90,6 +96,9 @@
 #else 
 #pragma comment( lib, "Xinput9_1_0.lib" )
 #endif
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY != WINAPI_FAMILY_PHONE_APP)
+#pragma comment( lib, "windowscodecs.lib" )
+#endif
 #endif
 
 #ifdef DXUTLIB_IMPORTS
@@ -110,7 +119,7 @@
 #endif
 #endif
 
-#pragma warning(disable : 4067 4102 4127 4201 4251 4324 4481 4505 4616 4706 6326 6993 )
+#pragma warning(disable : 4067 4102 4127 4201 4239 4251 4324 4481 4505 4616 4706 6326 6993 )
 
 #pragma warning(push)
 #pragma warning(disable : 4005)
@@ -240,11 +249,24 @@
 // HRESULT translation for Direct3D and other APIs
 #include "dxerr.h"
 
+#ifdef min
 #undef min // use __min instead
+#endif
+#ifdef max
 #undef max // use __max instead
+#endif
 
-#ifndef UNUSED (-1)
-#define UNUSED (-1)
+/*
+#ifndef max
+#define max __max
+#endif
+
+#ifndef min
+#define min __min
+#endif*/
+
+#if !(UNUSED == -1) && !defined(UNUSED)
+#define UNUSED -1
 #endif
 
 #ifdef __cplusplus

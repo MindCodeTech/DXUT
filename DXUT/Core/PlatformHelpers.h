@@ -11,7 +11,9 @@
 // http://go.microsoft.com/fwlink/?LinkId=248929
 //--------------------------------------------------------------------------------------
 
+#ifdef _MSC_VER
 #pragma once
+#endif
 
 #include "DXUTexp.h"
 

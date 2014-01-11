@@ -144,7 +144,7 @@
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;LIB_STATIC;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;_DEBUG;DEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_LIB;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
@@ -190,7 +190,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;LIB_STATIC;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;_DEBUG;DEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_LIB;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
@@ -233,7 +233,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;LIB_STATIC;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_RELEASE;RELEASE;_WINDOWS;WINDOWS;_LIB;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -280,7 +280,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;LIB_STATIC;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_RELEASE;RELEASE;_WINDOWS;WINDOWS;_LIB;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -328,7 +328,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;LIB_STATIC;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_LIB;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
@@ -372,7 +372,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;LIB_STATIC;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_LIB;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>dxutstdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
@@ -435,7 +435,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\DXUT\Core\dxutstdafx.cpp" />
+    <ClCompile Include="..\..\DXUT\Core\dxutpch.cpp" />
     <ClInclude Include="..\..\DXUT\Core\DDS.h" />
     <ClInclude Include="..\..\DXUT\Core\DDSTextureLoader.h" />
     <ClInclude Include="..\..\DXUT\Optional\DXUTcamera.h" />
@@ -462,7 +462,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</
     <CLInclude Include="..\..\DXUT\Core\DXUTmisc.h" />
     <CLInclude Include="..\..\DXUT\Core\DXErr.h" />
     <ClCompile Include="..\..\DXUT\Core\DXErr.cpp" />
-    <ClInclude Include="..\..\DXUT\Core\dxutstdafx.h" />
+    <ClInclude Include="..\..\DXUT\Core\dxutpch.h" />
     <ClInclude Include="..\..\DXUT\Core\DXUTvers.h" />
     <ClInclude Include="..\..\DXUT\Core\PlatformHelpers.h" />
     <ClInclude Include="..\..\DXUT\Core\typesexport.h" />

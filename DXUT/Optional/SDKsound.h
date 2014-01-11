@@ -3,7 +3,10 @@
 //
 // Copyright (c) Microsoft Corp. All rights reserved.
 //-----------------------------------------------------------------------------
+
+#ifdef _MSC_VER
 #pragma once
+#endif
 
 #ifndef NO_DSOUND_API
 

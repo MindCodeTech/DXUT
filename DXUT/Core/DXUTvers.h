@@ -11,6 +11,10 @@
 // http://go.microsoft.com/fwlink/?LinkId=320437
 //--------------------------------------------------------------------------------------
 
+#ifdef _MSC_VER
+#pragma once
+#endif
+
 #define DXUTLIB_VERSION_DATE "2013.12.30"
 
 #define DXUTLIB_VERSION "11.0.4"

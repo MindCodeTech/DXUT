@@ -1,4 +1,7 @@
+
+#ifdef _MSC_VER
 #pragma once
+#endif
 
 #ifdef __cplusplus
 EXTERN_C_BEGIN

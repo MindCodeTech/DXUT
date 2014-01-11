@@ -10,7 +10,7 @@
 //
 // http://go.microsoft.com/fwlink/?LinkId=320437
 //--------------------------------------------------------------------------------------
-#include "dxutstdafx.h"
+#include "dxutpch.h"
 
 #ifdef __cplusplus
 EXTERN_C_BEGIN

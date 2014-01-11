@@ -10,7 +10,7 @@
 //
 // Copyright (c) Microsoft Corporation. All rights reserved.
 //--------------------------------------------------------------------------------------
-#include "dxutstdafx.h"
+#include "dxutpch.h"
 
 // This version only supports UNICODE.
 
