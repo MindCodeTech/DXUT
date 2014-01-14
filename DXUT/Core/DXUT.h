@@ -119,7 +119,7 @@
 #endif
 #endif
 
-#pragma warning(disable : 4067 4102 4127 4201 4239 4251 4324 4481 4505 4616 4706 6326 6993 )
+#pragma warning(disable : 4067 4100 4102 4127 4189 4201 4239 4251 4267 4324 4481 4505 4616 4706 6326 6993 )
 
 #pragma warning(push)
 #pragma warning(disable : 4005)

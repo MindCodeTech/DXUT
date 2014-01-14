@@ -15,7 +15,6 @@
 #include "DXUT.h"
 #include "typesexport.h"
 #include "PlatformHelpers.h"
-
 #include "dxerr.h"
 
 // Optional
@@ -26,6 +25,8 @@
 #include "DXUTres.h"
 #include "DXUTguiIME.h"
 #include "DXUTMathHelper.h"
+#include "DXUTGeometry.h"
+#include "DXUTGeometry.h"
 #include "DXUTLockFreePipe.h"
 #include "SDKmisc.h"
 #include "DXUTShader.h"

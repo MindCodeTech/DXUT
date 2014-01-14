@@ -150,7 +150,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;$(EFFECTS11_ROOT)\effects11\inc;$(EFFECTS11_ROOT)\effects11;$(EFFECTS11_ROOT)\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <OmitFramePointers />
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
@@ -161,8 +161,6 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LargeAddressAware>true</LargeAddressAware>
-      <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <DataExecutionPrevention>true</DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>
@@ -182,7 +180,9 @@
 copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib32
 copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Bin32
 copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin32
-copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32</Command>
+copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32
+copy $(OutDir)$(TargetName)$(TargetExt)  $(CPP_AMP_DEMOS_ROOT)\Bin32
+copy $(OutDir)$(TargetName).pdb  $(CPP_AMP_DEMOS_ROOT)\Bin32</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;DXUTLIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;_DEBUG;DEBUG;PROFILE;_PROFILE;_WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -202,7 +202,7 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32</Command>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;$(EFFECTS11_ROOT)\effects11\inc;$(EFFECTS11_ROOT)\effects11;$(EFFECTS11_ROOT)\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
@@ -212,14 +212,14 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32</Command>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LargeAddressAware>true</LargeAddressAware>
-      <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <DataExecutionPrevention>true</DataExecutionPrevention>
       <TargetMachine>MachineX64</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
       <KeyContainer>DXUT</KeyContainer>
       <PreventDllBinding>false</PreventDllBinding>
+      <ImageHasSafeExceptionHandlers>
+      </ImageHasSafeExceptionHandlers>
     </Link>
     <Manifest>
       <EnableDPIAwareness>false</EnableDPIAwareness>
@@ -233,7 +233,9 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32</Command>
 copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib64
 copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Bin64
 copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin64
-copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin64</Command>
+copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin64
+copy $(OutDir)$(TargetName)$(TargetExt)  $(CPP_AMP_DEMOS_ROOT)\Bin64
+copy $(OutDir)$(TargetName).pdb  $(CPP_AMP_DEMOS_ROOT)\Bin64</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;DXUTLIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;_DEBUG;DEBUG;PROFILE;_PROFILE;_WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -253,7 +255,7 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin64</Command>
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORTS;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_RELEASE;RELEASE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;$(EFFECTS11_ROOT)\effects11\inc;$(EFFECTS11_ROOT)\effects11;$(EFFECTS11_ROOT)\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>None</DebugInformationFormat>
@@ -270,8 +272,6 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin64</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LargeAddressAware>true</LargeAddressAware>
-      <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <DataExecutionPrevention>true</DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>
@@ -286,7 +286,8 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin64</Command>
     <PostBuildEvent>
       <Command>copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin32
 copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib32
-copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin32</Command>
+copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin32
+copy $(OutDir)$(TargetName)$(TargetExt)  $(CPP_AMP_DEMOS_ROOT)\Bin32</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;DXUTLIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -306,7 +307,7 @@ copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin32</Command>
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORTS;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_RELEASE;RELEASE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;$(EFFECTS11_ROOT)\effects11\inc;$(EFFECTS11_ROOT)\effects11;$(EFFECTS11_ROOT)\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>None</DebugInformationFormat>
@@ -323,14 +324,14 @@ copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin32</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LargeAddressAware>true</LargeAddressAware>
-      <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <DataExecutionPrevention>true</DataExecutionPrevention>
       <TargetMachine>MachineX64</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
       <KeyContainer>DXUT</KeyContainer>
       <PreventDllBinding>false</PreventDllBinding>
+      <ImageHasSafeExceptionHandlers>
+      </ImageHasSafeExceptionHandlers>
     </Link>
     <Manifest>
       <EnableDPIAwareness>false</EnableDPIAwareness>
@@ -339,7 +340,8 @@ copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin32</Command>
     <PostBuildEvent>
       <Command>copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Bin64
 copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib64
-copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin64</Command>
+copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin64
+copy $(OutDir)$(TargetName)$(TargetExt)  $(CPP_AMP_DEMOS_ROOT)\Bin64</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;DXUTLIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -359,7 +361,7 @@ copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin64</Command>
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORTS;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;$(EFFECTS11_ROOT)\effects11\inc;$(EFFECTS11_ROOT)\effects11;$(EFFECTS11_ROOT)\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OmitFramePointers />
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
@@ -371,8 +373,6 @@ copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin64</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LargeAddressAware>true</LargeAddressAware>
-      <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <DataExecutionPrevention>true</DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>
@@ -389,7 +389,9 @@ copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin64</Command>
 copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib32
 copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Bin32
 copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin32
-copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32</Command>
+copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32
+copy $(OutDir)$(TargetName)$(TargetExt)  $(CPP_AMP_DEMOS_ROOT)\Bin32
+copy $(OutDir)$(TargetName).pdb  $(CPP_AMP_DEMOS_ROOT)\Bin32</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;DXUTLIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -409,7 +411,7 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32</Command>
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORTS;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;$(EFFECTS11_ROOT)\effects11\inc;$(EFFECTS11_ROOT)\effects11;$(EFFECTS11_ROOT)\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\Resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
@@ -420,14 +422,14 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LargeAddressAware>true</LargeAddressAware>
-      <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <DataExecutionPrevention>true</DataExecutionPrevention>
       <TargetMachine>MachineX64</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
       <KeyContainer>DXUT</KeyContainer>
       <PreventDllBinding>false</PreventDllBinding>
+      <ImageHasSafeExceptionHandlers>
+      </ImageHasSafeExceptionHandlers>
     </Link>
     <Manifest>
       <EnableDPIAwareness>false</EnableDPIAwareness>
@@ -438,7 +440,9 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin32</Command>
 copy $(OutDir)$(TargetName).lib $(DXUT_ROOT)\Lib64
 copy $(OutDir)$(TargetName).pdb $(DXUT_ROOT)\Bin64
 copy $(OutDir)$(TargetName)$(TargetExt)  $(D3D11DEMOS_ROOT)\Bin64
-copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin64</Command>
+copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin64
+copy $(OutDir)$(TargetName)$(TargetExt)  $(CPP_AMP_DEMOS_ROOT)\Bin64
+copy $(OutDir)$(TargetName).pdb  $(CPP_AMP_DEMOS_ROOT)\Bin64</Command>
     </PostBuildEvent>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;DXUTLIB_EXPORT;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;_DLL;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -450,6 +454,7 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin64</Command>
   <ItemGroup>
     <ClCompile Include="..\..\DXUT\Core\DDSTextureLoader.cpp" />
     <ClCompile Include="..\..\DXUT\Optional\DXUTcamera.cpp" />
+    <ClCompile Include="..\..\DXUT\Optional\DXUTGeometry.cpp" />
     <ClCompile Include="..\..\DXUT\Optional\DXUTgui.cpp" />
     <ClCompile Include="..\..\DXUT\Optional\DXUTguiIME.cpp" />
     <ClCompile Include="..\..\DXUT\Optional\DXUTMathHelper.cpp" />
@@ -484,6 +489,7 @@ copy $(OutDir)$(TargetName).pdb  $(D3D11DEMOS_ROOT)\Bin64</Command>
     <ClInclude Include="..\..\DXUT\Core\DDS.h" />
     <ClInclude Include="..\..\DXUT\Core\DDSTextureLoader.h" />
     <ClInclude Include="..\..\DXUT\Optional\DXUTcamera.h" />
+    <ClInclude Include="..\..\DXUT\Optional\DXUTGeometry.h" />
     <ClInclude Include="..\..\DXUT\Optional\DXUTgui.h" />
     <ClInclude Include="..\..\DXUT\Optional\DXUTguiIME.h" />
     <ClInclude Include="..\..\DXUT\Optional\DXUTLockFreePipe.h" />

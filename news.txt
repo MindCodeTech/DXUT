@@ -1,7 +1,8 @@
 DXUT VERSION 11.0.4
 =======================================================
 
-11-01-2014 template functions imports fix's, pcheader renamed, add some math helper's
+13-01-2014 math helper's declared inlined static, added some geometry 
+11-01-2014 template functions imports fix's, pcheader renamed, added some math helper's
 05-01-2014 backward (previously selected functions exports) to full class's and struct's exports. (Reason easy to maintain, no nead to get some functions unexported.)
 05-01-2014 code cleanup, texture api compatibility use with DirectXTK and DirectXTex toolkits
 
@@ -18,6 +19,7 @@ Added =
 	= SDKwavefile
 	= DXUTShader
 	= DXUTMathHelper
+	= DXUTGeometry
 	
 
 

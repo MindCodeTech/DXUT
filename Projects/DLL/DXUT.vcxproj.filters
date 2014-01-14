@@ -75,6 +75,9 @@
       <Filter>ScreenGrab</Filter>
     </ClCompile>
     <ClCompile Include="..\..\DXUT\Core\dxutpch.cpp" />
+    <ClCompile Include="..\..\DXUT\Optional\DXUTGeometry.cpp">
+      <Filter>Optional</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="..\..\DXUT\Core\DXErr.h">
@@ -149,6 +152,9 @@
     <ClInclude Include="..\..\DXUT\..\DXUT\Resources\resource.h" />
     <ClInclude Include="..\..\DXUT\Core\PlatformHelpers.h" />
     <ClInclude Include="..\..\DXUT\Core\dxutpch.h" />
+    <ClInclude Include="..\..\DXUT\Optional\DXUTGeometry.h">
+      <Filter>Optional</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\DXUT\Core\DXUT.cpp">
