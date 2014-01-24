@@ -21,10 +21,10 @@ using namespace DXUT::DDSTextureLoader;
 using namespace DXUT::ScreenGrab;
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 #define DXUT_GAMEPAD_TRIGGER_THRESHOLD      30
 
@@ -1247,8 +1247,8 @@ DXUTAPI HRESULT DXUTSnapD3D11Screenshot(_In_z_ LPCWSTR szFileName, _In_ bool use
 	return hr;
 }
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

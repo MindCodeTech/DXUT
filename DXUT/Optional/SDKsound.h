@@ -11,10 +11,10 @@
 #ifndef NO_DSOUND_API
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //-----------------------------------------------------------------------------
 // Classes used by this header
@@ -121,10 +121,10 @@ public:
 	HRESULT Reset();
 };
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif
 
 #endif // NO_DSOUND_API

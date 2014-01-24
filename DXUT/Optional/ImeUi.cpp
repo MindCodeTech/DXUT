@@ -13,7 +13,7 @@
 #include "dxutpch.h"
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
 // Ignore typecast warnings
@@ -58,7 +58,7 @@ EXTERN_C_BEGIN
 #define IMEID_CHS_VER42	( LANG_CHS | MAKEIMEVERSION( 4, 2 ) )	// MSPY2	// Win2k/WinME
 #define IMEID_CHS_VER53	( LANG_CHS | MAKEIMEVERSION( 5, 3 ) )	// MSPY3	// WinXP
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 static CHAR signature[] = "%%%IMEUILIB:070111%%%";
 
@@ -3246,8 +3246,8 @@ DXUTAPI DWORD ImeUi_GetImeCursorChars()
 	return g_IMECursorChars;
 }
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

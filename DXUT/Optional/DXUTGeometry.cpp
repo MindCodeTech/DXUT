@@ -18,7 +18,7 @@ using namespace DXUT;
 using namespace MathHelper;
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
 DXUTAPI void GeometryGenerator::CreateBox(float width, float height, float depth, GeneratedMesh& meshData)
@@ -640,5 +640,5 @@ DXUTAPI void GeometryGenerator::CreateFullscreenQuad(GeneratedMesh& meshData)
 }
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

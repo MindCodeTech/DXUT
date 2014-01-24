@@ -1,6 +1,15 @@
-//***************************************************************************************
-// MathHelper.cpp by Frank Luna (C) 2011 All Rights Reserved.
-//***************************************************************************************
+//--------------------------------------------------------------------------------------
+// File: DXUTMathHelper.h
+//
+// THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
+// ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+// THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// Copyright (c) Microsoft Corporation. All rights reserved.
+//
+// http://go.microsoft.com/fwlink/?LinkId=320437
+//--------------------------------------------------------------------------------------
 
 #include "dxutpch.h"
 
@@ -11,16 +20,16 @@ using namespace DXUT;
 using MathHelper::CMathHelper;
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
-NAMESPACE_MathHelper
+namespace_DXUT
+namespace_MathHelper
 
 static const float Infinity = FLT_MAX;
 static const float Pi = 3.1415926535f;
 
-DXUTAPI float CMathHelper::AngleFromXY(float x, float y)
+float CMathHelper::AngleFromXY(float x, float y)
 {
 	float theta = 0.0f;
 
@@ -42,7 +51,7 @@ DXUTAPI float CMathHelper::AngleFromXY(float x, float y)
 	return theta;
 }
 
-DXUTAPI XMVECTOR CMathHelper::RandUnitVec3()
+XMVECTOR CMathHelper::RandUnitVec3()
 {
 	XMVECTOR One = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
 	XMVECTOR Zero = XMVectorZero();
@@ -64,7 +73,7 @@ DXUTAPI XMVECTOR CMathHelper::RandUnitVec3()
 	}
 }
 
-DXUTAPI XMVECTOR CMathHelper::RandHemisphereUnitVec3(XMVECTOR n)
+XMVECTOR CMathHelper::RandHemisphereUnitVec3(XMVECTOR n)
 {
 	XMVECTOR One = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
 	XMVECTOR Zero = XMVectorZero();
@@ -90,9 +99,9 @@ DXUTAPI XMVECTOR CMathHelper::RandHemisphereUnitVec3(XMVECTOR n)
 	}
 }
 
-NAMESPACE_MathHelper_END
-NAMESPACE_DXUT_END
+namespace_MathHelper_end
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

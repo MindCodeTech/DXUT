@@ -17,7 +17,7 @@
 #undef __DDRAW_INCLUDED__
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
 //-----------------------------------------------------------------------------
@@ -26,7 +26,7 @@ EXTERN_C_BEGIN
 #define WAVEFILE_READ   1
 #define WAVEFILE_WRITE  2
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //-----------------------------------------------------------------------------
 // Name: class CWaveFile
@@ -56,8 +56,8 @@ public:
 	CWaveFile();
 	~CWaveFile();
 
-	HRESULT WINAPI Open(_In_z_ LPWSTR strFileName, _In_z_ WAVEFORMATEX* pwfx, _In_ DWORD dwFlags);
-	HRESULT WINAPI OpenFromMemory(_In_reads_(ulDataSize) BYTE* pbData, _In_ ULONG ulDataSize, _In_z_ WAVEFORMATEX* pwfx, _In_ DWORD dwFlags);
+	HRESULT WINAPI Open(_In_z_ LPWSTR strFileName, _In_ WAVEFORMATEX* pwfx, _In_ DWORD dwFlags);
+	HRESULT WINAPI OpenFromMemory(_In_reads_(ulDataSize) BYTE* pbData, _In_ ULONG ulDataSize, _In_ WAVEFORMATEX* pwfx, _In_ DWORD dwFlags);
 	HRESULT WINAPI Close();
 
 	HRESULT WINAPI Read(_In_opt_ BYTE* pBuffer, _In_opt_ DWORD dwSizeToRead, _In_opt_ DWORD* pdwSizeRead);
@@ -71,8 +71,8 @@ public:
 	};
 };
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

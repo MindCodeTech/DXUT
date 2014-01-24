@@ -17,10 +17,10 @@ using namespace DirectX;
 using namespace DXUT::DDSTextureLoader;
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 static const DWORD g_DXUTGUITextureSrcData[] =
 {
@@ -8321,8 +8321,8 @@ DXUTAPI HRESULT WINAPI DXUTCreateGUITextureFromInternalArray(ID3D11Device* pd3dD
 	return hr;
 }
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

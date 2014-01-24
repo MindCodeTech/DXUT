@@ -96,9 +96,7 @@
 #else 
 #pragma comment( lib, "Xinput9_1_0.lib" )
 #endif
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY != WINAPI_FAMILY_PHONE_APP)
 #pragma comment( lib, "windowscodecs.lib" )
-#endif
 #endif
 
 #ifdef DXUTLIB_IMPORTS
@@ -142,7 +140,6 @@
 #include <usp10.h>
 #include <dimm.h>
 #include <sal.h>
-#include <strsafe.h>
 #include <msctf.h>
 #include <mmsystem.h>
 #ifndef NO_DSOUND_API
@@ -180,9 +177,7 @@
 #include <DirectXCollision.h>
 
 // WIC includes
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY != WINAPI_FAMILY_PHONE_APP)
 #include <wincodec.h>
-#endif
 
 // XAudio includes
 #include <xapo.h>
@@ -227,6 +222,8 @@
 #include <set>
 #include <search.h>
 #include <exception>
+#include <tchar.h>
+#include <strsafe.h>
 #include <type_traits>
 #ifdef _OPENMP
 #include <omp.h>
@@ -270,17 +267,17 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
 /*
-NAMESPACE_DirectX
+namespace_DirectX
 #if (DIRECTXMATH_VERSION < 305) && !defined(XM_CALLCONV)
 #define XM_CALLCONV __fastcall
 			typedef const XMVECTOR& HXMVECTOR;
 			typedef const XMMATRIX& FXMMATRIX;
 #endif
-NAMESPACE_DirectX_END*/
+namespace_DirectX_end*/
 
 #if defined(DEBUG) || defined(_DEBUG)
 #ifndef V
@@ -383,7 +380,7 @@ NAMESPACE_DirectX_END*/
 #define offsetof_fx( a, b ) (uint32_t)offsetof( a, b )
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //--------------------------------------------------------------------------------------
 // Structs
@@ -477,7 +474,7 @@ DXUTAPI HRESULT WINAPI DXUTInit(_In_ bool bParseCommandLine = true,
 DXUTAPI HRESULT WINAPI DXUTCreateWindow(_In_z_ const WCHAR* strWindowTitle = L"Direct3D Window",
 	_In_opt_ HINSTANCE hInstance = nullptr, _In_opt_ HICON hIcon = nullptr, _In_opt_ HMENU hMenu = nullptr,
 	_In_ int x = CW_USEDEFAULT, _In_ int y = CW_USEDEFAULT);
-DXUTAPI HRESULT WINAPI DXUTSetWindow(_In_ HWND hWndFocus, _In_ HWND hWndDeviceFullScreen, _In_ HWND hWndDeviceWindowed, _In_ bool bHandleMessages = true);
+DXUTAPI HRESULT WINAPI DXUTSetWindow(_In_ HWND hWndFocus, _In_ HWND hWndDeviceFullScreen, _In_ HWND hWndDeviceWindowed, _In_ HWND HWNDSecondaryStereo, _In_ bool bHandleMessages = true);
 DXUTAPI LRESULT CALLBACK DXUTStaticWndProc(_In_ HWND hWnd, _In_ UINT uMsg, _In_ WPARAM wParam, _In_ LPARAM lParam);
 
 // Choose either DXUTCreateDevice or DXUTSetD3D*Device or DXUTCreateD3DDeviceFromSettings
@@ -563,10 +560,10 @@ DXUTAPI bool      WINAPI DXUTIsMouseButtonDown(_In_ BYTE vButton); // Pass a vir
 DXUTAPI HRESULT   WINAPI DXUTCreateState(); // Optional method to create DXUT's memory.  If its not called by the application it will be automatically called when needed
 DXUTAPI void      WINAPI DXUTDestroyState(); // Optional method to destroy DXUT's memory.  If its not called by the application it will be automatically called after the application exits WinMain
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif
 
 //--------------------------------------------------------------------------------------

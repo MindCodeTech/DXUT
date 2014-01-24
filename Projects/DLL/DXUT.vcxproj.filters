@@ -20,6 +20,9 @@
     <Filter Include="WICTextureLoader">
       <UniqueIdentifier>{86746f23-2479-46c4-bdd4-6d53dabe32ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectXMathHelper">
+      <UniqueIdentifier>{55808545-3f1d-4025-b413-3af4ed376381}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\DXUT\Core\DXErr.cpp">
@@ -155,6 +158,9 @@
     <ClInclude Include="..\..\DXUT\Optional\DXUTGeometry.h">
       <Filter>Optional</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper.h">
+      <Filter>DirectXMathHelper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\DXUT\Core\DXUT.cpp">
@@ -176,5 +182,10 @@
     <ResourceCompile Include="..\..\DXUT\Resources\DXUT.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper.inl">
+      <Filter>DirectXMathHelper</Filter>
+    </None>
   </ItemGroup>
 </Project>

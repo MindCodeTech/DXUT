@@ -11,10 +11,10 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //-----------------------------------------------------------------------------
 // Name: class CDXUTMesh
@@ -123,8 +123,8 @@ public:
 	CDXUTMeshFile() : CDXUTMeshFrame(L"CDXUTMeshFile_Root") {}
 };
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

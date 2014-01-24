@@ -15,15 +15,15 @@
 #include "dxutpch.h"
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //--------------------------------------------------------------------------------------
 // Forward declarations
 //--------------------------------------------------------------------------------------
-DXUTEXTERN DXUTAPI void DXUTGetCallbackD3D11DeviceAcceptable(LPDXUTCALLBACKISD3D11DEVICEACCEPTABLE* ppCallbackIsDeviceAcceptable, void** ppUserContext);
+DXUTEXTERNCC DXUTAPI void DXUTGetCallbackD3D11DeviceAcceptable(LPDXUTCALLBACKISD3D11DEVICEACCEPTABLE* ppCallbackIsDeviceAcceptable, void** ppUserContext);
 
 static int __cdecl SortModesCallback(const void* arg1, const void* arg2);
 
@@ -1195,8 +1195,8 @@ DXUTAPI HRESULT WINAPI DXUTGetD3D11AdapterDisplayMode(UINT AdapterOrdinal, UINT 
 	return S_OK;
 }
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

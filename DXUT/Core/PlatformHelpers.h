@@ -18,10 +18,10 @@
 #include "DXUTexp.h"
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 // Helper utility converts D3D API failures into exceptions.
 inline void ThrowIfFailed(HRESULT hr)
@@ -175,7 +175,7 @@ private:
 };
 
 #endif
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #if defined(_MSC_VER) && (_MSC_VER < 1610)
 
@@ -231,5 +231,5 @@ namespace std
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

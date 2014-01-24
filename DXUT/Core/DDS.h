@@ -23,10 +23,10 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //--------------------------------------------------------------------------------------
 // Macros
@@ -285,8 +285,8 @@ struct DXUTAPI DDS_HEADER_DXT10
 static_assert(sizeof(DDS_HEADER) == 124, "DDS Header size mismatch");
 static_assert(sizeof(DDS_HEADER_DXT10) == 24, "DDS DX10 Extended Header size mismatch");
 
-NAMESPACE_DXUT_END ; // namespace
+namespace_DXUT_end ; // namespace
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

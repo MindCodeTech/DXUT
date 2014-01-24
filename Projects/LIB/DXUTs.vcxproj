@@ -145,7 +145,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\DirectXMathHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
@@ -175,7 +175,6 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
     <Lib />
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
-      <SubSystem>Windows</SubSystem>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">
@@ -191,7 +190,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\DirectXMathHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
@@ -217,9 +216,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <Command>copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Lib64
 copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</Command>
     </PostBuildEvent>
-    <Lib>
-      <SubSystem>Windows</SubSystem>
-    </Lib>
+    <Lib />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -234,7 +231,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;LIB_STATIC;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_RELEASE;RELEASE;_WINDOWS;WINDOWS;_LIB;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\DirectXMathHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -267,7 +264,6 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
     <Lib />
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
-      <SubSystem>Windows</SubSystem>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'">
@@ -281,7 +277,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;LIB_STATIC;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;_RELEASE;RELEASE;_WINDOWS;WINDOWS;_LIB;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\DirectXMathHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -312,9 +308,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <Command>copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Lib64
 copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</Command>
     </PostBuildEvent>
-    <Lib>
-      <SubSystem>Windows</SubSystem>
-    </Lib>
+    <Lib />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'">
     <ClCompile>
@@ -329,7 +323,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;LIB_STATIC;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_LIB;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\DirectXMathHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
@@ -357,7 +351,6 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
     <Lib />
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
-      <SubSystem>Windows</SubSystem>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|X64'">
@@ -373,7 +366,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <PreprocessorDefinitions>WIN32;_WIN32;LIB_EXPORT;LIB_STATIC;D3DXFX_LARGEADDRESS_HANDLE;DXGI_1_2_FORMATS;_WIN7_PLATFORM_UPDATE;NDEBUG;PROFILE;_PROFILE;_WINDOWS;WINDOWS;_LIB;_WIN32_WINNT=0x0602;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional\;..\..\DXUT\Resources;..\..\effects11\inc;..\..\effects11;..\..\effects11\Binary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\DirectXMathHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
@@ -398,9 +391,7 @@ copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib32</
       <Command>copy $(OutDir)$(TargetName)$(TargetExt) $(DXUT_ROOT)\Lib64
 copy $(OutDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb $(DXUT_ROOT)\Lib64</Command>
     </PostBuildEvent>
-    <Lib>
-      <SubSystem>Windows</SubSystem>
-    </Lib>
+    <Lib />
   </ItemDefinitionGroup>
   <ItemGroup />
   <ItemGroup>

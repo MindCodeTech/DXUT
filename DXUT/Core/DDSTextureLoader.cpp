@@ -23,11 +23,11 @@ using namespace DXUT;
 using namespace DDSTextureLoader;
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
-NAMESPACE_DDSTextureLoader
+namespace_DXUT
+namespace_DDSTextureLoader
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
@@ -1456,9 +1456,9 @@ DDS_ALPHA_MODE* alphaMode)
 	return hr;
 }
 
-NAMESPACE_DDSTextureLoader_END
-NAMESPACE_DXUT_END
+namespace_DDSTextureLoader_end
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

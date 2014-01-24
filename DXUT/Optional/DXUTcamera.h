@@ -28,10 +28,10 @@ using namespace DirectX;
 #define MOUSE_WHEEL         0x08
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //--------------------------------------------------------------------------------------
 class DXUTAPI CD3DArcBall
@@ -76,7 +76,7 @@ public:
 	DirectX::XMVECTOR GetQuatNow() const { return DirectX::XMLoadFloat4(&m_qNow); }
 	void SetQuatNow(_In_ DirectX::FXMVECTOR& q) { DirectX::XMStoreFloat4(&m_qNow, q); }
 
-	static DirectX::XMVECTOR QuatFromBallPoints(_In_ DirectX::FXMVECTOR vFrom, _In_ DirectX::FXMVECTOR vTo)
+	static DirectX::XMVECTOR QuatFromBallPoints(_In_ DirectX::FXMVECTOR& vFrom, _In_ DirectX::FXMVECTOR& vTo)
 	{
 		using namespace DirectX;
 
@@ -207,7 +207,7 @@ protected:
 	bool IsKeyDown(_In_ BYTE key) const { return((key & KEY_IS_DOWN_MASK) == KEY_IS_DOWN_MASK); }
 	bool WasKeyDown(_In_ BYTE key) const { return((key & KEY_WAS_DOWN_MASK) == KEY_WAS_DOWN_MASK); }
 
-	DirectX::XMVECTOR ConstrainToBoundary(_In_ DirectX::FXMVECTOR v)
+	DirectX::XMVECTOR ConstrainToBoundary(_In_ DirectX::FXMVECTOR& v)
 	{
 		using namespace DirectX;
 
@@ -341,12 +341,12 @@ public:
 	}
 	void SetModelCenter(_In_ const DirectX::XMFLOAT3& vModelCenter) { m_vModelCenter = vModelCenter; }
 	void SetLimitPitch(_In_ bool bLimitPitch) { m_bLimitPitch = bLimitPitch; }
-	void SetViewQuat(_In_ DirectX::FXMVECTOR q)
+	void SetViewQuat(_In_ DirectX::FXMVECTOR& q)
 	{
 		m_ViewArcBall.SetQuatNow(q);
 		m_bDragSinceLastUpdate = true;
 	}
-	void SetWorldQuat(_In_ DirectX::FXMVECTOR q)
+	void SetWorldQuat(_In_ DirectX::FXMVECTOR& q)
 	{
 		m_WorldArcBall.SetQuatNow(q);
 		m_bDragSinceLastUpdate = true;
@@ -397,12 +397,12 @@ public:
 	HRESULT OnRender(_In_ DirectX::FXMVECTOR color, _In_ DirectX::CXMMATRIX pmView, _In_ DirectX::CXMMATRIX pmProj, _In_ DirectX::FXMVECTOR vEyePt);
 
 	DirectX::XMVECTOR GetLightDirection() const { return DirectX::XMLoadFloat3(&m_vCurrentDir); }
-	void SetLightDirection(_In_ DirectX::FXMVECTOR vDir)
+	void SetLightDirection(_In_ DirectX::FXMVECTOR& vDir)
 	{
 		DirectX::XMStoreFloat3(&m_vCurrentDir, vDir);
 		m_vDefaultDir = m_vCurrentDir;
 	}
-	void SetLightDirection(_In_ DirectX::XMFLOAT3 vDir)
+	void SetLightDirection(_In_ const DirectX::XMFLOAT3& vDir)
 	{
 		m_vDefaultDir = m_vCurrentDir = vDir;
 	}
@@ -431,8 +431,8 @@ protected:
 	DirectX::XMFLOAT4X4 m_mView;
 };
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

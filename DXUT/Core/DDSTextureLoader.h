@@ -22,11 +22,11 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
-NAMESPACE_DDSTextureLoader
+namespace_DXUT
+namespace_DDSTextureLoader
 
 DXUTAPI HRESULT CreateDDSTextureFromMemory(_In_ ID3D11Device* d3dDevice,
 _In_reads_bytes_(ddsDataSize) const uint8_t* ddsData,
@@ -72,9 +72,9 @@ DXUTAPI HRESULT CreateDDSTextureFromFileEx(_In_ ID3D11Device* d3dDevice,
 	_Out_opt_ DDS_ALPHA_MODE* alphaMode = nullptr
 	);
 
-NAMESPACE_DDSTextureLoader_END
-NAMESPACE_DXUT_END
+namespace_DDSTextureLoader_end
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

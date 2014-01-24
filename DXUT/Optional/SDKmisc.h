@@ -18,7 +18,7 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
 //-----------------------------------------------------------------------------
@@ -26,7 +26,7 @@ EXTERN_C_BEGIN
 // Use DXUTGetGlobalResourceCache() to access the global cache
 //-----------------------------------------------------------------------------
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 struct DXUTAPI DXUTCache_Texture
 {
@@ -82,8 +82,8 @@ public:
 		m_pt.x = x;
 		m_pt.y = y;
 	}
-	void SetForegroundColor(_In_ DirectX::XMFLOAT4 clr) { m_clr = clr; }
-	void SetForegroundColor(_In_ DirectX::FXMVECTOR clr) { XMStoreFloat4(&m_clr, clr); }
+	void SetForegroundColor(_In_ const DirectX::XMFLOAT4& clr) { m_clr = clr; }
+	void SetForegroundColor(_In_ DirectX::FXMVECTOR& clr) { XMStoreFloat4(&m_clr, clr); }
 
 	void    Begin();
 	HRESULT DrawFormattedTextLine(_In_z_ const WCHAR* strMsg, ...);
@@ -138,8 +138,8 @@ DXUTAPI HRESULT WINAPI DXUTSaveTextureToFile(_In_ ID3D11DeviceContext* pContext,
 //--------------------------------------------------------------------------------------
 DXUTAPI DirectX::XMMATRIX WINAPI DXUTGetCubeMapViewMatrix(_In_ DWORD dwFace);
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

@@ -15,10 +15,10 @@
 #include "dxutpch.h"
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //--------------------------------------------------------------------------------------
 // Internal functions forward declarations
@@ -1302,8 +1302,8 @@ DXUTAPI const WCHAR* DXUTDeviceTypeToString(_In_ D3D_DRIVER_TYPE devType)
 	}
 }
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

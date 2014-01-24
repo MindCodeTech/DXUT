@@ -17,10 +17,10 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 DXUTAPI void DXUTApplyDefaultDeviceSettings(DXUTDeviceSettings *modifySettings);
 
@@ -204,8 +204,8 @@ DXUTAPI float DXUTRankD3D11DeviceCombo(_In_ CD3D11EnumDeviceSettingsCombo* pDevi
 	_Out_ int &bestMSAAIndex
 	);
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

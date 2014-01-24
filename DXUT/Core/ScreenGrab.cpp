@@ -24,7 +24,7 @@ using namespace DXUT;
 using namespace ScreenGrab;
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
 // Does not capture 1D textures or 3D textures (volume maps)
@@ -33,8 +33,8 @@ EXTERN_C_BEGIN
 
 // For 2D array textures and cubemaps, it captures only the first image in the array
 
-NAMESPACE_DXUT
-NAMESPACE_ScreenGrab
+namespace_DXUT
+namespace_ScreenGrab
 
 //--------------------------------------------------------------------------------------
 // Return the BPP for a particular format
@@ -436,7 +436,7 @@ _Inout_ ScopedObject<ID3D11Texture2D>& pStaging)
 
 extern bool g_WIC2 = false;
 
-DXUTEXTERN DXUTAPI IWICImagingFactory* _GetWIC()
+DXUTEXTERNCC DXUTAPI IWICImagingFactory* _GetWIC()
 {
 	static IWICImagingFactory* s_Factory = nullptr;
 
@@ -921,11 +921,11 @@ _In_opt_ std::function<void(IPropertyBag2*)> setCustomProps)
 	return S_OK;
 }
 
-NAMESPACE_ScreenGrab_END
-NAMESPACE_DXUT_END
+namespace_ScreenGrab_end
+namespace_DXUT_end
 
 #endif // !WINAPI_FAMILY || (WINAPI_FAMILY != WINAPI_FAMILY_PHONE_APP)
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

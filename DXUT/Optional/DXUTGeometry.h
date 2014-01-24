@@ -18,7 +18,7 @@
 #include "DXUT.h"
 #include "DXUTMathHelper.h"
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 struct DXUTAPI Vertex
 {
@@ -97,5 +97,5 @@ private:
 	void BuildCylinderBottomCap(float bottomRadius, float topRadius, float height, UINT sliceCount, UINT stackCount, GeneratedMesh& meshData);
 };
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 

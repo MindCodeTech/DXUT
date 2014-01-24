@@ -23,11 +23,11 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
-NAMESPACE_ScreenGrab
+namespace_DXUT
+namespace_ScreenGrab
 
 DXUTAPI HRESULT SaveDDSTextureToFile(_In_ ID3D11DeviceContext* pContext,
 _In_ ID3D11Resource* pSource,
@@ -44,9 +44,9 @@ DXUTAPI HRESULT SaveWICTextureToFile(_In_ ID3D11DeviceContext* pContext,
 
 #endif
 
-NAMESPACE_ScreenGrab_END
-NAMESPACE_DXUT_END
+namespace_ScreenGrab_end
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

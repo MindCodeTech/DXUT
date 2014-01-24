@@ -29,11 +29,11 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
-NAMESPACE_WICTextureLoader
+namespace_DXUT
+namespace_WICTextureLoader
 
 DXUTAPI HRESULT CreateWICTextureFromMemory(_In_ ID3D11Device* d3dDevice,
 _In_opt_ ID3D11DeviceContext* d3dContext,
@@ -79,9 +79,9 @@ DXUTAPI HRESULT CreateWICTextureFromFileEx(_In_ ID3D11Device* d3dDevice,
 	_Out_opt_ ID3D11ShaderResourceView** textureView
 	);
 
-NAMESPACE_WICTextureLoader_END
-NAMESPACE_DXUT_END
+namespace_WICTextureLoader_end
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

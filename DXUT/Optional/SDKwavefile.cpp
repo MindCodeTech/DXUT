@@ -11,10 +11,10 @@
 #include "dxutpch.h"
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //class CWaveFile CWaveFile();
 
@@ -539,8 +539,8 @@ DXUTAPI HRESULT WINAPI CWaveFile::Write(UINT nSizeToWrite, BYTE* pbSrcData, UINT
 	return S_OK;
 }
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

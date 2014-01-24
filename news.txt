@@ -1,6 +1,7 @@
 DXUT VERSION 11.0.4
 =======================================================
 
+17-01-2014 added DirectXMathHelper the same as DirectXTK simplemath with more operators and vectorcall linkage
 13-01-2014 math helper's declared inlined static, added some geometry 
 11-01-2014 template functions imports fix's, pcheader renamed, added some math helper's
 05-01-2014 backward (previously selected functions exports) to full class's and struct's exports. (Reason easy to maintain, no nead to get some functions unexported.)

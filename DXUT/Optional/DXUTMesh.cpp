@@ -10,10 +10,10 @@
 using namespace DXUT;
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //-----------------------------------------------------------------------------
 // Name:
@@ -976,8 +976,8 @@ HRESULT CDXUTMeshFile::Render(ID3D11Device* pd3dDevice, XMMATRIX* pmatWorldMatri
 	return S_OK;
 }
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

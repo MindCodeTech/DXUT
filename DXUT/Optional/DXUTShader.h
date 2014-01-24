@@ -4,10 +4,10 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //--------------------------------------------------------------------------------------
 // Find and compile the specified shader
@@ -18,8 +18,8 @@ _In_z_ LPCSTR szEntryPoint, _In_z_ LPCSTR szShaderModel,
 _In_ UINT Flags1, _In_ UINT Flags2,
 _Outptr_ ID3DBlob** ppBlobOut);
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

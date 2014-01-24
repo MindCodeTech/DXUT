@@ -18,10 +18,10 @@
 using namespace DirectX;
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //--------------------------------------------------------------------------------------
 // Defines and macros
@@ -1109,8 +1109,8 @@ DXUTAPI void DrawText11DXUT(_In_ ID3D11Device* pd3dDevice, _In_ ID3D11DeviceCont
 	_In_ float fBBWidth, _In_ float fBBHeight, _In_ bool bCenter);
 DXUTAPI void EndText11(_In_ ID3D11Device* pd3dDevice, _In_ ID3D11DeviceContext* pd3d11DeviceContext);
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

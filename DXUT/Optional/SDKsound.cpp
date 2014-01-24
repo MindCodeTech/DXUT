@@ -13,10 +13,10 @@
 #ifndef NO_DSOUND_API
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //-----------------------------------------------------------------------------
 // Name: CSoundManager::CSoundManager()
@@ -1029,10 +1029,10 @@ DXUTAPI HRESULT CStreamingSound::Reset()
 	return m_apDSBuffer[0]->SetCurrentPosition(0L);
 }
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif
 
 #endif // NO_DSOUND_API

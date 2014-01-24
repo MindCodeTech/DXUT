@@ -33,11 +33,11 @@ using namespace DXUT;
 using namespace WICTextureLoader;
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
-NAMESPACE_WICTextureLoader
+namespace_DXUT
+namespace_WICTextureLoader
 
 //-------------------------------------------------------------------------------------
 // WIC Pixel Format Translation Data
@@ -868,9 +868,9 @@ ID3D11ShaderResourceView** textureView)
 	return hr;
 }
 
-NAMESPACE_WICTextureLoader_END
-NAMESPACE_DXUT_END
+namespace_WICTextureLoader_end
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

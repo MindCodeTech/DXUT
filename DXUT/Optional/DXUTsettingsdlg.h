@@ -16,7 +16,7 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
 //--------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ EXTERN_C_BEGIN
 
 #define TOTAL_FEATURE_LEVELS                            7
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //--------------------------------------------------------------------------------------
 // Dialog for selection of device settings
@@ -169,8 +169,8 @@ protected:
 
 DXUTAPI CD3DSettingsDlg* WINAPI DXUTGetD3DSettingsDialog();
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

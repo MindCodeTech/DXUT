@@ -18,15 +18,15 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 DXUTAPI HRESULT WINAPI DXUTCreateGUITextureFromInternalArray(_In_ ID3D11Device* pd3dDevice, _Outptr_ ID3D11Texture2D** ppTexture);
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

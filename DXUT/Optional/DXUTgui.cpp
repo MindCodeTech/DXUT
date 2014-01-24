@@ -17,7 +17,7 @@ using namespace DirectX;
 using namespace DXUT::DDSTextureLoader;
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
 #ifndef WM_XBUTTONDOWN
@@ -45,7 +45,7 @@ EXTERN_C_BEGIN
 
 #define DXUT_MAX_GUI_SPRITES 500
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 inline XMFLOAT4 D3DCOLOR_TO_D3DCOLORVALUE(DWORD c)
 {
@@ -6452,8 +6452,8 @@ DXUTAPI void CDXUTElement::Refresh()
 	FontColor.SetCurrent(FontColor.States[DXUT_STATE_HIDDEN]);
 }
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

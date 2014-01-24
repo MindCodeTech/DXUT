@@ -18,10 +18,10 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //--------------------------------------------------------------------------------------
 // XInput helper state/function
@@ -298,8 +298,8 @@ DXUTAPI void WINAPI DXUTGetDesktopResolution(_In_ UINT AdapterOrdinal, _Out_ UIN
 DXUTAPI DXGI_FORMAT MAKE_SRGB(_In_ DXGI_FORMAT format);
 DXUTAPI DXGI_FORMAT MAKE_TYPELESS(_In_ DXGI_FORMAT format);
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

@@ -17,10 +17,10 @@
 #define DXUT_COUNTER_STAT_LENGTH 2048
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 //--------------------------------------------------------------------------------------
 // Thread safety
@@ -99,7 +99,8 @@ protected:
 		HWND  m_HWNDFocus;                  // the main app focus window
 		HWND  m_HWNDDeviceFullScreen;       // the main app device window in fullscreen mode
 		HWND  m_HWNDDeviceWindowed;         // the main app device window in windowed mode
-		HMONITOR m_AdapterMonitor;          // the monitor of the adapter
+		HWND  m_HWNDSecondaryStereo;		// window for second monitor
+    HMONITOR m_AdapterMonitor;          // the monitor of the adapter
 		HMENU m_Menu;                       // handle to menu
 
 		UINT m_FullScreenBackBufferWidthAtModeChange;  // back buffer size of fullscreen mode right before switching to windowed mode.  Used to restore to same resolution when toggling back to fullscreen
@@ -302,6 +303,7 @@ public:
 	GET_SET_ACCESSOR(HWND, HWNDFocus);
 	GET_SET_ACCESSOR(HWND, HWNDDeviceFullScreen);
 	GET_SET_ACCESSOR(HWND, HWNDDeviceWindowed);
+	GET_SET_ACCESSOR( HWND, HWNDSecondaryStereo );
 	GET_SET_ACCESSOR(HMONITOR, AdapterMonitor);
 	GET_SET_ACCESSOR(HMENU, Menu);
 
@@ -1058,7 +1060,7 @@ HICON hIcon, HMENU hMenu, int x, int y)
 // Instead of calling this, you can call DXUTCreateWindow() to create a new window.
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
-DXUTAPI HRESULT WINAPI DXUTSetWindow(HWND hWndFocus, HWND hWndDeviceFullScreen, HWND hWndDeviceWindowed, bool bHandleMessages)
+DXUTAPI HRESULT WINAPI DXUTSetWindow(HWND hWndFocus, HWND hWndDeviceFullScreen, HWND hWndDeviceWindowed, HWND HWNDSecondaryStereo, bool bHandleMessages)
 {
 	HRESULT hr;
 
@@ -1110,6 +1112,7 @@ DXUTAPI HRESULT WINAPI DXUTSetWindow(HWND hWndFocus, HWND hWndDeviceFullScreen, 
 	GetDXUTState().SetHWNDFocus(hWndFocus);
 	GetDXUTState().SetHWNDDeviceFullScreen(hWndDeviceFullScreen);
 	GetDXUTState().SetHWNDDeviceWindowed(hWndDeviceWindowed);
+	GetDXUTState().SetHWNDSecondaryStereo( HWNDSecondaryStereo );
 
 	return S_OK;
 }
@@ -1567,12 +1570,12 @@ DXUTAPI HRESULT WINAPI DXUTMainLoop(_In_opt_ HACCEL hAccel)
 	bool bGotMsg;
 	MSG msg;
 	msg.message = WM_NULL;
-	PeekMessage(&msg, nullptr, 0U, 0U, PM_NOREMOVE);
+	PeekMessageW(&msg, nullptr, 0U, 0U, PM_NOREMOVE);
 
 	while (WM_QUIT != msg.message)
 	{
 		// Use PeekMessage() so we can use idle time to render the scene.
-		bGotMsg = (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE) != 0);
+		bGotMsg = (PeekMessageW(&msg, nullptr, 0U, 0U, PM_REMOVE) != 0);
 
 		if (bGotMsg)
 		{
@@ -1657,26 +1660,26 @@ DXUTAPI HRESULT WINAPI DXUTCreateDevice(D3D_FEATURE_LEVEL reqFL, bool bWindowed,
 			|| (osv.dwMajorVersion == 6 && osv.dwMinorVersion >= 1)
 			|| (osv.dwMajorVersion == 6 && osv.dwMinorVersion == 0 && osv.dwBuildNumber > 6002))
 		{
-			MessageBox(0, L"Direct3D 11 components were not found.", L"Error", MB_ICONEXCLAMATION);
+			MessageBoxW(0, L"Direct3D 11 components were not found.", L"Error", MB_ICONEXCLAMATION);
 			// This should not happen, but is here for completeness as the system could be
 			// corrupted or some future OS version could pull D3D11.DLL for some reason
 		}
 		else if (osv.dwMajorVersion == 6 && osv.dwMinorVersion == 0 && osv.dwBuildNumber == 6002)
 		{
-			MessageBox(0, L"Direct3D 11 components were not found, but are available for"\
+			MessageBoxW(0, L"Direct3D 11 components were not found, but are available for"\
 				L" this version of Windows.\n"\
 				L"For details see Microsoft Knowledge Base Article #971644\n"\
 				L"http://go.microsoft.com/fwlink/?LinkId=160189", L"Error", MB_ICONEXCLAMATION);
 		}
 		else if (osv.dwMajorVersion == 6 && osv.dwMinorVersion == 0)
 		{
-			MessageBox(0, L"Direct3D 11 components were not found. Please install the latest Service Pack.\n"\
+			MessageBoxW(0, L"Direct3D 11 components were not found. Please install the latest Service Pack.\n"\
 				L"For details see Microsoft Knowledge Base Article #935791\n"\
 				L"http://support.microsoft.com/kb/935791/", L"Error", MB_ICONEXCLAMATION);
 		}
 		else
 		{
-			MessageBox(0, L"Direct3D 11 is not supported on this OS.", L"Error", MB_ICONEXCLAMATION);
+			MessageBoxW(0, L"Direct3D 11 is not supported on this OS.", L"Error", MB_ICONEXCLAMATION);
 		}
 	}
 
@@ -4279,8 +4282,8 @@ DXUTAPI HRESULT DXUTSnapDeviceSettingsToEnumDevice(DXUTDeviceSettings* pDeviceSe
 	return S_OK;
 }
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif

@@ -30,81 +30,75 @@
 #include <windows.h>
 #endif
 
-#define NAMESPACE_DirectX namespace DirectX {
-#define NAMESPACE_DirectX_END }
+#define namespace_DirectX namespace DirectX {
+#define namespace_DirectX_end }
 
-#define NAMESPACE_DXUT namespace DXUT {
-#define NAMESPACE_DXUT_END }
+#define namespace_DXUT namespace DXUT {
+#define namespace_DXUT_end }
 
-#define NAMESPACE_MathHelper namespace MathHelper {
-#define NAMESPACE_MathHelper_END }
+#define namespace_MathHelper namespace MathHelper {
+#define namespace_MathHelper_end }
 
-#define NAMESPACE_DDSTextureLoader namespace DDSTextureLoader {
-#define NAMESPACE_DDSTextureLoader_END }
+#define namespace_DDSTextureLoader namespace DDSTextureLoader {
+#define namespace_DDSTextureLoader_end }
 
-#define NAMESPACE_ScreenGrab namespace ScreenGrab {
-#define NAMESPACE_ScreenGrab_END }
+#define namespace_ScreenGrab namespace ScreenGrab {
+#define namespace_ScreenGrab_end }
 
-#define NAMESPACE_WICTextureLoader namespace WICTextureLoader {
-#define NAMESPACE_WICTextureLoader_END }
+#define namespace_WICTextureLoader namespace WICTextureLoader {
+#define namespace_WICTextureLoader_end }
 
-//#define extern_cplus
 
-// Defined for Templates functions export
-#define extern_cplusplus
-
-#ifndef EXTERN_C_BEGIN
 #ifdef __cplusplus
-#ifdef extern_cplus
 #define EXTERN_C_BEGIN extern "C" {
 #define EXTERN_C_END }
-#endif
-#ifdef extern_cplusplus
-#define EXTERN_C_BEGIN extern "C++" {
-#define EXTERN_C_END }
-#endif
+#define EXTERN_CC_BEGIN extern "C++" {
+#define EXTERN_CC_END }
 #else
 #define EXTERN_C_BEGIN
 #define EXTERN_C_END
-#endif
-#endif
-
-#ifdef __cplusplus
-EXTERN_C_BEGIN
+#define EXTERN_CC_BEGIN
+#define EXTERN_CC_END
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_BEGIN
 #endif
 
 #ifdef __cplusplus
-#if defined(extern_cplus)
-#define _EXTERN extern "C"
-#elif defined(extern_cplusplus)
-#define _EXTERN extern "C++"
+EXTERN_CC_END
 #endif
-#else
+
+#ifdef __cplusplus
+#ifndef _EXTERNC
+#define _EXTERNC extern "C"
+#endif
+#ifndef _EXTERNCC
+#define _EXTERNCC extern "C++"
+#endif
+#ifndef _EXTERN
 #define _EXTERN extern
 #endif
+#else
+#ifndef _EXTERNC
+#define _EXTERNC
+#endif
+#ifndef _EXTERNCC
+#define _EXTERNCC
+#endif
+#ifndef _EXTERN
+#define _EXTERN
+#endif
+#endif
 
 #ifdef __cplusplus
-#if defined(extern_cplus)
-#define _EXTERN_C extern "C"
-#elif defined(extern_cplusplus)
-#define _EXTERN_C extern "C++"
-#endif
-#else
-#define _EXTERN extern
-#endif
-
-#ifdef __cplusplus
-#if defined(extern_cplus)
-#define DXUTEXTERN extern "C"
-#elif defined(extern_cplusplus)
-#define DXUTEXTERN extern "C++"
-#endif
-#else
+#define DXUTEXTERNC extern "C"
+#define DXUTEXTERNCC extern "C++"
 #define DXUTEXTERN extern
+#else
+#define DXUTEXTERNC
+#define DXUTEXTERNCC
+#define DXUTEXTERN
 #endif
 
 #if defined(_WINDOWS) || defined(_WIN32)

@@ -16,10 +16,10 @@
 #endif
 
 #ifdef __cplusplus
-EXTERN_C_BEGIN
+EXTERN_CC_BEGIN
 #endif
 
-NAMESPACE_DXUT
+namespace_DXUT
 
 class DXUTAPI CImeUiFont_Base
 {
@@ -126,14 +126,14 @@ DXUTAPI DWORD ImeUi_GetCandidateCount();
 DXUTAPI BYTE*           ImeUi_GetCompStringAttr();
 DXUTAPI DWORD ImeUi_GetImeCursorChars();
 
-DXUTEXTERN DXUTAPI void (CALLBACK*ImeUiCallback_DrawRect)(_In_ int x1, _In_ int y1, _In_ int x2, _In_ int y2, _In_ DWORD color);
-DXUTEXTERN DXUTAPI void*    (__cdecl*ImeUiCallback_Malloc)(_In_ size_t bytes);
-DXUTEXTERN DXUTAPI void(__cdecl*ImeUiCallback_Free)(_In_ void* ptr);
-DXUTEXTERN DXUTAPI void (CALLBACK*ImeUiCallback_DrawFans)(_In_ const IMEUI_VERTEX* paVertex, _In_ UINT uNum);
-DXUTEXTERN DXUTAPI void (CALLBACK*ImeUiCallback_OnChar)(_In_ WCHAR wc);
+DXUTEXTERNCC DXUTAPI void (CALLBACK*ImeUiCallback_DrawRect)(_In_ int x1, _In_ int y1, _In_ int x2, _In_ int y2, _In_ DWORD color);
+DXUTEXTERNCC DXUTAPI void*    (__cdecl*ImeUiCallback_Malloc)(_In_ size_t bytes);
+DXUTEXTERNCC DXUTAPI void(__cdecl*ImeUiCallback_Free)(_In_ void* ptr);
+DXUTEXTERNCC DXUTAPI void (CALLBACK*ImeUiCallback_DrawFans)(_In_ const IMEUI_VERTEX* paVertex, _In_ UINT uNum);
+DXUTEXTERNCC DXUTAPI void (CALLBACK*ImeUiCallback_OnChar)(_In_ WCHAR wc);
 
-NAMESPACE_DXUT_END
+namespace_DXUT_end
 
 #ifdef __cplusplus
-EXTERN_C_END
+EXTERN_CC_END
 #endif
