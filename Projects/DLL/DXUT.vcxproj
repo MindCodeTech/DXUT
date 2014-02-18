@@ -89,7 +89,6 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <IntDir>$(SolutionDir)Buildir\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
@@ -98,7 +97,6 @@
     <LinkKeyFile>..\..\DXUT\Resources\DXUT.snk</LinkKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">
-    <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <TargetName>$(ProjectName)_d</TargetName>
@@ -155,6 +153,7 @@
       <OmitFramePointers />
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -206,6 +205,7 @@ copy $(OutDir)$(TargetName).pdb  $(CPP_AMP_DEMOS_ROOT)\Bin32</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -263,6 +263,7 @@ copy $(OutDir)$(TargetName).pdb  $(CPP_AMP_DEMOS_ROOT)\Bin64</Command>
       <OmitFramePointers>true</OmitFramePointers>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <StringPooling>true</StringPooling>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -314,6 +315,7 @@ copy $(OutDir)$(TargetName)$(TargetExt)  $(CPP_AMP_DEMOS_ROOT)\Bin32</Command>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <OmitFramePointers>true</OmitFramePointers>
       <StringPooling>true</StringPooling>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -362,6 +364,7 @@ copy $(OutDir)$(TargetName)$(TargetExt)  $(CPP_AMP_DEMOS_ROOT)\Bin64</Command>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\DirectXMathHelper;..\..\DXUT\Resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OmitFramePointers />
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -410,6 +413,7 @@ copy $(OutDir)$(TargetName).pdb  $(CPP_AMP_DEMOS_ROOT)\Bin32</Command>
       <PrecompiledHeaderFile>dxutpch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>.\;..\..\DXUT\Core;..\..\DXUT\Optional;..\..\DXUT\DirectXMathHelper;..\..\DXUT\Resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(IntDir)$(TargetName)_vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -484,6 +488,15 @@ copy $(OutDir)$(TargetName).pdb  $(CPP_AMP_DEMOS_ROOT)\Bin64</Command>
     <ClCompile Include="..\..\DXUT\Core\dxutpch.cpp" />
     <ClInclude Include="..\..\DXUT\Core\DDS.h" />
     <ClInclude Include="..\..\DXUT\Core\DDSTextureLoader.h" />
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_color.h" />
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_line.h" />
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_matrix.h" />
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_plane.h" />
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_quaternion.h" />
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_ray.h" />
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector2.h" />
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector3.h" />
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector4.h" />
     <ClInclude Include="..\..\DXUT\Optional\DXUTcamera.h" />
     <ClInclude Include="..\..\DXUT\Optional\DXUTGeometry.h" />
     <ClInclude Include="..\..\DXUT\Optional\DXUTgui.h" />
@@ -524,6 +537,15 @@ copy $(OutDir)$(TargetName).pdb  $(CPP_AMP_DEMOS_ROOT)\Bin64</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper.inl" />
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_color.inl" />
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_line.inl" />
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_matrix.inl" />
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_plane.inl" />
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_quaternion.inl" />
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_ray.inl" />
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector2.inl" />
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector3.inl" />
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector4.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

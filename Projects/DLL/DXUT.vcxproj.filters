@@ -161,6 +161,33 @@
     <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper.h">
       <Filter>DirectXMathHelper</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_color.h">
+      <Filter>DirectXMathHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_line.h">
+      <Filter>DirectXMathHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_matrix.h">
+      <Filter>DirectXMathHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_plane.h">
+      <Filter>DirectXMathHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_quaternion.h">
+      <Filter>DirectXMathHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_ray.h">
+      <Filter>DirectXMathHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector2.h">
+      <Filter>DirectXMathHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector3.h">
+      <Filter>DirectXMathHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector4.h">
+      <Filter>DirectXMathHelper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\DXUT\Core\DXUT.cpp">
@@ -185,6 +212,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper.inl">
+      <Filter>DirectXMathHelper</Filter>
+    </None>
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_color.inl">
+      <Filter>DirectXMathHelper</Filter>
+    </None>
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_line.inl">
+      <Filter>DirectXMathHelper</Filter>
+    </None>
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_matrix.inl">
+      <Filter>DirectXMathHelper</Filter>
+    </None>
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_plane.inl">
+      <Filter>DirectXMathHelper</Filter>
+    </None>
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_quaternion.inl">
+      <Filter>DirectXMathHelper</Filter>
+    </None>
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_ray.inl">
+      <Filter>DirectXMathHelper</Filter>
+    </None>
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector2.inl">
+      <Filter>DirectXMathHelper</Filter>
+    </None>
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector3.inl">
+      <Filter>DirectXMathHelper</Filter>
+    </None>
+    <None Include="..\..\DXUT\DirectXMathHelper\DirectXMathHelper_vector4.inl">
       <Filter>DirectXMathHelper</Filter>
     </None>
   </ItemGroup>

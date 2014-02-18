@@ -122,6 +122,39 @@
 #pragma warning(push)
 #pragma warning(disable : 4005)
 
+// STL includes
+#include <assert.h>
+#include <tchar.h>
+#include <wchar.h>
+#include <new.h>      // for placement new
+#include <math.h>
+#include <malloc.h>
+#include <limits.h>
+#include <stdio.h>
+#include <stdarg.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <intsafe.h>
+#include <string>
+#include <algorithm>
+#include <array>
+#include <memory.h>
+#include <memory>
+#include <map>
+#include <float.h>
+#include <cmath>
+#include <vector>
+#include <functional>
+#include <set>
+#include <search.h>
+#include <exception>
+#include <strsafe.h>
+#include <type_traits>
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 #pragma pack(push)
 #pragma pack(8)
 
@@ -195,39 +228,6 @@
 #include <dxtmpl.h>
 
 #pragma pack (pop)
-
-// STL includes
-#include <assert.h>
-#include <wchar.h>
-#include <new.h>      // for placement new
-#include <math.h>
-#include <malloc.h>
-#include <limits.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <intsafe.h>
-#include <string>
-#include <algorithm>
-#include <array>
-#include <memory.h>
-#include <memory>
-#include <map>
-#include <float.h>
-#include <cmath>
-#include <vector>
-#include <functional>
-#include <set>
-#include <search.h>
-#include <exception>
-#include <tchar.h>
-#include <strsafe.h>
-#include <type_traits>
-#ifdef _OPENMP
-#include <omp.h>
-#endif
 
 // CRT's memory leak detection
 #if defined(DEBUG) || defined(_DEBUG)

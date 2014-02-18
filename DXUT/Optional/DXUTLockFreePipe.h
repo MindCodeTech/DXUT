@@ -26,9 +26,11 @@ EXTERN_CC_BEGIN
 
 namespace_DXUT
 
+// hided for compatibility with machine intrinsics  
+/*
 extern "C"
-void _ReadWriteBarrier();
-#pragma intrinsic(_ReadWriteBarrier)
+void _ReadWriteBarrier();*/
+#pragma intrinsic (_ReadWriteBarrier)
 
 // Prevent the compiler from rearranging loads
 // and stores, sufficiently for read-acquire
